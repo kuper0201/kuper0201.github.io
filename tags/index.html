@@ -1,0 +1,34 @@
+---
+layout: page
+title: Tags
+permalink: /tags/
+---
+<style type="text/css">
+  .tag-h1 {
+    display: inline;
+    margin: 0.5%;
+    white-space: nowrap
+  }
+  
+  .tag-a {
+    color: #f8f8f2;
+    padding: .4em .8em;
+    border-radius: 5px;
+    background: #68f;
+    box-shadow: 0 0 0 2px #68f inset;
+  }
+  
+  .tag-a:hover {
+    color: #68f;
+    background: #282828;
+  }
+  
+</style>
+<div style="word-break: keep-all; display: inline">
+{% for tag in site.data.tags %}
+  <h3 class="tag-h1">
+    <a class="tag-a" href="{{ tag.slug }}">{{ tag.name }}</a>
+  </h3>
+{% endfor %}
+</div>
+</article>

@@ -1,0 +1,42 @@
+---
+layout: default
+---
+{% for page in paginator.posts %}
+<article>
+  <header>
+    {%- assign date_format = site.date_format | default: "%B %d, %Y" -%}
+    <h1><a href="{{ page.url | relative_url }}">{{ page.title }}</a></h1>
+    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: date_format }}</time>
+    {% assign post = page %}
+    {% if post.tags.size > 0 %}
+      {% capture tags_content %}{% if post.tags.size == 1 %}<i class="fa fa-tag">Tag</i>{% else %}<i class="fa fa-tags">Tags</i>{% endif %} : {% endcapture %}
+      {{ tags_content }}
+      {% for post_tag in post.tags %}
+        {% for data_tag in site.data.tags %}
+          {% if data_tag.slug == post_tag %}
+           {% assign tag = data_tag %}
+          {% endif %}
+        {% endfor %}
+        {% if tag %}
+          {% capture tags_content_temp %} <a href="/tags/{{ tag.slug }}">{{ tag.name }}</a>{% if forloop.last == false %},{% endif %}{% endcapture %}
+          {{ tags_content_temp }}
+        {% endif %}
+       {% endfor %}
+      {% else %}
+        {% assign tags_content = '' %}
+     {% endif %}
+    
+  </header>
+  {{ page.excerpt }}
+  {% unless page.excerpt == page.content %}
+  <footer><a class="ghost" href="{{ page.url | relative_url }}">read more »</a></footer>
+  {% endunless %}
+</article>
+{% endfor %}
+{% if paginator.total_pages > 1 %}
+<footer class="{% if site.dark_footer %}dark{% endif %}">
+  <a {% if paginator.previous_page %}class="gray" href="{{ paginator.previous_page_path | relative_url }}"{% else %}class="disabled"{% endif %}>« newer posts</a>
+  <span>page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  <a {% if paginator.next_page %}class="gray" href="{{ paginator.next_page_path | relative_url }}"{% else %}class="disabled"{% endif %}>older posts »</a>
+</footer>
+{% endif %}
