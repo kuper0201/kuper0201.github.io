@@ -10,14 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Generate env File
+      - name: Generate env file
 	working-directory: site
         run: |
 	  echo "GATSBY_ALGOLIA_APP_ID=$GATSBY_ALGOLIA_APP_ID" >> .env                   
 	  echo "GATSBY_ALGOLIA_SEARCH_KEY=$GATSBY_ALGOLIA_SEARCH_KEY" >> .env
 	  echo "GATSBY_ALGOLIA_INDEX_NAME=$GATSBY_ALGOLIA_INDEX_NAME" >> .env
 	  echo "ALGOLIA_ADMIN_KEY=$ALGOLIA_ADMIN_KEY" >> .env
-
         env:
 	  GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
 	  GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
