@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '18.x'
 	  
-      - name: Generate env file
+      - name: Generate environment file
 	working-directory: site
         run: |
 	  echo "GATSBY_ALGOLIA_APP_ID=$GATSBY_ALGOLIA_APP_ID" >> .env                   
