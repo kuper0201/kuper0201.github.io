@@ -10,6 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+	  
       - name: Generate env file
 	working-directory: site
         run: |
@@ -22,12 +27,7 @@ jobs:
 	  GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
 	  GATSBY_ALGOLIA_INDEX_NAME: ${{ secrets.GATSBY_ALGOLIA_INDEX_NAME }}
 	  ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
-
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '18.x'
-          
+    
       - name: Cache node_modules
         uses: actions/cache@v1
         with:
