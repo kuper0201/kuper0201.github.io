@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Generate .env File
+      - name: Generate env File
 	working-directory: site
         run: |
 	  echo "GATSBY_ALGOLIA_APP_ID=$GATSBY_ALGOLIA_APP_ID" >> .env                   
