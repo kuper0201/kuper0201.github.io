@@ -1,0 +1,243 @@
+---
+title: "BOJ 18870 좌표 압축"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2022-03-02
+slug: boj18870
+thumbnail: cover.jpg
+---
+
+## 문제
+
+### <a href="https://boj.kr/18870" target="_blank">BOJ 18870 좌표 압축 바로 가기</a>
+
+수직선 위에 N개의 좌표 X<sub>1</sub>, X<sub>2</sub>, ..., X<sub>N</sub>이 있다. 이 좌표에 좌표 압축을 적용하려고 한다.
+X<sub>i</sub>를 좌표 압축한 결과 X'<sub>i</sub>의 값은 X<sub>i</sub> > X<sub>j</sub>를 만족하는 서로 다른 좌표의 개수와 같아야 한다.
+X<sub>1</sub>, X<sub>2</sub>, ..., X<sub>N</sub>에 좌표 압축을 적용한 결과 X'<sub>1</sub>, X'<sub>2</sub>, ..., X'<sub>N</sub>를 출력해보자.
+
+---
+
+## 입력
+
+첫째 줄에 N이 주어진다. <br/>
+둘째 줄에는 공백 한 칸으로 구분된 X<sub>1</sub>, X<sub>2</sub>, ..., X<sub>N</sub>이 주어진다.
+
+---
+
+## 풀이
+
+큰 좌표값을 압축하는 문제이다. <br/>
+좌표 압축 기법은 데이터가 크지만 의미있는 데이터는 적은 경우에 의미 없는 데이터는 없애고 의미있는 데이터만 남기기 위해 자주 사용된다. <br/>
+
+예시로 ```1000, 999, 1000, 999``` 라는 좌표가 있다고 가정하자. <br/>
+1000을 2진법 1111101000<sub>(2)</sub>로 나타낼 수 있으므로 한 개의 데이터를 표현하기 위해 10bit가 사용된다. <br/>
+하지만 이 데이터들을 ```1, 0, 1, 0``` 으로 압축한다면 같은 상관 관계를 갖지만 1bit만으로 숫자를 나타낼 수 있다. <br/>
+
+물론 컴퓨터는 숫자를 나타내는데 보통 int라는 자료형을 사용하므로 4Byte를 사용할 수 있다. (64bit 기준) <br/>
+이를 보고 "값을 압축하는 것이 의미가 없는게 아닌가?" 라는 생각을 할 수 있다. <br/>
+
+하지만 4byte 이상의 아주 큰 값을 생각해 보자. <br/>
+데이터가 ```10000000000, 999999999, 10000000000, 999999999```일 경우에 10<sup>10</sup>는 10_0101_0100_0000_1011_1110_0100_0000_0000<sub>(2)</sub> 이므로 4Byte로 표현 할 수 없다. <br/>
+이 경우에는 더 큰 자료형인 long을 사용해야 할 것이다. <br/>
+이때, 좌표 압축을 하면 ```1, 0, 1, 0``` 이 되므로 1bit로 표현할 수 있게 된다. (실제로는 4Byte이다.)
+
+위의 사실들을 바탕으로 실제 프로세스를 생각해 보자. <br/>
+좌표는 중복을 허용하지 않으므로(같은 좌표는 같은 값이므로) Map 또는 Dictionary에 추가하며 Rank를 부여해 준다. <br/>
+이후 각 좌표에 부여된 Rank를 출력해 준다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        int N = Integer.parseInt(br.readLine());
+
+        int[] arr = new int[N];
+        String[] str = br.readLine().split(" ");
+        for(int i = 0; i < N; i++) arr[i] = Integer.parseInt(str[i]);
+
+        int[] tmp = arr.clone();
+        Arrays.sort(arr);
+
+        int rank = 0;
+        for(int i = 0; i < N; i++) {
+            if(map.get(arr[i]) == null) map.put(arr[i], rank++);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < N; i++) sb.append(map.get(tmp[i]) +" ");
+
+        System.out.println(sb);
+    }
+}
+```
+
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <map>
+
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    map<int, int> mp;
+    
+    int n; cin >> n;
+    
+    int arr[n], tmp[n];
+    for(int i = 0; i < n; i++) {
+        cin >> arr[i];
+        tmp[i] = arr[i];
+    }
+    
+    sort(arr, arr + n);
+    
+    int rank = 0;
+    for(int i = 0; i < n; i++) {
+        if(mp[arr[i]] == 0) mp[arr[i]] = ++rank;
+    }
+    
+    for(int i = 0; i < n; i++)
+        cout << mp[tmp[i]] - 1 << " ";
+        
+    return 0;
+}
+
+```
+
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+import kotlin.collections.ArrayList
+
+fun main(args: Array<String>) {
+    var N = readLine()!!.toInt()
+
+    var arr = ArrayList<Int>()
+    var tmp = ArrayList<Int>()
+    var mp = emptyMap<Int, Int>().toMutableMap()
+
+
+    var str = readLine()!!.split(" ")
+    for(i in 0 until N) {
+        arr.add(str[i].toInt())
+        tmp.add(arr[i])
+    }
+
+    arr.sort()
+
+    var rank = 0
+    for(i in 0 until N) {
+        if (mp[arr[i]] == null) {
+            mp[arr[i]] = rank
+            rank += 1
+        }
+    }
+
+    val sb = StringBuilder()
+    for(i in 0 until N) {
+        sb.append("${mp[tmp[i]]} ")
+    }
+
+    print(sb)
+}
+```
+
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+def main():
+    n = int(input())
+    arr = list()
+    tmp = list()
+    mp = dict()
+    
+    str = input().split(' ')
+    for i in range(n):
+        arr.append(int(str[i]))
+        tmp.append(arr[i])
+
+    arr.sort()
+    
+    rank = 0
+    for i in range(n):
+        if (arr[i] in mp) == False:
+            mp[arr[i]] = rank
+            rank += 1
+    
+    for i in range(n):
+        print(mp[tmp[i]])
+        
+if __name__ == "__main__":
+    main()
+```
+
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    let n = Int(readLine()!)!
+    
+    var arr = Array<Int>()
+    var tmp = Array<Int>()
+    var mp = Dictionary<Int, Int>()
+    
+    var str = (readLine()?.split(separator: " "))!
+    for i in 0..<n {
+        
+        if let num: Int = Int(str[i]) {
+            arr.append(num)
+            tmp.append(num)
+        }
+    }
+    
+    arr.sort()
+    
+    var rank = 0
+    for i in 0..<n {
+        if mp[arr[i]] == nil {
+            mp[arr[i]] = rank
+            rank += 1
+        }
+    }
+    
+    for i in 0..<n {
+        print(mp[tmp[i]]!, terminator: " ")
+    }
+}
+
+main()
+```
+
+</details>

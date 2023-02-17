@@ -1,0 +1,264 @@
+---
+title: "BOJ 3495 아스키 도형"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2022-03-03
+slug: boj3495
+thumbnail: cover.jpg
+---
+
+## 문제
+
+### <a href="https://boj.kr/3495" target="_blank">BOJ 3495 아스키 도형 바로 가기</a>
+
+창영이는 메모장에 ```.```, ```\```, ```/```을 이용해서 도형을 그렸다.<br/>
+각 문자는 그림에서 1*1크기의 단위 정사각형을 나타낸다.<br/>
+```.```은 빈 칸을 나타내며, ```/```는 정사각형의 왼쪽 아래 꼭짓점과 오른쪽 위 꼭짓점이 연결된 선분을, ```\```은 왼쪽 위 꼭짓점과 오른쪽 아래 꼭짓점이 연결된 선분을 나타낸다.<br/>
+창영이가 그린 도형의 넓이를 출력하는 프로그램을 작성하시오.<br/>
+
+---
+
+## 입력
+
+첫째 줄에 h와 w가 주어진다.<br/>
+h는 그림의 높이, w는 너비이다. (2 ≤ h,w ≤ 100)<br/>
+다음 h개 줄에는 창영이가 메모장에 그린 다각형이 주어진다.<br/>
+창영이가 그린 다각형은 1개이고, 변과 변이 서로 교차하는 경우는 없고, 자기 자신과 접하는 경우도 없다.<br/>
+
+---
+
+## 풀이
+
+편의상 ```/``` ```\``` 기호를 ```변```이라 하겠다.<br/>
+문제의 그림을 관찰해 보면<br/>
+```변```은 하나 당 0.5의 넓이를 가지고<br/>
+```변 내부에 있는 .```은 1의 넓이를 가진다는 사실을 알 수 있다.<br/>
+따라서 ```변``` 또는 ```변 내부에 있는 .```을 만날 때마다 넓이를 증가시켜주면 된다.
+
+그러기 위해서는 ```.```이 ```변``` 내부에 있는지 외부에 있는지를 판별해야 하는데<br/>
+본인은 ```변```을 만나면 flag를 토글링 해 주고 flag가 true일 때 cnt를 증가시켜 해결하였다.<br/>
+자세한 사항은 코드를 보면 이해가 될 것이다.
+
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String[] str = br.readLine().split(" ");
+        int H = Integer.parseInt(str[0]);
+        int W = Integer.parseInt(str[1]);
+
+        str = new String[H];
+        for(int i = 0; i < H; i++) str[i] = br.readLine();
+
+        float area = 0;
+
+        for(int i = 0; i < H; i++) {
+            for(int j = 0; j < W; j++) {
+                if (str[i].charAt(j) == '/' || str[i].charAt(j) == '\\')
+                    area += 0.5;
+            }
+        }
+
+        boolean flag = false;
+        int cnt = 0;
+
+        for(int i = 0; i < H; i++) {
+            for(int j = 0; j < W; j++) {
+                char ch = str[i].charAt(j);
+
+                if(ch == '\\' || ch == '/') flag = !flag;
+                else if(flag) cnt++;
+            }
+        }
+
+        System.out.println((int)(area + cnt));
+    }
+}
+```
+
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int H, W;
+    cin >> H >> W;
+    
+    string str[H];
+    for(int i = 0; i < H; i++) cin >> str[i];
+    
+    float area = 0;
+    
+    for(int i = 0; i < H; i++) {
+        for(int j = 0; j < W; j++) {
+            if(str[i][j] == '/' || str[i][j] == '\\')
+                area += 0.5;
+        }
+    }
+    
+    bool flag = false;
+    int cnt = 0;
+
+    for(int i = 0; i < H; i++) {
+        for(int j = 0; j < W; j++) {
+            char ch = str[i][j];
+            
+            if(ch == '\\' || ch == '/') flag = !flag;
+            else if(flag) cnt++;
+        }
+    }
+    
+    cout << (int)(area + cnt) << "\n";
+
+    return 0;
+}
+```
+
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) {
+    var str = readLine()!!.split(" ")
+    val H = str[0]!!.toInt()
+    val W = str[1]!!.toInt()
+
+    str = ArrayList<String>()
+
+    for (i in 0 until H) str.add(readLine()!!)
+
+    var area: Float = 0F
+
+    for(i in 0 until H) {
+        for(j in 0 until W) {
+            if(str[i][j] == '/' || str[i][j] == '\\')
+                area += 0.5F;
+        }
+    }
+
+    var flag: Boolean = false
+    var cnt = 0
+
+    for (i in 0 until H) {
+        for (j in 0 until W) {
+            val ch = str[i][j]
+            if (ch == '\\' || ch == '/') flag = !flag
+            else if (flag) cnt++
+        }
+    }
+
+    print((area + cnt).toInt())
+}
+```
+
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+def main():
+    str = input().split(' ')
+    H = int(str[0])
+    W = int(str[1])
+    
+    str = list()
+    for i in range(0, H):
+        str.append(input())
+        
+    area = 0
+    for i in range(0, H):
+        for j in range(0, W):
+            if str[i][j] == '/' or str[i][j] == '\\':
+                area += 0.5
+                
+    flag = False
+    cnt = 0
+    
+    for i in range(0, H):
+        for j in range(0, W):
+            ch = str[i][j]
+            if str[i][j] == '/' or str[i][j] == '\\':
+                flag = not flag
+            elif flag:
+                cnt += 1
+                
+    print(int(area + cnt))
+    
+if __name__ == "__main__":
+    main()
+```
+
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    var str = (readLine()?.split(separator: " "))!
+    let H = Int(str[0])!
+    let W = Int(str[1])!
+    
+    var str2 = Array<String>()
+    
+    for i in 0..<H {
+        str2.append(readLine()!)
+    }
+    
+    var area: Float = 0
+    
+    for i in 0..<H {
+        for j in 0..<W {
+            let ch = str2[i][str2[i].index(str2[i].startIndex, offsetBy: j)]
+            if ch == "/" || ch == "\\" {
+                area += 0.5;
+            }
+        }
+    }
+    
+    var flag: Bool = false
+    var cnt: Float = 0
+    
+    for i in 0..<H {
+        for j in 0..<W {
+            let ch = str2[i][str2[i].index(str2[i].startIndex, offsetBy: j)]
+            
+            if (ch == "\\" || ch == "/") {
+                flag = !flag
+            } else if (flag) {
+                cnt += 1
+            }
+        }
+    }
+    
+    print(Int(area + cnt))
+}
+
+main()
+```
+
+</details>

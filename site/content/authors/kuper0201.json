@@ -1,0 +1,13 @@
+{
+  "name": "kuper0201",
+  "title": "안녕하세요!",
+  "description": "컴퓨터 공학을 전공하고 있는 학생입니다.",
+  "thumbnail": "kuper0201.png",
+  "social": [
+    {
+      "name": "Github",
+      "url": "https://github.com/github"
+    }
+  ],
+  "skills": ["Java", "C++", "Linux", "MacOS", "Android", "IOS"]
+}
