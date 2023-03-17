@@ -31,13 +31,68 @@ draft: true
 
 ## 풀이
 
-주어진 기준대로 단어를 정렬하는 문제이다.<br/>
+산봉우리의 개수를 구하는 문제이다.<br/>
+DFS를 이용해 산봉우리를 찾아내면 된다.
+이 때 주의할 점은 문제에서 제시된 `산봉우리는 같은 높이를 가지는 하나의 격자 혹은 인접한 격자들의 집합으로 이루어져 있다. (여기서 "인접하다"의 정의는 X좌표 차이와 Y좌표 차이 모두 1 이하일 경우로 정의된다.)` 조건으로 인해 상하좌우 뿐 아니라 대각선의 높이 또한 고려해야 한다는 점이다.
 
 <details markdown="1">
 <summary>코드 보기(Java)</summary>
 
 ```javascript
+import java.io.*;
 
+public class Main {
+    static int N, M, top = 0;
+    static boolean flag = false;
+    static int[][] mountain;
+    static boolean[][] visit;
+    static int[][] dir = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, 1}, {-1, -1}, {1, -1}, {1, 1}};
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] info = br.readLine().split(" ");
+
+        N = Integer.parseInt(info[0]);
+        M = Integer.parseInt(info[1]);
+
+        mountain = new int[N][M];
+        visit = new boolean[N][M];
+
+        for (int i = 0; i < N; i++) {
+            info = br.readLine().split(" ");
+
+            for (int j = 0; j < M; j++) {
+                mountain[i][j] = Integer.parseInt(info[j]);
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if(!visit[i][j]) {
+                    flag = false;
+                    DFS(i, j);
+                    if (!flag) top++;
+                }
+            }
+        }
+
+        System.out.println(top);
+    }
+
+    private static void DFS(int x, int y) {
+        visit[x][y] = true;
+
+        for (int k = 0; k < 8; k++) {
+            int nextX = x + dir[k][0];
+            int nextY = y + dir[k][1];
+
+            if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < M) {
+                if (mountain[nextX][nextY] > mountain[x][y]) flag = true;
+                if (!visit[nextX][nextY] && mountain[nextX][nextY] == mountain[x][y]) DFS(nextX, nextY);
+            }
+        }
+    }
+}
 ```
 </details>
 
@@ -45,6 +100,64 @@ draft: true
 <summary>코드 보기(C++)</summary>
 
 ```cpp
+#include <iostream>
+#define endl '\n'
+
+using namespace std;
+
+int N, M, top = 0;
+bool flag = false;
+int** mountain;
+bool** visit;
+int dir[8][2] = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}, {-1, 1}, {-1, -1}, {1, -1}, {1, 1}};
+
+void DFS(int x, int y) {
+    visit[x][y] = true;
+    
+    for (int k = 0; k < 8; k++) {
+        int nextX = x + dir[k][0];
+        int nextY = y + dir[k][1];
+
+        if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < M) {
+            if (mountain[nextX][nextY] > mountain[x][y]) flag = true;
+            if (!visit[nextX][nextY] && mountain[nextX][nextY] == mountain[x][y]) DFS(nextX, nextY);
+        }
+    }
+}
+
+int main(void) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    
+    cin >> N >> M;
+    
+    mountain = new int*[N];
+    visit = new bool*[N];
+    for(int i = 0; i < N; i++) {
+        mountain[i] = new int[M];
+        visit[i] = new bool[M];
+    }
+    
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            cin >> mountain[i][j];
+        }
+    }
+    
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            if(!visit[i][j]) {
+                flag = false;
+                DFS(i, j);
+                if (!flag) top++;
+            }
+        }
+    }
+
+    cout << top << endl;
+    return 0;
+}
 ```
 
 </details>
@@ -53,6 +166,51 @@ draft: true
 <summary>코드 보기(Kotlin)</summary>
 
 ```javascript
+var top = 0   
+var N: Int = 0
+var M: Int = 0
+var flag = false
+var dir = arrayOf(intArrayOf(0, -1), intArrayOf(0, 1), intArrayOf(1, 0), intArrayOf(-1, 0), intArrayOf(-1, 1), intArrayOf(-1, -1), intArrayOf(1, -1), intArrayOf(1, 1))
+lateinit var mountain:Array<Array<Int>>
+lateinit var visit:Array<Array<Boolean>>
+
+fun DFS(x: Int, y: Int) {
+    visit[x][y] = true
+    for(k in dir) {
+        var nextX: Int = x + k[0]
+	    var nextY: Int = y + k[1]
+	    if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < M) {
+            if(mountain[nextX][nextY] > mountain[x][y]) flag = true
+            if(!visit[nextX][nextY] && mountain[nextX][nextY] == mountain[x][y]) DFS(nextX, nextY)
+        }
+    }
+}
+
+fun main() {
+    val input = readLine()!!.split(' ')
+    N = input[0].toInt()
+    M = input[1].toInt()
+    
+	mountain = Array<Array<Int>>(N){Array<Int>(M){ 0 } }
+    visit = Array<Array<Boolean>>(N){Array<Boolean>(M){ false } }
+
+	for(i in 0 until N) {
+        val info = readLine()!!.split(' ')
+        for(j in 0 until M) mountain[i][j] = info[j].toInt()
+    }
+    
+    for(i in 0 until N) {
+        for(j in 0 until M) {
+            if(!visit[i][j]) {
+                flag = false
+	            DFS(i, j)
+    	        if(!flag) top += 1
+    	    }
+    	}
+    }
+        
+    print(top)
+}
 ```
 
 </details>
@@ -61,6 +219,50 @@ draft: true
 <summary>코드 보기(Python)</summary>
 
 ```python
+top = 0
+flag = False
+dir = [[0, -1], [0, 1], [1, 0], [-1, 0], [-1, 1], [-1, -1], [1, -1], [1, 1]]
+
+def DFS(x, y):
+    global flag
+    visit[x][y] = True;
+    
+    for k in dir:
+        nextX = x + k[0];
+        nextY = y + k[1];
+        if nextX >= 0 and nextY >= 0 and nextX < N and nextY < M:
+            if mountain[nextX][nextY] > mountain[x][y]:
+                flag = True;
+            if not visit[nextX][nextY] and mountain[nextX][nextY] == mountain[x][y]:
+                DFS(nextX, nextY);
+
+def main():
+    global N, M, top, flag
+    global mountain, visit
+
+    N, M = map(int, input().split())
+
+    mountain = [[0 for col in range(M)] for row in range(N)]
+    visit = [[0 for col in range(M)] for row in range(N)]
+
+    for i in range(N):
+        info = input().split()
+
+        for j in range(M):
+            mountain[i][j] = int(info[j])
+
+    for i in range(N):
+        for j in range(M):
+            if not visit[i][j]:
+                flag = False
+                DFS(i, j)
+                if not flag:
+                    top += 1
+
+    print(top)
+
+if __name__ == "__main__":
+	main()
 ```
 
 </details>
@@ -69,5 +271,62 @@ draft: true
 <summary>코드 보기(Swift)</summary>
 
 ```cpp
+import Foundation
+
+var top = 0, M: Int!, N: Int!
+var flag = false
+let dir = [[0, -1], [0, 1], [1, 0], [-1, 0], [-1, 1], [-1, -1], [1, -1], [1, 1]]
+var visit: [[Bool]]!
+var mountain: [[Int]]!
+  
+func DFS(x: Int, y: Int) {
+    visit[x][y] = true;
+    
+    for k in dir {
+        let nextX = x + k[0]
+        let nextY = y + k[1]
+        if nextX >= 0 && nextY >= 0 && nextX < N && nextY < M {
+            if mountain[nextX][nextY] > mountain[x][y] {
+                flag = true
+            }
+            
+            if !visit[nextX][nextY] && mountain[nextX][nextY] == mountain[x][y] {
+                DFS(x: nextX, y: nextY)
+            }
+        }
+    }
+}
+
+func main() {
+    let inp = readLine()!.components(separatedBy: " ")
+    N = Int(inp[0])!
+    M = Int(inp[1])!
+
+    mountain = Array(repeating: Array(repeating: 0, count: M), count: N)
+    visit = Array(repeating: Array(repeating: false, count: M), count: N)
+    
+    for i in 0..<N {
+        let info = readLine()!.components(separatedBy: " ")
+
+        for j in 0..<M {
+            mountain[i][j] = Int(info[j])!
+        }
+    }
+    
+    for i in 0..<N {
+        for j in 0..<M {
+            if !visit[i][j] {
+                flag = false
+                DFS(x: i, y: j)
+                if !flag {
+                    top += 1
+                }
+            }
+        }
+    }
+    print(top)
+}
+
+main()
 ```
 </details>
