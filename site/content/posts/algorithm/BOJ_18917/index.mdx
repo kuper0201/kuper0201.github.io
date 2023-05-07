@@ -42,9 +42,9 @@ import "katex/dist/katex.min.css";
 
 XOR연산에서도 마찬가지로 배열에 데이터가 추가 될 때는 별도의 변수에 데이터를 XOR연산을 통해 추가 하고, 데이터가 빠질 때는 원본 값을 복원하면 된다.
 
-하지만 XOR연산은 덧셈/뺄셈과 다르게 원본을 복원하는 별도의 연산이 무엇인지 직관적으로 알기 힘들다.
+하지만 XOR연산은 덧셈/뺄셈과 다르게 원본을 복원하는 방법을 직관적으로 알기 어렵다.
 
-결론부터 말하자면 XOR연산을 통해 도출된 값을 다시 XOR연산을 하면 원본값을 추출 할 수 있다.
+결론부터 말하자면 XOR연산을 통해 도출된 값에 다시 XOR연산을 하면 원본값을 추출 할 수 있다.
 
 원리는 다음과 같다.
 
@@ -75,12 +75,12 @@ $$
 
 이를 전개하면
 $$
-\noindent x(x\bar{x}+xy+\bar{x}\bar{y}+y\bar{y})
+x(x\bar{x}+xy+\bar{x}\bar{y}+y\bar{y})
 \newline = x(0+xy+\bar{x}\bar{y}+0)
 \newline = x(xy+\bar{x}\bar{y})
-= xxy+x\bar{x}y
-= xy+0
-= xy
+\newline = xxy+x\bar{x}y
+\newline = xy+0
+\newline = xy
 $$
 
 따라서 x로 XOR연산을 한 값은
@@ -149,10 +149,12 @@ using namespace std;
 int main() {
 	fastio;
 	
+	// 쿼리 개수 입력
 	int M;
 	long sum = 0, res = 0;
 	cin >> M;
 	
+	// 쿼리 입력 받으며 연산 처리
 	for(int i = 0; i < M; i++) {
 		int cmd, oper;
 		cin >> cmd;
@@ -179,10 +181,12 @@ int main() {
 
 ```javascript
 fun main(args: Array<String>) {
+	// 쿼리 개수 입력
     var M = readLine()!!.toInt()
     var sum = 0L
     var res = 0L
     
+	// 쿼리 입력 받으며 연산 처리
     for (i in 0 until M) {
         var s = readLine()!!.split(" ")
         var cmd = s[0].toInt()
@@ -212,10 +216,12 @@ fun main(args: Array<String>) {
 from sys import stdin
 
 def main():
+	# 쿼리 개수 입력
     M = int(stdin.readline())
     sum = 0
     res = 0
     
+	# 쿼리 입력 받으며 연산 처리
     for i in range(M):
         s = stdin.readline().split(' ')
         cmd = int(s[0])
@@ -245,10 +251,12 @@ if __name__ == "__main__":
 import Foundation
 
 func main() {
+	// 쿼리 개수 입력
     var M = Int(readLine()!)!
     var sum : UInt64 = 0
     var res : UInt64 = 0
-    
+
+	// 쿼리 입력 받으며 연산 처리
     for i in 0..<M {
         var s = readLine()!.split(separator: " ")
         var cmd = UInt64(s[0])!
