@@ -63,7 +63,7 @@ export default {
     color: 'article',
     fontSize: 3,
     mb: 4,
-    word-break: keep-all,
+    "word-break": 'keep-all',
     code: {
       fontSize: `inherit`
     }
