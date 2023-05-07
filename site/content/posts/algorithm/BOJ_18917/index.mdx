@@ -1,0 +1,229 @@
+---
+title: "BOJ 18917 수열과 쿼리 38"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2021-03-05
+slug: boj18917
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/18917" target="_blank">BOJ 18917 수열과 쿼리 38 바로 가기</a>
+
+처음에 0이 하나 포함되어있는 배열 A가 있다. 이때, 다음 쿼리를 수행해야 한다.
+
+1 x: A의 가장 뒤에 x를 추가한다.
+
+2 x: A에서 x를 제거한다. A에 x가 두 개 이상 있는 경우에는 가장 앞에 있는 하나만 제거한다. 항상 A에 x가 있는 쿼리만 주어진다.
+
+3: A에 포함된 모든 원소를 더한 값을 출력한다.
+
+4: A에 포함된 모든 원소를 XOR한 값을 출력한다.
+
+---
+
+## 입력
+
+첫째 줄에는 쿼리의 개수 M이 주어진다. 둘째 줄부터 다음 M 개의 줄에 쿼리가 주어진다.
+
+---
+
+## 풀이
+
+문제에 제시된 조건을 단순히 구현만 하면 될 것으로 보이지만 구현 해 보면 시간 초과가 발생한다.
+
+시간 초과가 발생하는 이유를 살펴보면 3번, 4번 쿼리가 들어 올 때마다 전체 배열을 순회하며 덧셈 연산과 XOR 연산을 하기 때문이다.
+
+일단 덧셈 연산에서 시간 초과를 해결하기 위해서는 배열에 데이터가 추가될 때는 별도의 변수에 덧셈 연산을 하고, 배열에서 데이터가 빠질 때는 뺄셈 연산을 통해 원본 값을 복원하면 된다는 사실은 쉽게 유추가 가능하다.
+
+XOR연산에서도 마찬가지로 배열에 데이터가 추가 될 때는 별도의 변수에 데이터를 XOR연산을 통해 추가 하고, 데이터가 빠질 때는 원본 값을 복원하면 된다.
+
+하지만 XOR연산은 덧셈/뺄셈과 다르게 원본을 복원하는 별도의 연산이 무엇인지 직관적으로 알기 힘들다.
+
+결론부터 말하자면 XOR연산을 통해 도출된 값을 다시 XOR연산을 하면 원본값을 추출 할 수 있다.
+
+원리는 다음과 같다.
+
+XOR연산의 기본 식은
+`A(x) = \bar{x}y+x\bar{y}`이다.
+
+여기서 A(x)는 이미 XOR연산이 적용 된 값이므로 한번 더 x로 XOR 연산을 하면
+
+A(x) = \bar{x}(\bar{x}y+x\bar{y})+x(\overline{\bar{x}y+x\bar{y}})
+여기서 첫 번째 항을 전개 하면 불 대수 법칙에 의해
+\bar{x}\bar{x}y+\bar{x}x\bar{y} = \bar{x}y + 0 = \bar{x}y
+라는 식이 도출된다.
+
+두 번째 항을 드모르간 법칙을 이용해 변환하면
+x((x+\bar{y})(\bar{x}+y)) 라는 식을 얻을 수 있다.
+
+이를 전개하면
+x(x\bar{x}+xy+\bar{x}\bar{y}+y\bar{y}) = x(0+xy+\bar{x}\bar{y}+0) = x(xy+\bar{x}\bar{y}) = xxy+x\bar{x}y = xy+0 = xy
+
+따라서 x로 XOR연산을 한 값은 \bar{x}y+xy
+마지막으로 이를 y로 묶어주면 (\bar{x}+x)y = y
+
+y의 값이 XOR연산이 적용 되기 전의 원본 값이었으므로 x값으로 XOR연산 된 값을 같은 값으로 연산하면 XOR연산을 하지 않은 원본의 값이 나온다는 사실을 알 수있다.
+	
+이제 해당 쿼리별 연산을 처리하는 코드를 구현하면 문제를 해결 할 수 있다.
+
+```java
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        
+		// 쿼리 개수 입력
+        int M = Integer.parseInt(br.readLine());
+        long sum = 0, res = 0;
+		
+		// 쿼리 입력 받으며 연산 처리
+        for(int i = 0; i < M; i++) {
+            String[] str = br.readLine().split(" ");
+
+            int cmd = Integer.parseInt(str[0]);
+            int oper = 0;
+
+            if(str.length != 1) oper = Integer.parseInt(str[1]);
+
+            if(cmd == 1) {
+                sum += oper;
+                res ^= oper;
+            } else if(cmd == 2) {
+                sum -= oper;
+                res ^= oper;
+            } else if(cmd == 3) sb.append(sum +"\n");
+            else sb.append(res +"\n");
+        }
+
+        System.out.println(sb);
+    }
+}
+```
+
+```cpp
+#include <iostream>
+#define endl '\n'
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+
+using namespace std;
+
+int main() {
+	fastio;
+	
+	int M;
+	long sum = 0, res = 0;
+	cin >> M;
+	
+	for(int i = 0; i < M; i++) {
+		int cmd, oper;
+		cin >> cmd;
+		
+		if(cmd == 1) {
+			cin >> oper;
+			sum += oper;
+			res ^= oper;
+		} else if(cmd == 2) {
+			cin >> oper;
+			sum -= oper;
+			res ^= oper;
+		} else if(cmd == 3) cout << sum << endl;
+		else cout << res << endl;
+	}
+	
+	return 0;
+}
+```
+
+```python3
+from sys import stdin
+
+def main():
+    M = int(stdin.readline())
+    sum = 0
+    res = 0
+    
+    for i in range(M):
+        s = stdin.readline().split(' ')
+        cmd = int(s[0])
+        
+        if cmd == 1:
+            oper = int(s[1])
+            sum = sum + oper
+            res = res ^ oper
+        elif cmd == 2:
+            oper = int(s[1])
+            sum = sum - oper
+            res = res ^ oper
+        elif cmd == 3:
+            print(sum)
+        else:
+            print(res)
+            
+if __name__ == "__main__":
+    main()
+```
+
+```kotlin
+fun main(args: Array<String>) {
+    var M = readLine()!!.toInt()
+    var sum = 0L
+    var res = 0L
+    
+    for (i in 0 until M) {
+        var s = readLine()!!.split(" ")
+        var cmd = s[0].toInt()
+        
+        if (cmd == 1) {
+            var oper = s[1].toLong()
+            sum += oper
+            res = res xor oper
+        } else if(cmd == 2) {
+            var oper = s[1].toLong()
+            sum -= oper
+            res = res xor oper
+        } else if(cmd == 3) {
+            println(sum)
+        } else {
+            println(res)
+        }
+    }
+}
+```
+
+```swift
+import Foundation
+
+func main() {
+    var M = Int(readLine()!)!
+    var sum : UInt64 = 0
+    var res : UInt64 = 0
+    
+    for i in 0..<M {
+        var s = readLine()!.split(separator: " ")
+        var cmd = UInt64(s[0])!
+        
+        if cmd == 1 {
+            var oper = UInt64(s[1])!
+            sum += oper
+            res ^= oper
+        } else if cmd == 2 {
+            var oper = UInt64(s[1])!
+            sum -= oper
+            res ^= oper
+        } else if cmd == 3 {
+            print(sum)
+        } else {
+            print(res)
+        }
+    }
+}
+
+main()
+```
