@@ -48,24 +48,44 @@ XOR연산에서도 마찬가지로 배열에 데이터가 추가 될 때는 별�
 
 원리는 다음과 같다.
 
-XOR연산의 기본 식은
-`A(x) = \bar{x}y+x\bar{y}`이다.
+XOR연산의 기본 식은 다음과 같다.
+$$
+A(x) = \bar{x}y+x\bar{y}
+$$
 
 여기서 A(x)는 이미 XOR연산이 적용 된 값이므로 한번 더 x로 XOR 연산을 하면
 
+$$
 A(x) = \bar{x}(\bar{x}y+x\bar{y})+x(\overline{\bar{x}y+x\bar{y}})
+$$
+
 여기서 첫 번째 항을 전개 하면 불 대수 법칙에 의해
+
+$$
 \bar{x}\bar{x}y+\bar{x}x\bar{y} = \bar{x}y + 0 = \bar{x}y
+$$
+
 라는 식이 도출된다.
 
-두 번째 항을 드모르간 법칙을 이용해 변환하면
-x((x+\bar{y})(\bar{x}+y)) 라는 식을 얻을 수 있다.
+두 번째 항을 드모르간 법칙을 이용해 변환하면 다음과 같은 식을 얻을 수 있다.
+
+$$
+x((x+\bar{y})(\bar{x}+y))
+$$
 
 이를 전개하면
+$$
 x(x\bar{x}+xy+\bar{x}\bar{y}+y\bar{y}) = x(0+xy+\bar{x}\bar{y}+0) = x(xy+\bar{x}\bar{y}) = xxy+x\bar{x}y = xy+0 = xy
+$$
 
-따라서 x로 XOR연산을 한 값은 \bar{x}y+xy
-마지막으로 이를 y로 묶어주면 (\bar{x}+x)y = y
+따라서 x로 XOR연산을 한 값은
+$$
+\bar{x}y+xy
+$$
+마지막으로 이를 y로 묶어주면
+$$
+(\bar{x}+x)y = y
+$$
 
 y의 값이 XOR연산이 적용 되기 전의 원본 값이었으므로 x값으로 XOR연산 된 값을 같은 값으로 연산하면 XOR연산을 하지 않은 원본의 값이 나온다는 사실을 알 수있다.
 	
