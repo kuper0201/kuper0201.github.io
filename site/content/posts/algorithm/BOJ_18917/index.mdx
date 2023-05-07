@@ -75,7 +75,12 @@ $$
 
 이를 전개하면
 $$
-x(x\bar{x}+xy+\bar{x}\bar{y}+y\bar{y}) = x(0+xy+\bar{x}\bar{y}+0) = x(xy+\bar{x}\bar{y}) = xxy+x\bar{x}y = xy+0 = xy
+x(x\bar{x}+xy+\bar{x}\bar{y}+y\bar{y})
+= x(0+xy+\bar{x}\bar{y}+0)
+= x(xy+\bar{x}\bar{y})
+= xxy+x\bar{x}y
+= xy+0
+= xy
 $$
 
 따라서 x로 XOR연산을 한 값은
@@ -91,7 +96,10 @@ y의 값이 XOR연산이 적용 되기 전의 원본 값이었으므로 x값으�
 	
 이제 해당 쿼리별 연산을 처리하는 코드를 구현하면 문제를 해결 할 수 있다.
 
-```java
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
 import java.io.*;
 
 public class Main {
@@ -126,6 +134,10 @@ public class Main {
     }
 }
 ```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
 
 ```cpp
 #include <iostream>
@@ -160,8 +172,43 @@ int main() {
 	return 0;
 }
 ```
+</details>
 
-```python3
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) {
+    var M = readLine()!!.toInt()
+    var sum = 0L
+    var res = 0L
+    
+    for (i in 0 until M) {
+        var s = readLine()!!.split(" ")
+        var cmd = s[0].toInt()
+        
+        if (cmd == 1) {
+            var oper = s[1].toLong()
+            sum += oper
+            res = res xor oper
+        } else if(cmd == 2) {
+            var oper = s[1].toLong()
+            sum -= oper
+            res = res xor oper
+        } else if(cmd == 3) {
+            println(sum)
+        } else {
+            println(res)
+        }
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
 from sys import stdin
 
 def main():
@@ -189,35 +236,12 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+</details>
 
-```kotlin
-fun main(args: Array<String>) {
-    var M = readLine()!!.toInt()
-    var sum = 0L
-    var res = 0L
-    
-    for (i in 0 until M) {
-        var s = readLine()!!.split(" ")
-        var cmd = s[0].toInt()
-        
-        if (cmd == 1) {
-            var oper = s[1].toLong()
-            sum += oper
-            res = res xor oper
-        } else if(cmd == 2) {
-            var oper = s[1].toLong()
-            sum -= oper
-            res = res xor oper
-        } else if(cmd == 3) {
-            println(sum)
-        } else {
-            println(res)
-        }
-    }
-}
-```
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
 
-```swift
+```cpp
 import Foundation
 
 func main() {
@@ -247,3 +271,4 @@ func main() {
 
 main()
 ```
+</details>
