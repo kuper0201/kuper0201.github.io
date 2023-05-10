@@ -1,0 +1,403 @@
+---
+title: "BOJ 10026 적록색약"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2021-03-05
+slug: boj10026
+thumbnail: cover.jpg
+---
+
+## 문제
+
+### <a href="https://boj.kr/10026" target="_blank">BOJ 10026 적록색약 바로 가기</a>
+
+적록색약은 빨간색과 초록색의 차이를 거의 느끼지 못한다. 따라서, 적록색약인 사람이 보는 그림은 아닌 사람이 보는 그림과는 좀 다를 수 있다.
+
+크기가 N×N인 그리드의 각 칸에 R(빨강), G(초록), B(파랑) 중 하나를 색칠한 그림이 있다. 그림은 몇 개의 구역으로 나뉘어져 있는데, 구역은 같은 색으로 이루어져 있다. 또, 같은 색상이 상하좌우로 인접해 있는 경우에 두 글자는 같은 구역에 속한다. (색상의 차이를 거의 느끼지 못하는 경우도 같은 색상이라 한다)
+
+예를 들어, 그림이 아래와 같은 경우에
+
+```
+RRRBB
+GGBBB
+BBBRR
+BBRRR
+RRRRR
+```
+
+적록색약이 아닌 사람이 봤을 때 구역의 수는 총 4개이다. (빨강 2, 파랑 1, 초록 1) 하지만, 적록색약인 사람은 구역을 3개 볼 수 있다. (빨강-초록 2, 파랑 1)
+
+그림이 입력으로 주어졌을 때, 적록색약인 사람이 봤을 때와 아닌 사람이 봤을 때 구역의 수를 구하는 프로그램을 작성하시오.
+
+---
+
+## 입력
+
+첫째 줄에 N이 주어진다. (1 ≤ N ≤ 100)
+
+둘째 줄부터 N개 줄에는 그림이 주어진다.
+
+---
+
+## 풀이
+
+문제를 읽어 보면 DFS 또는 BFS를 이용해 인접한 구역을 찾아내면 된다는 사실을 알 수 있다.
+
+적록 색약이 아닌 사람은 빨강, 초록을 구분 할 수 있으므로 서로 다른 구역으로 두고 탐색을 진행하면 될 것이다.
+
+하지만 적록색약인 사람은 빨강, 초록의 차이를 거의 느끼지 못한다고 하였기 때문에 빨강과 초록을 같은 값으로 치환해 하나의 구역으로 두고 탐색을 진행하면 (빨강 + 초록), 파랑 의 구역을 구할 수 있다.
+
+본인은 DFS를 이용한 로직을 구현했고, 적록색약인 사람이 보는 구역을 통합하기 위해 G(초록)를 R(빨강)로 바꿔주는 작업을 통해 해당 문제를 해결 하였다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    static int N;
+    static char[][] picture;
+    static int[][] dxdy = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        // 그림의 크기와 그림 입력
+        N = Integer.parseInt(br.readLine());
+        picture = new char[N][N];
+        for(int i = 0; i < N; i++) {
+            String str = br.readLine();
+            for(int j = 0; j < N; j++) picture[i][j] = str.charAt(j);
+        }
+
+        // 적록색약이 아닌 사람이 봤을 때 DFS
+        sb.append(doDfs() +" ");
+
+        // 적록색약인 사람이 봤을 때(G와 R을 같은 것으로 취급하기 위한 작업)
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                if(picture[i][j] == 'G') picture[i][j] = 'R';
+            }
+        }
+
+        // 적록색약인 사람이 봤을 때 DFS
+        sb.append(doDfs());
+
+        System.out.println(sb);
+    }
+
+    public static int doDfs() {
+        // 초기화
+        int cnt = 0;
+        boolean[][] visit = new boolean[N][N];
+
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                if(!visit[i][j]) {
+                    cnt++;
+                    dfs(visit, i, j, picture[i][j]);
+                }
+            }
+        }
+
+        return cnt;
+    }
+
+    public static void dfs(boolean[][] visit, int i, int j, char color) {
+        if(i < 0 || i >= N || j < 0 || j >= N || visit[i][j] || picture[i][j] != color) return;
+        visit[i][j] = true;
+
+        for(int k = 0; k < dxdy.length; k++) {
+            dfs(visit, i + dxdy[k][0], j + dxdy[k][1], color);
+        }
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <cstring>
+
+#define endl "\n"
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+
+using namespace std;
+
+int N;
+char** picture;
+int dxdy[][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+void dfs(bool** visit, int i, int j, char color) {
+    if(i < 0 || i >= N || j < 0 || j >= N || visit[i][j] || picture[i][j] != color) return;
+    visit[i][j] = true;
+    
+    for(int k = 0; k < 4; k++) {
+        dfs(visit, i + dxdy[k][0], j + dxdy[k][1], color);
+    }
+}
+
+int doDfs() {
+    // 초기화
+    int cnt = 0;
+    bool** visit = new bool*[N];
+    for(int i = 0; i < N; i++) {
+        visit[i] = new bool[N];
+        memset(visit[i], false, sizeof(bool) * N);
+    }
+    
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            if(!visit[i][j]) {
+                cnt++;
+                dfs(visit, i, j, picture[i][j]);
+            }
+        }
+    }
+    
+    for(int i = 0; i < N; i++) delete visit[i];
+    delete[] visit;
+    
+    return cnt;
+}
+
+int main(void) {
+    fastio;
+    
+    // 그림의 크기와 그림 입력
+    cin >> N;
+    picture = new char*[N];
+    for(int i = 0; i < N; i++) picture[i] = new char[N];
+    
+    for(int i = 0; i < N; i++) {
+        string str;
+        cin >> str;
+        for(int j = 0; j < N; j++) picture[i][j] = str[j];
+    }
+
+    // 적록색약이 아닌 사람이 봤을 때 DFS
+    cout << doDfs() << " ";
+
+    // 적록색약인 사람이 봤을 때(G와 R을 같은 것으로 취급하기 위한 작업)
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            if(picture[i][j] == 'G') picture[i][j] = 'R';
+        }
+    }
+
+    // 적록색약인 사람이 봤을 때 DFS
+    cout << doDfs() << endl;
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+var N = 0
+lateinit var picture: Array<CharArray>
+var dxdy = arrayOf(arrayOf(0, 1), arrayOf(1, 0), arrayOf(0, -1), arrayOf(-1, 0))
+
+fun dfs(visit: Array<BooleanArray>, i: Int, j: Int, color:Char) {
+    if (i < 0 || i >= N || j < 0 || j >= N || visit[i][j] || picture[i][j] != color) {
+        return
+    }
+        
+    visit[i][j] = true;
+    
+    for (k in 0 until 4) {
+        dfs(visit, i + dxdy[k][0], j + dxdy[k][1], color)
+    }
+}
+
+fun doDfs(): Int {
+    // 초기화
+    var cnt = 0
+    var visit = Array(N, {BooleanArray(N, {false})})
+    for (i in 0 until N) {
+        for (j in 0 until N) {
+            if (!visit[i][j]) {
+                cnt++
+                dfs(visit, i, j, picture[i][j])
+            }
+        }
+    }
+    
+    return cnt
+}
+
+fun main(args: Array<String>) {
+    // 그림의 크기와 그림 입력
+    N = readLine()!!.toInt()
+    picture = Array(N, {CharArray(N, {'O'})})
+    
+    for (i in 0 until N) {
+        var str = readLine()!!
+        for (j in 0 until N) {
+            picture[i][j] = str[j]
+        }
+    }
+    
+    // 적록색약이 아닌 사람이 봤을 때 DFS
+    print(doDfs())
+    print(" ")
+
+    // 적록색약인 사람이 봤을 때(G와 R을 같은 것으로 취급하기 위한 작업)
+    for (i in 0 until N) {
+        for (j in 0 until N) {
+            if (picture[i][j] == 'G') {
+                picture[i][j] = 'R'
+            }
+        }
+    }
+
+    // 적록색약인 사람이 봤을 때 DFS
+    print(doDfs())
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+import sys
+
+N = 0
+picture = None
+dxdy = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+
+def dfs(visit, i, j, color):
+    if i < 0 or i >= N or j < 0 or j >= N or visit[i][j] or picture[i][j] != color:
+        return;
+        
+    visit[i][j] = True;
+    
+    global dxdy
+    for dx, dy in dxdy:
+        dfs(visit, i + dx, j + dy, color)
+
+def doDfs():
+    # 초기화
+    global picture
+    cnt = 0
+    visit = [[0 for j in range(N)] for i in range(N)]
+    for i in range(N):
+        for j in range(N):
+            if not visit[i][j]:
+                cnt = cnt + 1
+                dfs(visit, i, j, picture[i][j])
+    
+    return cnt
+
+def main():
+    # 재귀 호출 오류 처리
+    sys.setrecursionlimit(100000)
+    
+    # 그림의 크기와 그림 입력
+    global N, picture
+    N = int(stdin.readline())
+    picture = [[0 for j in range(N)] for i in range(N)]
+    
+    for i in range(N):
+        str = stdin.readline()
+        for j in range(N):
+            picture[i][j] = str[j]
+            
+    # 적록색약이 아닌 사람이 봤을 때 DFS
+    print(doDfs(), end=' ')
+
+    # 적록색약인 사람이 봤을 때(G와 R을 같은 것으로 취급하기 위한 작업)
+    for i in range(N):
+        for j in range(N):
+            if picture[i][j] == 'G':
+                picture[i][j] = 'R'
+
+    # 적록색약인 사람이 봤을 때 DFS
+    print(doDfs())
+    
+            
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+var N = 0
+var picture: Array<Array<Character>>!
+var dxdy = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+
+func dfs(_ visit: inout [[Bool]], _ i: Int, _ j: Int, _ color:Character) {
+    if i < 0 || i >= N || j < 0 || j >= N || visit[i][j] || picture[i][j] != color {
+        return
+    }
+        
+    visit[i][j] = true;
+    
+    for k in 0..<4 {
+        dfs(&visit, i + dxdy[k][0], j + dxdy[k][1], color)
+    }
+}
+
+func doDfs()-> Int {
+    // 초기화
+    var cnt = 0
+    var visit = Array(repeating: Array(repeating: false, count: N), count: N)
+    for i in 0..<N {
+        for j in 0..<N {
+            if !visit[i][j] {
+                cnt += 1
+                dfs(&visit, i, j, picture[i][j])
+            }
+        }
+    }
+    
+    return cnt
+}
+
+func main() {
+    // 그림의 크기와 그림 입력
+    N = Int(readLine()!)!
+    picture = Array(repeating: Array(repeating: "O", count: N), count: N)
+    
+    for i in 0..<N {
+        let str = readLine()!
+        for j in 0..<N {
+            picture[i][j] = str[String.Index(encodedOffset: j)]
+        }
+    }
+    
+    // 적록색약이 아닌 사람이 봤을 때 DFS
+    print(doDfs(), terminator: " ")
+
+    // 적록색약인 사람이 봤을 때(G와 R을 같은 것으로 취급하기 위한 작업)
+    for i in 0..<N {
+        for j in 0..<N {
+            if picture[i][j] == "G" {
+                picture[i][j] = "R"
+            }
+        }
+    }
+
+    // 적록색약인 사람이 봤을 때 DFS
+    print(doDfs())
+}
+
+main()
+```
+</details>
