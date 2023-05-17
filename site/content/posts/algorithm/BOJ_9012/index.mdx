@@ -48,23 +48,22 @@ thumbnail: cover.jpg
 
 문제에서 제시한 예시인 "(())()"의 괄호 쌍을 각각 다른 색으로 칠하면 아래와 같은 결과를 확인 할 수 있다.
 
-<span style="color: green">(</span><span style="color: orange">(</span><span style="color: orange">)</span><span style="color: green">)</span><span style="color: red">(</span><span style="color: red">)</span>
+<span style="color: green">(</span><span style="color: orange">(</span><span style="color: orange">)</span><span style="color: green">)</span><span style="color: red">(</span><span style="color: red">)</span><br/>
 
 색칠한 결과를 살펴 보면 하나의 괄호 쌍은 항상 최소의 거리를 가진다는 것을 알 수 있다.
 
 쉽게 말하자면 "닫는 괄호는 언제나 가장 마지막에 나온 여는 괄호에 대응된다"라는 말이다.
-
 이를 통해 LIFO(Last In, First Out) 구조를 떠올릴 수 있다.
 
 대표적인 LIFO 구조를 갖는 자료구조는 Stack이므로 해당 문제는 Stack 자료 구조를 응용하면 쉽게 해결이 가능하다.
 
 Stack을 이용한 로직은 다음과 같다.
 
-1. 주어진 문자열을 순회하며 열린 괄호를 스택에 추가한다.
-2. 닫는 괄호가 나올 경우 스택의 마지막 값이 열린 괄호인지 확인한다.
+1. 주어진 문자열을 순회하며 여는 괄호를 스택에 추가한다.
+2. 닫는 괄호가 나올 경우 스택의 마지막 값이 여는 괄호인지 확인한다.
 3. 여는 괄호일 경우 괄호 쌍이 생성되므로 스택에서 제거하고 반복한다.
 4. 여는 괄호가 아닐 경우 괄호 쌍이 생성되지 않으므로 non-VPS 판별.
-5. 모든 반복이 끝난 후 스택이 비어있지 않으면 닫히지 않은 괄호가 존재하므로 non-VPS 판별.
+5. 모든 반복 종료 후 스택이 비어있지 않으면 닫히지 않은 괄호가 존재하므로 non-VPS 판별.
 
 <details markdown="1">
 <summary>코드 보기(Java)</summary>
