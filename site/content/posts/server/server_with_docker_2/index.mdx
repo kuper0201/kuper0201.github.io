@@ -72,20 +72,10 @@ Docker는 상당히 많은 명령어와 옵션들을 가지고 있지만 이번 
 
 컨테이너 관리 명령어는 이미지를 이용해 컨테이너를 생성, 실행 하고 컨테이너에 명령을 실행시키거나 중지, 삭제 등의 작업을 수행하기 위한 명령어입니다.
 
-| 명령어 | 설명 | 옵션 |
-|---|---|---|
-| docker run <이미지> | 지정한 이미지 이용해 컨테이너 생성 및 실행 |
-| docker ps | 현재 실행 중인 컨테이너 목록 확인 |
-| docker stop <컨테이너> | 지정한 컨테이너 정지 |
-| docker start <컨테이너> | 지정한 컨테이너 시작 |
-| docker restart <컨테이너> | 지정한 컨테이너 재시작 |
-| docker rm <컨테이너> | 지정한 컨테이너 삭제 |
-| docker attach <컨테이너> | 실행 중인 컨테이너에 접근하여 터미널 연결 |
-| docker exec -it <컨테이너> <명령어> | 실행 중인 컨테이너에서 지정한 명령어 실행 |
-
 #### &nbsp; &nbsp; 1. docker run <옵션> <이미지> <명령>
 
 해당 명령어는 지정한 이미지를 이용해 컨테이너를 생성하고 실행하는 명령어입니다.
+
 <명령> 부분에 실행할 명령어를 명시하면 컨테이너를 생성하고 해당 컨테이너 내에서 명시된 명령을 실행합니다.
 
 <table>
@@ -135,98 +125,55 @@ Docker는 상당히 많은 명령어와 옵션들을 가지고 있지만 이번 
 </tbody>
 </table>
 
+#### &nbsp; &nbsp; 2. docker ps
+
+해당 명령어는 컨테이너들의 목록과 ID를 확인하는 명령입니다.
+
+컨테이너에 접근하거나 삭제, 수정 등의 작업을 위해서는 해당 명령어를 실행 했을 때 출력되는 컨테이너 ID 값으로 접근해야 합니다.
+
 <table>
 <thead>
   <tr>
-    <th>명령어</th>
-    <th>설명</th>
     <th>옵션</th>
     <th>옵션 설명</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td rowspan="9">docker run &lt;이미지&gt;<br/><br/><br/><br/><br/></td>
-    <td rowspan="9">지정한 이미지 이용해 컨테이너 생성 및 실행<br/><br/><br/><br/><br/></td>
-    <td>-it</td>
-    <td>-i, -t 옵션 합성<br/>키보드 입력을 컨테이너로 전달</td>
+    <td>-a</td>
+    <td>실행되지 않는 컨테이너까지 보여줌</td>
   </tr>
   <tr>
-    <td>-i</td>
-    <td>컨테이너 표준 입력 활성화</td>
-  </tr>
-  <tr>
-    <td>-t</td>
-    <td>TTY(가상터미널) 할당</td>
-  </tr>
-  <tr>
-    <td>-e &lt;이름=값&gt;</td>
-    <td>컨테이너 환경 변수 설정</td>
-  </tr>
-  <tr>
-    <td>--network &lt;네트워크 이름&gt;</td>
-    <td>지정한 네트워크 연결</td>
-  </tr>
-  <tr>
-    <td>--ip &lt;주소&gt;</td>
-    <td>IP주소 할당</td>
-  </tr>
-  <tr>
-    <td>--name &lt;컨테이너 이름&gt;</td>
-    <td>컨테이너 이름 설정</td>
-  </tr>
-  <tr>
-    <td>-v &lt;호스트 경로&gt;:&lt;컨테이너 경로&gt;</td>
-    <td>호스트의 경로를<br/>컨테이너의 경로에 마운트</td>
-  </tr>
-  <tr>
-    <td>-d</td>
-    <td>백그라운드에서 컨테이너 실행</td>
-  </tr>
-  <tr>
-    <td>docker ps</td>
-    <td>현재 실행 중인 컨테이너 목록 확인</td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>docker stop &lt;컨테이너&gt;</td>
-    <td>지정한 컨테이너 정지</td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>docker start &lt;컨테이너&gt;</td>
-    <td>지정한 컨테이너 시작</td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>docker restart &lt;컨테이너&gt;</td>
-    <td>지정한 컨테이너 재시작</td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>docker rm &lt;컨테이너&gt;</td>
-    <td>지정한 컨테이너 삭제</td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>docker attach &lt;컨테이너&gt;</td>
-    <td>실행 중인 컨테이너에 접근하여 터미널 연결</td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>docker exec -it &lt;컨테이너&gt; &lt;명령어&gt;</td>
-    <td>실행 중인 컨테이너에서 지정한 명령어 실행</td>
-    <td></td>
-    <td></td>
+    <td>-q</td>
+    <td>컨테이너의 세부 정보 생략(ID만 출력)</td>
   </tr>
 </tbody>
 </table>
+
+#### &nbsp; &nbsp; 3. docker stop/start/restart <컨테이너>
+
+각각 컨테이너를 중지/시작/재시작 시키는 명령입니다.
+
+docker run 실행 시 --name 옵션을 통해 컨테이너의 이름을 정해 준 경우에는 이름으로 명령을 수행 할 수 있지만, 그렇지 않은 경우에는 docker ps 명령을 통해 출력된 컨테이너 ID를 통해 명령을 수행해야 합니다.
+
+#### &nbsp; &nbsp; 4. docker rm <컨테이너>
+
+컨테이너를 제거하는 명령입니다.
+
+해당 명령을 통해서 컨테이너를 제거하기 위해서는 먼저 docker stop 명령을 통해 컨테이너를 중지 시켜야 합니다.
+
+#### &nbsp; &nbsp; 5. docker attach <컨테이너>
+
+실행 중인 컨테이너에 접근한다.
+
+실행 중인 환경이 Foreground로 뜨게 된다.
+
+#### &nbsp; &nbsp; 6. docker exec -it <컨테이너> <명령>
+
+실행 중인 컨테이너에 새로운 명령을 내린다.
+
+<명령> 부분에 /bin/bash 등의 Shell 환경을 실행해 컨테이너의 Shell을 띄울 수 있습니다.
+
 
 ## 네트워크 관리 명령어
 
