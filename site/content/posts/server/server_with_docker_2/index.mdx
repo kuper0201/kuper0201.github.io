@@ -83,6 +83,57 @@ Docker는 상당히 많은 명령어와 옵션들을 가지고 있지만 이번 
 | docker attach <컨테이너> | 실행 중인 컨테이너에 접근하여 터미널 연결 |
 | docker exec -it <컨테이너> <명령어> | 실행 중인 컨테이너에서 지정한 명령어 실행 |
 
+### docker run <이미지>
+
+해당 명령어는 지정한 이미지를 이용해 컨테이너를 생성하고 실행하는 명령어입니다.
+
+<table>
+<thead>
+  <tr>
+    <th>옵션</th>
+    <th>옵션 설명</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>-it</td>
+    <td>-i, -t 옵션 합성<br>키보드 입력을 컨테이너로 전달</td>
+  </tr>
+  <tr>
+    <td>-i</td>
+    <td>컨테이너 표준 입력 활성화</td>
+  </tr>
+  <tr>
+    <td>-t</td>
+    <td>TTY(가상터미널) 할당</td>
+  </tr>
+  <tr>
+    <td>-e &lt;이름=값&gt;</td>
+    <td>컨테이너 환경 변수 설정</td>
+  </tr>
+  <tr>
+    <td>--network &lt;네트워크 이름&gt;</td>
+    <td>지정한 네트워크 연결</td>
+  </tr>
+  <tr>
+    <td>--ip &lt;주소&gt;</td>
+    <td>IP주소 할당</td>
+  </tr>
+  <tr>
+    <td>--name &lt;컨테이너 이름&gt;</td>
+    <td>컨테이너 이름 설정</td>
+  </tr>
+  <tr>
+    <td>-v &lt;호스트 경로&gt;:&lt;컨테이너 경로&gt;</td>
+    <td>호스트의 경로를<br>컨테이너의 경로에 마운트</td>
+  </tr>
+  <tr>
+    <td>-d</td>
+    <td>백그라운드에서 컨테이너 실행</td>
+  </tr>
+</tbody>
+</table>
+
 <table>
 <thead>
   <tr>
