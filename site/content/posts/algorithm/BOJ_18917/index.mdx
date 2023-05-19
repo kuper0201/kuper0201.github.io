@@ -46,53 +46,45 @@ XOR연산에서도 마찬가지로 배열에 데이터가 추가 될 때는 별�
 
 결론부터 말하자면 XOR연산을 통해 도출된 값에 다시 XOR연산을 하면 원본값을 추출 할 수 있다.
 
-원리는 다음과 같다.
+원리를 설명하기 전에 상기해야 할 XOR의 성질이 존재한다.
 
-XOR연산의 기본 식은 다음과 같다.
-$$
-A(x) = \bar{x}y+x\bar{y}
-$$
+XOR연산은 결합 법칙이 성립한다는 성질이다.
 
-여기서 A(x)는 이미 XOR연산이 적용 된 값이므로 한번 더 x로 XOR 연산을 하면
+A와 B를 XOR 연산하면 다음과 같다.
 
 $$
-A(x) = \bar{x}(\bar{x}y+x\bar{y})+x(\overline{\bar{x}y+x\bar{y}})
+A\bigoplus{B}
 $$
 
-여기서 첫 번째 항을 전개 하면 불 대수 법칙에 의해
+XOR을 진행한 값에 B를 다시 XOR 연산을 하면 다음과 같은 식을 유도 할 수 있다.
 
 $$
-\bar{x}\bar{x}y+\bar{x}x\bar{y} = \bar{x}y + 0 = \bar{x}y
+A\bigoplus{B}\bigoplus{B}
 $$
 
-라는 식이 도출된다.
-
-두 번째 항을 드모르간 법칙을 이용해 변환하면 다음과 같은 식을 얻을 수 있다.
+XOR연산은 결합 법칙이 성립하므로 위의 식은 다음과 같은 식으로 변환 할 수 있을 것이다.
 
 $$
-x((x+\bar{y})(\bar{x}+y))
+A\bigoplus({B}\bigoplus{B})
 $$
 
-이를 전개하면
+XOR 연산에서는 같은 값을 연산하면 언제나 0이라는 값이 나온다.
+따라서 위의 식은 다음과 같이 계산 될 것이다.
+
 $$
-x(x\bar{x}+xy+\bar{x}\bar{y}+y\bar{y})
-\newline = x(0+xy+\bar{x}\bar{y}+0)
-\newline = x(xy+\bar{x}\bar{y})
-\newline = xxy+x\bar{x}y
-\newline = xy+0
-\newline = xy
+A\bigoplus{0}
 $$
 
-따라서 x로 XOR연산을 한 값은
+또한 하나의 값과 0을 XOR 하면 언제나 A 값이 결과가 된다.
+따라서 위의 식을 정리하면 다음과 같다.
+
 $$
-\bar{x}y+xy
-$$
-마지막으로 이를 y로 묶어주면
-$$
-(\bar{x}+x)y = y
+A\bigoplus({B}\bigoplus{B})
+= A\bigoplus{0}
+= A
 $$
 
-y의 값이 XOR연산이 적용 되기 전의 원본 값이었으므로 x값으로 XOR연산 된 값을 같은 값으로 연산하면 XOR연산을 하지 않은 원본의 값이 나온다는 사실을 알 수있다.
+A의 값이 XOR연산을 진행 하기 전의 원본 값이므로 같은 값으로 두 번 연산하면 원본 값이 결과가 된다는 것을 알 수 있다.
 	
 이제 해당 쿼리별 연산을 처리하는 코드를 구현하면 문제를 해결 할 수 있다.
 
