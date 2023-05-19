@@ -57,6 +57,8 @@ Docker는 상당히 많은 명령어와 옵션들을 가지고 있지만 이번 
 3. 네트워크 관리 명령어
 4. 데이터 관리 명령어
 
+---
+
 ## 이미지 관리 명령어
 
 이미지 관리 명령어는 로컬 시스템에 존재하는 이미지를 확인하고 Docker Hub에서 이미지를 다운로드 혹은 삭제를 하기 위해 사용되는 명령어입니다.
@@ -68,11 +70,13 @@ Docker는 상당히 많은 명령어와 옵션들을 가지고 있지만 이번 
 | docker pull <이미지> | Docker Hub에서 이미지 다운로드 | |
 | docker rmi <이미지> | 로컬 시스템에 존재하는 이미지 제거 | |
 
+---
+
 ## 컨테이너 관리 명령어
 
 컨테이너 관리 명령어는 이미지를 이용해 컨테이너를 생성, 실행 하고 컨테이너에 명령을 실행시키거나 중지, 삭제 등의 작업을 수행하기 위한 명령어입니다.
 
-#### &nbsp; &nbsp; 1. docker run <옵션> <이미지> <명령>
+### &nbsp; &nbsp; 1. docker run <옵션> <이미지> <명령>
 
 해당 명령어는 지정한 이미지를 이용해 컨테이너를 생성하고 실행하는 명령어입니다.
 
@@ -125,7 +129,7 @@ Docker는 상당히 많은 명령어와 옵션들을 가지고 있지만 이번 
 </tbody>
 </table>
 
-#### &nbsp; &nbsp; 2. docker ps
+### &nbsp; &nbsp; 2. docker ps
 
 해당 명령어는 컨테이너들의 목록과 ID를 확인하는 명령입니다.
 
@@ -150,30 +154,31 @@ Docker는 상당히 많은 명령어와 옵션들을 가지고 있지만 이번 
 </tbody>
 </table>
 
-#### &nbsp; &nbsp; 3. docker stop/start/restart <컨테이너>
+### &nbsp; &nbsp; 3. docker stop/start/restart <컨테이너>
 
 각각 컨테이너를 중지/시작/재시작 시키는 명령입니다.
 
 docker run 실행 시 --name 옵션을 통해 컨테이너의 이름을 정해 준 경우에는 이름으로 명령을 수행 할 수 있지만, 그렇지 않은 경우에는 docker ps 명령을 통해 출력된 컨테이너 ID를 통해 명령을 수행해야 합니다.
 
-#### &nbsp; &nbsp; 4. docker rm <컨테이너>
+### &nbsp; &nbsp; 4. docker rm <컨테이너>
 
 컨테이너를 제거하는 명령입니다.
 
 해당 명령을 통해서 컨테이너를 제거하기 위해서는 먼저 docker stop 명령을 통해 컨테이너를 중지 시켜야 합니다.
 
-#### &nbsp; &nbsp; 5. docker attach <컨테이너>
+### &nbsp; &nbsp; 5. docker attach <컨테이너>
 
 실행 중인 컨테이너에 접근한다.
 
 실행 중인 환경이 Foreground로 뜨게 된다.
 
-#### &nbsp; &nbsp; 6. docker exec -it <컨테이너> <명령>
+### &nbsp; &nbsp; 6. docker exec -it <컨테이너> <명령>
 
 실행 중인 컨테이너에 새로운 명령을 내린다.
 
 <명령> 부분에 /bin/bash 등의 Shell 환경을 실행해 컨테이너의 Shell을 띄울 수 있습니다.
 
+---
 
 ## 네트워크 관리 명령어
 
@@ -187,6 +192,8 @@ Docker는 외부와 컨테이너의 네트워크 연결을 제공하기 위한 �
 | docker network connect <네트워크> <컨테이너> | 컨테이너를 지정한 네트워크에 연결 |
 | docker network disconnect <네트워크> <컨테이너> | 컨테이너와 지정한 네트워크의 연결 해제 |
 
+---
+
 ## 데이터 관리 명령어
 
 Docker에서는 컨테이너와 무관하게 데이터를 유지 하기 위해 볼륨(Volume)을 사용합니다.
@@ -199,6 +206,8 @@ Docker에서는 컨테이너와 무관하게 데이터를 유지 하기 위해 �
 | docker volume create <볼륨> | 새로운 볼륨 생성 |
 | docker volume ls | 현재 시스템에 존재하는 볼륨 목록 확인 |
 | docker volume rm <볼륨> | 지정한 볼륨 삭제 |
+
+---
 
 ## NGINX 서버 띄워보기
 
