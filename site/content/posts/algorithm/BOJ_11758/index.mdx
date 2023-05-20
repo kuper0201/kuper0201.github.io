@@ -81,7 +81,21 @@ $$
 
 $\overrightarrow{AB}$, $\overrightarrow{AC}$ 벡터는 XY축 기준으로 표현 되었기 때문에 결과 벡터의 Z축의 부호에 따라 방향이 결정된다.
 
-따라서 유도된 결과 벡터의 공식을 이용해 CCW 알고리즘을 구현하면 문제를 풀어낼 수 있다.
+따라서 CCW를 구현하기 위한 공식은 다음과 같다.
+
+$$
+(Bx - Ax)(Cy - Ay) - (Cy - Ay)(Bx - Ax)
+$$
+
+유도된 공식을 이용해 CCW를 구현하면 문제를 풀어낼 수 있다.
+
+하지만 좌표의 최대값이 10,000이므로 해당 식을 계산하는 도중 int값을 초과하는 경우가 발생한다.
+
+유도된 공식을 아래와 같이 전개하고 나눠서 계산하면 int값을 초과하는 문제를 해결 할 수 있다.
+
+$$
+Ax \times By + Bx \times Cy + Cx \times Ay - (Ay \times Bx + By times Cx + Cy \times Ax)
+$$
 
 <details markdown="1">
 <summary>코드 보기(Java)</summary>
