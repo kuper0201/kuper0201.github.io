@@ -33,7 +33,7 @@ P1, P2, P3의 좌표는 서로 다르다.
 
 CCW(Counter Clock Wise) 알고리즘은 평면상에 존재하는 세 점의 방향성 판별 알고리즘으로 A, B, C 순으로 점을 이었을 때 <span style="color: red;">반시계</span> 방향이면 <span style="color: red;">양수</span>, <span style="color: green;">하나의 직선</span> 상에 존재하면 <span style="color: green;">0</span>, <span style="color: blue;">시계 방향</span>이면 <span style="color: blue;">음수</span>값을 반환한다.
 
-![CCW 알고리즘 이미지]()
+![CCW 알고리즘 이미지](./images/ccw_image.png)
 
 두 벡터 U, V를 외적하면 결과 벡터는 아래의 이미지와 같이 U, V벡터가 이루는 평행사변형에 수직한 방향으로 나온다.
 
@@ -78,7 +78,7 @@ $$
 위의 공식으로 $\overrightarrow{AB}$, $\overrightarrow{AC}$ 벡터를 외적하면 다음과 같은 결과 벡터를 얻을 수 있다.
 
 $$
-AB \times AC = (0, 0, (Bx - Ax)(Cy - Ay) - (Cy - Ay)(Bx - Ax))
+\overrightarrow{AB} \times \overrightarrow{AC} = (0, 0, (Bx - Ax)(Cy - Ay) - (Cy - Ay)(Bx - Ax))
 $$
 
 $\overrightarrow{AB}$, $\overrightarrow{AC}$ 벡터는 XY축 기준으로 표현 되었기 때문에 결과 벡터의 Z축의 부호에 따라 방향이 결정된다.
