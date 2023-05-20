@@ -36,11 +36,11 @@ CCW(Counter Clock Wise) 알고리즘은 평면상에 존재하는 세 점의 방
 ![CCW 알고리즘 이미지]()
 
 두 벡터 U, V를 외적하면 결과 벡터는 아래의 이미지와 같이 U, V벡터가 이루는 평행사변형에 수직한 방향으로 나온다.
-이때 두 벡터 사이의 각도 θ에 따라 결과 벡터의 방향의 부호가 결정되게 된다.
+이때 두 벡터 사이의 각도 $\theta$에 따라 결과 벡터의 방향의 부호가 결정되게 된다.
 
- 0 < θ < 180 일때 결과 벡터는 양의 방향을 가진다.
- 180 < θ < 360 일때 결과 벡터는 음의 방향을 가진다.
- θ = 0 or θ = 180 일때 결과 벡터는 0이 된다.
+ 0 < $\theta$ < 180 일때 결과 벡터는 양의 방향을 가진다.
+ 180 < $\theta$ < 360 일때 결과 벡터는 음의 방향을 가진다.
+ $\theta$ = 0 or $\theta$ = 180 일때 결과 벡터는 0이 된다.
  
  CCW 알고리즘은 이러한 외적의 원리를 이용해 세 점의 방향성을 판별한다.
  
@@ -58,23 +58,25 @@ CCW(Counter Clock Wise) 알고리즘은 평면상에 존재하는 세 점의 방
 각 벡터를 구하기 위한 공식은 다음과 같다.(평면을 3차원으로 만들기 위해 Z축은 0으로 설정한다.)
 
 $$
-\overrightarrow{AB} = (Bx - Ax, By - Ay, 0)
+\overrightarrow{AB} = (Bx - Ax, By - Ay, 0)\newline
 \overrightarrow{AC} = (Cx - Ax, Cy - Ay, 0)
 $$
 
-$ \overrightarrow{AB} $, $ \overrightarrow{AB} $ 벡터를 구했으므로 두 벡터를 외적해 보겠다.
+$\overrightarrow{AB}$, $\overrightarrow{AB}$ 벡터를 구했으므로 두 벡터를 외적해 보겠다.
 두 벡터를 외적하기 위한 공식은 다음과 같다.
 
 $$
-U = (Ux, Uy, Uz), V = (Vx, Vy, Vz)
-U X V = (UyVz - UzVy, UzVx - UxVz, UxVy - UyVx)
+U = (Ux, Uy, Uz), V = (Vx, Vy, Vz)\newline
+U \times V = (UyVz - UzVy, UzVx - UxVz, UxVy - UyVx)
 $$
 
-위의 공식으로 AB, AC 벡터를 외적하면 다음과 같은 결과 벡터를 얻을 수 있다.
+위의 공식으로 $\overrightarrow{AB}$, $\overrightarrow{AC}$ 벡터를 외적하면 다음과 같은 결과 벡터를 얻을 수 있다.
 
-AB X AC = (0, 0, (Bx - Ax)(Cy - Ay) - (Cy - Ay)(Bx - Ax))
+$$
+AB \times AC = (0, 0, (Bx - Ax)(Cy - Ay) - (Cy - Ay)(Bx - Ax))
+$$
 
-$ \overrightarrow{AB} $, $ \overrightarrow{AC} $ 벡터는 XY축 기준으로 표현 되었기 때문에 결과 벡터의 Z축의 부호에 따라 방향이 결정된다.
+$\overrightarrow{AB}$, $\overrightarrow{AC}$ 벡터는 XY축 기준으로 표현 되었기 때문에 결과 벡터의 Z축의 부호에 따라 방향이 결정된다.
 
 따라서 결과 벡터의 Z축 공식을 이용해 CCW 알고리즘을 구현하면 문제를 풀어낼 수 있다.
 
