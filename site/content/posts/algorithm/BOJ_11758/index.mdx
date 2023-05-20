@@ -31,9 +31,7 @@ P1, P2, P3의 좌표는 서로 다르다.
 
 해당 문제는 제목부터 CCW로, CCW 알고리즘 구현을 요구하는 문제이다.
 
-CCW(Counter Clock Wise) 알고리즘은 평면상에 존재하는 세 점의 방향성 판별 알고리즘으로 A, B, C 순으로 점을 이었을 때 <span style="color: red;">반시계</span> 방향이면 <span style="color: red;">양수</span>,
-<span style="color: green;">하나의 직선</span> 상에 존재하면 <span style="color: green;">0</span>,
-<span style="color: blue;">시계 방향</span>이면 <span style="color: blue;">음수</span>값을 반환한다.
+CCW(Counter Clock Wise) 알고리즘은 평면상에 존재하는 세 점의 방향성 판별 알고리즘으로 A, B, C 순으로 점을 이었을 때 <span style="color: red;">반시계</span> 방향이면 <span style="color: red;">양수</span>, <span style="color: green;">하나의 직선</span> 상에 존재하면 <span style="color: green;">0</span>, <span style="color: blue;">시계 방향</span>이면 <span style="color: blue;">음수</span>값을 반환한다.
 
 ![CCW 알고리즘 이미지]()
 
@@ -59,13 +57,18 @@ CCW(Counter Clock Wise) 알고리즘은 평면상에 존재하는 세 점의 방
 벡터를 외적하기 위해서는 먼저 A, B, C점으로부터 AB, AC의 벡터를 구해야 한다.
 각 벡터를 구하기 위한 공식은 다음과 같다.(평면을 3차원으로 만들기 위해 Z축은 0으로 설정한다.)
 
-AB = (Bx - Ax, By - Ay, 0)
-AC = (Cx - Ax, Cy - Ay, 0)
+$$
+\overrightarrow{AB} = (Bx - Ax, By - Ay, 0)
+\overrightarrow{AC} = (Cx - Ax, Cy - Ay, 0)
+$$
 
-AB, AC 벡터를 구했으므로 두 벡터를 외적해 보겠다.
+$ \overrightarrow{AB} $, $ \overrightarrow{AB} $ 벡터를 구했으므로 두 벡터를 외적해 보겠다.
 두 벡터를 외적하기 위한 공식은 다음과 같다.
+
+$$
 U = (Ux, Uy, Uz), V = (Vx, Vy, Vz)
 U X V = (UyVz - UzVy, UzVx - UxVz, UxVy - UyVx)
+$$
 
 위의 공식으로 AB, AC 벡터를 외적하면 다음과 같은 결과 벡터를 얻을 수 있다.
 
