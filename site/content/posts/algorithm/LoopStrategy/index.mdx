@@ -71,9 +71,11 @@ Loop가 성립하면 한 바퀴를 돌아 제자리로 돌아 올 수 있다는 
 
 따라서 처음에 자신의 번호와 같은 번호의 상자를 고르고 루프를 계속 따라가다 보면 결국에는 자신의 번호를 찾을 수 있다.
 
-하지만 루프의 크기가 50보다 클 경우에는 제한 횟수만큼 상자를 열어봐도 루프를 전부 확인하지 못하고 끝나버릴 것이다.
+문제는 루프의 크기가 50보다 클 경우이다.
 
-루프가 생성되는 전체 경우의 수 중 50보다 큰 루프의 크기를 가지지 않을 확률이 약 31%라고 한다. (자세한 계산은 영상에 잘 성명되어 있다)
+시작점이 자신의 번호이므로 항상 루프의 마지막에서 자신의 번호를 찾을 수 있기 때문에 루프의 크기가 50보다 큰 경우에는 전체 루프를 확인하지 못하고 끝나버릴 것이다.
+
+루프가 생성되는 전체 경우의 수 중 50보다 큰 루프의 크기를 가지지 않을 확률이 약 31%라고 한다. (자세한 계산은 영상에 잘 설명되어 있다)
 
 그렇기 때문에 죄수들이 살아남을 수 있는 확률은 약 31%가 된다.
 
@@ -96,9 +98,9 @@ Loop가 성립하면 한 바퀴를 돌아 제자리로 돌아 올 수 있다는 
 import java.util.*;
 
 public class Main {
-    static final int prisoner = 100; // 죄수의 인원
-    static final int limit = prisoner / 2; // 상자를 열어 볼 수 있는 제한
-    static final int trials = 100000; // 시행 횟수
+    static final int PRISONER = 100; // 죄수의 인원
+    static final int LIMIT = PRISONER / 2; // 상자를 열어 볼 수 있는 제한
+    static final int TRIALS = 100000; // 시행 횟수
     static ArrayList<Integer> box = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -113,11 +115,11 @@ public class Main {
         boolean isFind; // 한 명의 죄수가 번호를 찾았는지 저장
 
         // 시행 횟수만큼 반복
-        newtrial : for(int t = 0; t < trials; t++) {
+        newtrial : for(int t = 0; t < TRIALS; t++) {
             initBox();
 
             // i번째 죄수가 상자를 열어 봄
-            for (int i = 0; i < prisoner; i++) {
+            for (int i = 0; i < PRISONER; i++) {
                 // flag : true - 루프전략 / false - 랜덤전략
                 if(flag) isFind = loopStrategy(i);
                 else isFind = randomStrategy(i);
@@ -130,8 +132,8 @@ public class Main {
             success++;
         }
 
-        if(flag) System.out.println(String.format("루프 전략 (성공 / 시행 횟수) : %d / %d", success, trials));
-        else System.out.println(String.format("랜덤 전략 (성공 / 시행 횟수) : %d / %d", success, trials));
+        if(flag) System.out.println(String.format("루프 전략 (성공 / 시행 횟수) : %d / %d", success, TRIALS));
+        else System.out.println(String.format("랜덤 전략 (성공 / 시행 횟수) : %d / %d", success, TRIALS));
     }
 
     // 랜덤 전략 함수
@@ -140,12 +142,12 @@ public class Main {
         HashSet<Integer> visit = new HashSet<>();
 
         // 제한 횟수만큼 상자를 열어봄
-        for(int i = 0; i < limit; i++) {
+        for(int i = 0; i < LIMIT; i++) {
             int boxNum = -1; // 열어볼 상자 번호
 
             // 이미 열어 본 상자라면 다른 상자 선택
             do {
-                boxNum = (int)(Math.random() * prisoner);
+                boxNum = (int)(Math.random() * PRISONER);
             } while(visit.contains(boxNum));
             visit.add(boxNum); // 열어본 상자 목록에 추가
 
@@ -163,7 +165,7 @@ public class Main {
         int next = number;
 
         // 제한 횟수만큼 상자 열어봄
-        for(int i = 0; i < limit; i++) {
+        for(int i = 0; i < LIMIT; i++) {
             if(number == box.get(next)) return true; // 자기 번호 찾은 경우 true
             next = box.get(next); // 상자에 있던 번호가 다음에 열어볼 상자가 됨
         }
@@ -175,7 +177,7 @@ public class Main {
     // 상자 초기화 함수
     static void initBox() {
         box.clear(); // 상자 비우기
-        for(int i = 0; i < prisoner; i++) box.add(i); // 상자에 번호 넣기
+        for(int i = 0; i < PRISONER; i++) box.add(i); // 상자에 번호 넣기
         Collections.shuffle(box); // 상자 무작위로 섞기
     }
 }
