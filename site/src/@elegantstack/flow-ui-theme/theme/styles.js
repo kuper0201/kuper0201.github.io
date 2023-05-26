@@ -70,7 +70,7 @@ export default {
   },
   ol: {
     mb: 4,
-    "margin-left": '1.5rem';
+    "margin-left": '1.5rem'
   },
   ul: {
     mb: 4
