@@ -23,6 +23,8 @@ Dockerfile은 사용자가 직접 이미지를 제작할 수 있도록 Docker에
 문법에 맞게 Dockerfile을 작성하고 빌드하면 Docker에서 사용할 수 있는 이미지가 생성됩니다.
 이제 Dockerfile을 작성하기 위한 문법을 살펴보겠습니다.
 
+---
+
 ## Dockerfile 문법
 
 먼저 Dockerfile이라는 이름의 빈 파일을 생성합니다.
@@ -169,6 +171,8 @@ docker run -p 8080:8080 <이미지명>:<태그>
 
 docker run의 자세한 사항은 이전 글에 정리해 두었습니다.
 
+---
+
 ## Dockerfile 작성 예시
 
 위에서 소개한 명령어를 활용하여 ubuntu 이미지를 베이스로 한 NGINX 컨테이너를 제작해 보겠습니다.
@@ -197,6 +201,8 @@ EXPOSE 80
 3. COPY 명령어를 통해 호스트의 index.html 파일을 컨테이너의 /var/www/html/index.html 경로로 복사
 4. CMD 명령어를 통해 컨테이너 실행 시 NGINX를 시작
 5. EXPOSE 명령어를 통해 80 포트 개방
+
+---
 
 ## Docker 이미지 빌드
 
@@ -232,6 +238,8 @@ docker run 명령을 이용해 포트를 매핑하고 이미지를 실행했습�
 
 ![index.html 화면](./images/index_screen.png)
 
+---
+
 ## Docker Hub에 업로드
 
 Docker 이미지 빌드가 성공적으로 완료되었다면 아래 명령어를 사용하여 이미지를 Docker Hub에 업로드합니다. <이미지명>과 <태그>는 빌드한 이미지의 이름과 버전으로 대체해야 합니다.
@@ -242,6 +250,8 @@ docker push <이미지명>:<태그>
 
 이제 빌드한 이미지가 Docker Hub에 업로드되었습니다.
 업로드된 이미지는 다른 유저들과 공유하거나 다른 환경에서 다운로드하여 사용할 수 있습니다.
+
+---
 
 ## 결론
 
