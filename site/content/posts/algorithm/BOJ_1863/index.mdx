@@ -1,0 +1,274 @@
+---
+title: "BOJ 1863 스카이라인 쉬운거"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2021-05-21
+slug: boj1863
+thumbnail: cover.jpg
+---
+
+## 문제
+
+### <a href="https://boj.kr/1863" target="_blank">BOJ 1863 스카이라인 쉬운거 바로 가기</a>
+
+도시에서 태양이 질 때에 보이는 건물들의 윤곽을 스카이라인이라고 한다. 스카이라인만을 보고서 도시에 세워진 건물이 몇 채인지 알아 낼 수 있을까? 건물은 모두 직사각형 모양으로 밋밋하게 생겼다고 가정한다.
+
+정확히 건물이 몇 개 있는지 알아내는 것은 대부분의 경우에 불가능하고, 건물이 최소한 몇 채 인지 알아내는 것은 가능해 보인다. 이를 알아내는 프로그램을 작성해 보자.
+
+---
+
+## 입력
+
+첫째 줄에 n이 주어진다. (1 ≤ n ≤ 50,000) 다음 n개의 줄에는 왼쪽부터 스카이라인을 보아 갈 때 스카이라인의 고도가 바뀌는 지점의 좌표 x와 y가 주어진다.<br/>
+(1 ≤ x ≤ 1,000,000. 0 ≤ y ≤ 500,000) 첫 번째 지점의 x좌표는 항상 1이다.
+
+---
+
+## 풀이
+
+건물의 고도가 바뀌는 좌표가 주어졌을 때 해당 스카이라인을 형성할 수 있는 건물 개수의 하한을 찾는 문제이다.
+
+해당 문제에서 2가지의 조건을 이용해 문제를 해결 할 수 있다.
+
+먼저 문제에서 건물은 모두 직사각형 모양으로 밋밋하게 생겼다고 하였으므로 높이가 다를 경우에는 다른 건물이라는 첫 번째 조건을 추론할 수 있다.
+
+두 번째 조건을 추론하기 위해 예를 들어 다음과 같은 스카이라인이 존재한다고 가정하면
+
+```bash
+...........
+...XXXXX...
+...XXXXX...
+...XXXXX...
+```
+
+아래와 같은 구성으로 5채의 건물이 존재 할 수 있다.
+
+```bash
+...........
+...12345...
+...12345...
+...12345...
+```
+
+구성은 매번 달라질 수 있으므로 정확히 몇 채의 건물이 존재하는지 알아내는 것은 불가능하다.
+
+하지만 해당 스카이라인이 5층의 높이를 가진 하나의 건물이라 가정하면 건물 개수의 하한은 1채가 된다.
+
+따라서 높이가 같은 인접 건물은 하나의 건물로 취급하면 된다는 두 번째 조건이 도출된다.
+
+도출된 두 가지의 조건을 만족하는 코드를 구현하기 위해서는 스택을 이용해 고도의 변화가 생길 때 마다 새로운 건물인지 이미 스택에 존재하는 건물인지 판별하면 된다.
+
+스택을 이용해 위의 조건을 만족하는 로직을 생각해 보면 다음과 같다.
+
+스택의 마지막에 존재하는 고도를 peek, 새로 추가하려는 고도를 nextY라 하였을 때
+
+1. X좌표가 증가하는 순으로 nextY를 스택에 추가한다.
+2. (nextY < peek)을 만족하는 동안 스택에서 제거하고 건물의 개수를 증가시킨다.
+3. nextY == 0이면 모든 건물이 끝났으므로 스택을 비워준다.
+4. nextY != 0이고 스택이 비었거나 (nextY > peek)을 만족하는 경우 스택에 추가한다.
+5. 끝점이 입력에 명시되지 않는 경우가 존재하므로 (건물 개수 + 스택에 남은 개수)를 출력한다.
+
+해당 로직을 코드로 구현하면 문제를 해결 할 수 있다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Stack<Integer> stk = new Stack<>();
+
+        // 고도 변화 지점의 개수 입력
+        int N = Integer.parseInt(br.readLine());
+
+        int tower = 0; // 건물 개수 저장할 변수
+        for (int i = 0; i < N; i++) {
+            String[] s = br.readLine().split(" ");
+            int nextY = Integer.parseInt(s[1]); // 스택에 추가할 고도 입력
+
+            // 건물의 끝점인 경우 pop 및 개수 증가
+            while(!stk.isEmpty() && stk.peek() > nextY) {
+                stk.pop();
+                tower++;
+            }
+
+            if(nextY == 0) stk.clear(); // 고도가 0이면 건물 남은 건물 없음
+            else if(stk.isEmpty() || stk.peek() < nextY) stk.push(nextY); // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
+        }
+        
+        // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
+        System.out.println(tower + stk.size());
+    }
+}
+
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <stack>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+    
+    stack<int> stk;
+
+    // 고도 변화 지점의 개수 입력
+    int N;
+    cin >> N;
+
+    int tower = 0; // 건물 개수 저장할 변수
+    for (int i = 0; i < N; i++) {
+        int nextX, nextY;
+        cin >> nextX >> nextY; // 스택에 추가할 고도 입력
+        
+        // 건물의 끝점인 경우 pop 및 개수 증가
+        while(!stk.empty() && stk.top() > nextY) {
+            stk.pop();
+            tower++;
+        }
+
+        if(nextY == 0) {
+            // 고도가 0이면 건물 남은 건물 없음
+            while(!stk.empty()) stk.pop();
+        } else if(stk.empty() || stk.top() < nextY){
+            // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
+            stk.push(nextY);
+        }
+    }
+    
+    // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
+    cout << tower + stk.size() << endl;
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+import java.util.*;
+
+fun main(args: Array<String>) {
+    var stk = Stack<Int>()
+
+    // 고도 변화 지점의 개수 입력
+    var N = readLine()!!.toInt()
+    
+    var tower = 0  // 건물 개수 저장할 변수
+    for (i in 0 until N) {
+        var info = readLine()!!.split(" ")
+        var nextY = info[1].toInt() // 스택에 추가할 고도 입력
+
+        // 건물의 끝점일 경우 pop 및 개수 증가
+        while (stk.isNotEmpty() && stk.peek() > nextY) {
+            stk.pop()
+            tower += 1
+        }
+
+        if (nextY == 0) {
+            // 고도가 0이면 남은 건물 없음
+            stk.clear()
+        } else if (stk.isEmpty() || stk.peek() < nextY) {
+            // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
+            stk.push(nextY)
+        }
+    }
+    
+    // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
+    print(tower + stk.size)
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    stk = []
+
+    # 고도 변화 지점의 개수 입력
+    N = int(stdin.readline())
+    
+    tower = 0  # 건물 개수 저장할 변수
+    for i in range(N):
+        info = stdin.readline().split(' ')
+        nextY = int(info[1]) # 스택에 추가할 고도 입력
+
+        # 건물의 끝점일 경우 pop 및 개수 증가
+        while stk and stk[-1] > nextY:
+            stk.pop()
+            tower += 1
+
+        if nextY == 0:
+            # 고도가 0이면 남은 건물 없음
+            stk.clear()
+        elif not stk or stk[-1] < nextY:
+            # nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
+            stk.append(nextY)
+
+    # 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
+    print(tower + len(stk))
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    var stk = Array<Int>()
+
+    // 고도 변화 지점의 개수 입력
+    var N = Int(readLine()!)!
+    
+    var tower = 0  // 건물 개수 저장할 변수
+    for i in 0..<N {
+        var info = readLine()!.split(separator: " ")
+        var nextY = Int(info[1])! // 스택에 추가할 고도 입력
+
+        // 건물의 끝점일 경우 pop 및 개수 증가
+        while !stk.isEmpty && stk.last! > nextY {
+            stk.popLast()
+            tower += 1
+        }
+
+        if nextY == 0 {
+            // 고도가 0이면 남은 건물 없음
+            stk.removeAll()
+        } else if stk.isEmpty || stk.last! < nextY {
+            // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
+            stk.append(nextY)
+        }
+    }
+    
+    // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
+    print(tower + stk.count)
+}
+
+main()
+```
+</details>
