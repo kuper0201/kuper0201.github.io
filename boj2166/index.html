@@ -53,30 +53,30 @@
 좌표값은 절댓값이 100,000을 넘지 않는 정수이다.<!-- --></p><hr class="css-omlif5"/><h2 id="풀이" style="position:relative" class="css-1ophxj7"><a href="#풀이" class="css-3n7dj1"><a href="#%ED%92%80%EC%9D%B4" aria-label="풀이 permalink" class="anchor before css-16rz9cl"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>풀이<!-- --><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path></svg></a></h2><p class="css-1r6yuhw">본 문제는 CCW를 응용하여 해결할 수 있다.<!-- --><br/>
 따라서 CCW에 대한 개념 학습이 선행되어야 한다.<!-- --><br/>
 CCW에 대한 내용은 <!-- --><a href="https://jeong-jun.su/boj11758" class="css-16rz9cl">BOJ 11758 CCW</a>에 정리해 두었다.<!-- --></p><p class="css-1r6yuhw">다각형은 아래의 그림과 같이 여러개의 삼각형으로 나눌 수 있다.</p><p class="css-1r6yuhw"><style data-emotion-css="190buoc">.css-190buoc{box-shadow:1px 1px 5px 0 rgba(1,1,1,.15);overflow:hidden;background-color:var(--theme-ui-colors-contentBg,#2d3748);border-radius:0.5rem;margin:0;}</style><style data-emotion-css="cm98ls">.css-cm98ls{box-shadow:1px 1px 5px 0 rgba(1,1,1,.15);overflow:hidden;background-color:var(--theme-ui-colors-contentBg,#2d3748);border-radius:0.5rem;margin:0;box-shadow:1px 1px 5px 0 rgba(1,1,1,.15);overflow:hidden;background-color:var(--theme-ui-colors-contentBg,#2d3748);border-radius:0.5rem;margin:0;}</style><figure class="gatsby-resp-image-figure css-cm98ls">
-    <!-- --><span class="gatsby-resp-image-wrapper" style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:191px">
-      <!-- --><a class="gatsby-resp-image-link css-16rz9cl" href="/static/5856e95bd0924578467a1b956aacc606/0824c/poly_triangle.jpg" style="display:block" target="_blank" rel="noopener">
-    <!-- --><span class="gatsby-resp-image-background-image" style="padding-bottom:100.61349693251533%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAEEBf/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAB5ZNYqK0QgD//xAAYEAADAQEAAAAAAAAAAAAAAAAAARIQEf/aAAgBAQABBQLOD2UQiEf/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AR//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAUEAEAAAAAAAAAAAAAAAAAAAAw/9oACAEBAAY/Ah//xAAaEAADAAMBAAAAAAAAAAAAAAAAARExQWEQ/9oACAEBAAE/IdtjdyKseqO2zozsz//aAAwDAQACAAMAAAAQCM/D/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAwEBPxAf/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAgEBPxAf/8QAHxAAAwAABgMAAAAAAAAAAAAAAAERITFBUXHRYbHx/9oACAEBAAE/EGknN3EUOKyOsp5MC5b9kruS3HkmhUxaPWdDZLg8dH1Uf//Z&#x27;);background-size:cover;display:block"></span>
-  <!-- --><style data-emotion-css="1nh7vc8">.css-1nh7vc8{padding:0;margin:0;margin-bottom:1rem;max-width:100%;padding:0;margin:0;margin-bottom:1rem;max-width:100%;}</style><img class="gatsby-resp-image-image css-1nh7vc8" alt="나눠진 다각형" title="나눠진 다각형" src="/static/5856e95bd0924578467a1b956aacc606/0824c/poly_triangle.jpg" srcSet="/static/5856e95bd0924578467a1b956aacc606/d2f63/poly_triangle.jpg 163w,/static/5856e95bd0924578467a1b956aacc606/0824c/poly_triangle.jpg 191w" sizes="(max-width: 191px) 100vw, 191px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0" loading="lazy" decoding="async"/>
+    <!-- --><span class="gatsby-resp-image-wrapper" style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:382px">
+      <!-- --><a class="gatsby-resp-image-link css-16rz9cl" href="/static/8778db2bb71dbd0c66c5a174ae8e970e/77eb6/poly_triangle.jpg" style="display:block" target="_blank" rel="noopener">
+    <!-- --><span class="gatsby-resp-image-background-image" style="padding-bottom:100%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAIB/9oADAMBAAIQAxAAAAHLJUBpAA//xAAWEAADAAAAAAAAAAAAAAAAAAABECD/2gAIAQEAAQUCZr//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AR//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAUEAEAAAAAAAAAAAAAAAAAAAAw/9oACAEBAAY/Ah//xAAbEAACAgMBAAAAAAAAAAAAAAAAAREhEEFRYf/aAAgBAQABPyHbsbkvuGx+Ddkzj//aAAwDAQACAAMAAAAQzwdA/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAwEBPxAf/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAgEBPxAf/8QAHxABAAIABgMAAAAAAAAAAAAAAQARITFBUWFxEJGx/9oACAEBAAE/ELblVbrnFTajwzik7mA7X7KXB72iy0Eewg0uZzFDY2PH/9k=&#x27;);background-size:cover;display:block"></span>
+  <!-- --><style data-emotion-css="1nh7vc8">.css-1nh7vc8{padding:0;margin:0;margin-bottom:1rem;max-width:100%;padding:0;margin:0;margin-bottom:1rem;max-width:100%;}</style><img class="gatsby-resp-image-image css-1nh7vc8" alt="나눠진 다각형" title="나눠진 다각형" src="/static/8778db2bb71dbd0c66c5a174ae8e970e/77eb6/poly_triangle.jpg" srcSet="/static/8778db2bb71dbd0c66c5a174ae8e970e/d2f63/poly_triangle.jpg 163w,/static/8778db2bb71dbd0c66c5a174ae8e970e/c989d/poly_triangle.jpg 325w,/static/8778db2bb71dbd0c66c5a174ae8e970e/77eb6/poly_triangle.jpg 382w" sizes="(max-width: 382px) 100vw, 382px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0" loading="lazy" decoding="async"/>
   <!-- --></a>
     <!-- --></span>
     <!-- --><style data-emotion-css="16wbd3m">.css-16wbd3m{text-align:center;font-style:italic;font-size:0.875rem;margin:1rem;}</style><style data-emotion-css="13jeo2h">.css-13jeo2h{text-align:center;font-style:italic;font-size:0.875rem;margin:1rem;text-align:center;font-style:italic;font-size:0.875rem;margin:1rem;}</style><figcaption class="gatsby-resp-image-figcaption css-13jeo2h">나눠진 다각형</figcaption>
-  <!-- --></figure></p><p class="css-1r6yuhw">그림을 통해 나눠진 삼각형 면적의 합은 다각형의 면적과 같다는 사실을 알 수 있다.</p><p class="css-1r6yuhw">CCW에 대해 설명한 글에서 벡터에 외적을 하면 두 벡터가 이루는 평행사변형의 면젹이 나온다고 하였으므로, 평행사변형의 면적을 2로 나누어 삼각형의 면적을 구할 수 있다.</p><p class="css-1r6yuhw">따라서 하나의 점을 기준으로 삼고, 서로 다른 두 점과 CCW 한 값의 절반을 누적하면 다각형의 면적을 구할 수 있다.</p><p class="css-1r6yuhw">이때 서로 다른 두 점을 인접한 두 점으로 선택해야 한다.</p><p class="css-1r6yuhw">아래 그림과 같이 인접하지 않은 두 점 A, B를 선택하면 삼각형이 형성되지 않을 수 있기 때문이다.</p><p class="css-1r6yuhw"><figure class="gatsby-resp-image-figure css-cm98ls">
-    <!-- --><span class="gatsby-resp-image-wrapper" style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:192px">
-      <!-- --><a class="gatsby-resp-image-link css-16rz9cl" href="/static/ce3a6393eeda0a569a176e7a3f7b0ea6/7809d/no_triangle.jpg" style="display:block" target="_blank" rel="noopener">
-    <!-- --><span class="gatsby-resp-image-background-image" style="padding-bottom:100%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAECAwX/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAgH/2gAMAwEAAhADEAAAAeWRUbgmobBv/8QAGhAAAwADAQAAAAAAAAAAAAAAAAECEBExEv/aAAgBAQABBQI2Rx4njlHkiVr/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AR//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAUEAEAAAAAAAAAAAAAAAAAAAAw/9oACAEBAAY/Ah//xAAbEAACAgMBAAAAAAAAAAAAAAAAEQEhEDFBUf/aAAgBAQABPyF3Nlhu+4QLoNC+ydSdn//aAAwDAQACAAMAAAAQjzf8/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAwEBPxAf/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAgEBPxAf/8QAHxABAAICAQUBAAAAAAAAAAAAAQAhETGxQVFhcYHR/9oACAEBAAE/EMsysZazuZWVHwy5Z9pT6vMDvQdY07b6+p3CjxF+CvyCfA7E/9k=&#x27;);background-size:cover;display:block"></span>
-  <!-- --><img class="gatsby-resp-image-image css-1nh7vc8" alt="삼각형 형성되지 않음" title="삼각형 형성되지 않음" src="/static/ce3a6393eeda0a569a176e7a3f7b0ea6/7809d/no_triangle.jpg" srcSet="/static/ce3a6393eeda0a569a176e7a3f7b0ea6/d2f63/no_triangle.jpg 163w,/static/ce3a6393eeda0a569a176e7a3f7b0ea6/7809d/no_triangle.jpg 192w" sizes="(max-width: 192px) 100vw, 192px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0" loading="lazy" decoding="async"/>
+  <!-- --></figure></p><p class="css-1r6yuhw">그림을 통해 나눠진 삼각형 면적의 합은 다각형의 면적과 같다는 사실을 알 수 있다.</p><p class="css-1r6yuhw">CCW에 대해 설명한 글에서 벡터에 외적을 하면 두 벡터가 이루는 평행사변형의 면젹이 나온다고 하였으므로, 평행사변형의 면적을 2로 나누어 삼각형의 면적을 구할 수 있다.</p><p class="css-1r6yuhw">따라서 하나의 점을 기준으로 삼고, 서로 다른 두 점과 CCW 한 값의 절반을 누적하면 다각형의 면적을 구할 수 있다.</p><p class="css-1r6yuhw">이때 서로 다른 두 점을 인접한 두 점으로 선택해야 한다.</p><p class="css-1r6yuhw">아래 그림과 같이 인접하지 않은 두 점 A, B를 선택하면 삼각형이 형성 되지 않을 수 있기 때문이다.</p><p class="css-1r6yuhw"><figure class="gatsby-resp-image-figure css-cm98ls">
+    <!-- --><span class="gatsby-resp-image-wrapper" style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:384px">
+      <!-- --><a class="gatsby-resp-image-link css-16rz9cl" href="/static/ccc4953ebe12c1f88c9e4baa2fe90e54/4ecad/no_triangle.jpg" style="display:block" target="_blank" rel="noopener">
+    <!-- --><span class="gatsby-resp-image-background-image" style="padding-bottom:100%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAEDBf/EABYBAQEBAAAAAAAAAAAAAAAAAAACAf/aAAwDAQACEAMQAAAB5ZKjdBYGwb//xAAZEAACAwEAAAAAAAAAAAAAAAAAAhASMSH/2gAIAQEAAQUChMhcqVEXn//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQMBAT8BH//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQIBAT8BH//EABQQAQAAAAAAAAAAAAAAAAAAADD/2gAIAQEABj8CH//EABsQAAMAAwEBAAAAAAAAAAAAAAABESExQVEQ/9oACAEBAAE/Ie7LSqz0fzyGpPrE1l7P/9oADAMBAAIAAwAAABCM+MD/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/EB//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/EB//xAAgEAEAAgEEAgMAAAAAAAAAAAABABEhMUFRcWGxgdHh/9oACAEBAAE/ELbqqtxesvkqPhjGY3y8Ex+V9wFzoG8QvKh36Jdq3HXPUX/H6g/UOCf/2Q==&#x27;);background-size:cover;display:block"></span>
+  <!-- --><img class="gatsby-resp-image-image css-1nh7vc8" alt="삼각형 형성되지 않음" title="삼각형 형성되지 않음" src="/static/ccc4953ebe12c1f88c9e4baa2fe90e54/4ecad/no_triangle.jpg" srcSet="/static/ccc4953ebe12c1f88c9e4baa2fe90e54/d2f63/no_triangle.jpg 163w,/static/ccc4953ebe12c1f88c9e4baa2fe90e54/c989d/no_triangle.jpg 325w,/static/ccc4953ebe12c1f88c9e4baa2fe90e54/4ecad/no_triangle.jpg 384w" sizes="(max-width: 384px) 100vw, 384px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0" loading="lazy" decoding="async"/>
   <!-- --></a>
     <!-- --></span>
     <!-- --><figcaption class="gatsby-resp-image-figcaption css-13jeo2h">삼각형 형성되지 않음</figcaption>
-  <!-- --></figure></p><p class="css-1r6yuhw">본 문제에서는 &quot;다각형을 이루는 순서대로&quot; 점의 좌표가 주어진다고 하였으므로 순차적으로 반복하면 인접한 점을 지날 수 있다.</p><p class="css-1r6yuhw">위의 예시를 보다보면 삼각형이 다각형 내부에 형성되지 않는 경우에도 해당 풀이가 성립하는지에 대한 의문이 생긴다.</p><p class="css-1r6yuhw">삼각형이 다각형 내부에 형성되지 않는 경우에 대한 예시 그림은 아래와 같다.</p><p class="css-1r6yuhw"><figure class="gatsby-resp-image-figure css-cm98ls">
-    <!-- --><span class="gatsby-resp-image-wrapper" style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:161px">
-      <!-- --><a class="gatsby-resp-image-link css-16rz9cl" href="/static/6f4169305a46ffb4e9d86f136ab03df0/70dce/no_triangle_in_poly.jpg" style="display:block" target="_blank" rel="noopener">
-    <!-- --><span class="gatsby-resp-image-background-image" style="padding-bottom:94.40993788819877%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAATABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAEDBf/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAB5iNYiK1EoH//xAAWEAEBAQAAAAAAAAAAAAAAAAAAESD/2gAIAQEAAQUC1ER//8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAwEBPwEf/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAgEBPwEf/8QAFBABAAAAAAAAAAAAAAAAAAAAMP/aAAgBAQAGPwIf/8QAHRAAAgIBBQAAAAAAAAAAAAAAAAERMRAhQVFxof/aAAgBAQABPyG51diu/SXyzdneGssgRP/aAAwDAQACAAMAAAAQjAiC/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAwEBPxAf/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAgEBPxAf/8QAIRABAAIBAQkAAAAAAAAAAAAAAQARMUEQIVFhkaGx0fH/2gAIAQEAAT8QyaacUWCm91Cn2JpmbfMCmwgY9bME1dZfkerOT3Z//9k=&#x27;);background-size:cover;display:block"></span>
-  <!-- --><img class="gatsby-resp-image-image css-1nh7vc8" alt="삼각형이 다각형 내부에 형성되지 않음" title="삼각형이 다각형 내부에 형성되지 않음" src="/static/6f4169305a46ffb4e9d86f136ab03df0/70dce/no_triangle_in_poly.jpg" srcSet="/static/6f4169305a46ffb4e9d86f136ab03df0/70dce/no_triangle_in_poly.jpg 161w" sizes="(max-width: 161px) 100vw, 161px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0" loading="lazy" decoding="async"/>
+  <!-- --></figure></p><p class="css-1r6yuhw">본 문제에서는 &quot;다각형을 이루는 순서대로&quot; 점의 좌표가 주어진다고 하였으므로 순차적으로 반복하면 인접한 점을 지날 수 있다.</p><p class="css-1r6yuhw">위의 예시를 보다보면 삼각형이 다각형 외부에 형성되는 경우에도 해당 풀이가 성립하는지에 대한 의문이 생긴다.</p><p class="css-1r6yuhw">삼각형이 다각형 외부에 형성 되는 경우에 대한 예시 그림은 아래와 같다.</p><p class="css-1r6yuhw"><figure class="gatsby-resp-image-figure css-cm98ls">
+    <!-- --><span class="gatsby-resp-image-wrapper" style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:387px">
+      <!-- --><a class="gatsby-resp-image-link css-16rz9cl" href="/static/eaeb64d3581de96e38b6a851654ad7f3/05733/no_triangle_in_poly.jpg" style="display:block" target="_blank" rel="noopener">
+    <!-- --><span class="gatsby-resp-image-background-image" style="padding-bottom:94.47852760736197%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAATABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAIB/9oADAMBAAIQAxAAAAHMRURGgAP/xAAUEAEAAAAAAAAAAAAAAAAAAAAw/9oACAEBAAEFAh//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AR//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAUEAEAAAAAAAAAAAAAAAAAAAAw/9oACAEBAAY/Ah//xAAcEAABBAMBAAAAAAAAAAAAAAABABEhMRBBUbH/2gAIAQEAAT8hsGS79QufU56VsoXODef/2gAMAwEAAgADAAAAEIwPAP/EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQMBAT8QH//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQIBAT8QH//EAB0QAQACAgIDAAAAAAAAAAAAAAEAESExEEFx8PH/2gAIAQEAAT8QstANrZIkFlFqrT7ENJ7mCg4B3xs8xVC1eP/Z&#x27;);background-size:cover;display:block"></span>
+  <!-- --><img class="gatsby-resp-image-image css-1nh7vc8" alt="삼각형이 다각형 외부에 형성됨" title="삼각형이 다각형 외부에 형성됨" src="/static/eaeb64d3581de96e38b6a851654ad7f3/05733/no_triangle_in_poly.jpg" srcSet="/static/eaeb64d3581de96e38b6a851654ad7f3/d2f63/no_triangle_in_poly.jpg 163w,/static/eaeb64d3581de96e38b6a851654ad7f3/c989d/no_triangle_in_poly.jpg 325w,/static/eaeb64d3581de96e38b6a851654ad7f3/05733/no_triangle_in_poly.jpg 387w" sizes="(max-width: 387px) 100vw, 387px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0" loading="lazy" decoding="async"/>
   <!-- --></a>
     <!-- --></span>
-    <!-- --><figcaption class="gatsby-resp-image-figcaption css-13jeo2h">삼각형이 다각형 내부에 형성되지 않음</figcaption>
-  <!-- --></figure></p><p class="css-1r6yuhw">이러한 경우에는 </p><details markdown="1"><summary>코드 보기(Java)</summary><style data-emotion-css="duxjoh">.css-duxjoh{padding:1rem;margin:0;margin-bottom:2rem;font-size:85%;color:#d6deeb;background-color:#011627;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;overflow:auto;border-radius:0.5rem;tab-size:4;margin-top:2rem;}.css-duxjoh .changed{color:rgb(162,191,252);font-style:italic;}.css-duxjoh .deleted{color:rgba(239,83,80,0.56);font-style:italic;}.css-duxjoh .inserted,.css-duxjoh .attr-name{color:rgb(173,219,103);font-style:italic;}.css-duxjoh .comment{color:rgb(99,119,119);font-style:italic;}.css-duxjoh .string,.css-duxjoh .url{color:rgb(173,219,103);}.css-duxjoh .variable{color:rgb(214,222,235);}.css-duxjoh .number{color:rgb(247,140,108);}.css-duxjoh .builtin,.css-duxjoh .char,.css-duxjoh .constant,.css-duxjoh .function{color:rgb(130,170,255);}.css-duxjoh .punctuation{color:rgb(199,146,234);}.css-duxjoh .selector,.css-duxjoh .doctype{color:rgb(199,146,234);font-style:italic;}.css-duxjoh .class-name{color:rgb(255,203,139);}.css-duxjoh .tag,.css-duxjoh .operator,.css-duxjoh .keyword{color:rgb(127,219,202);}.css-duxjoh .boolean{color:rgb(255,88,116);}.css-duxjoh .property{color:rgb(128,203,196);}.css-duxjoh .namespace{color:rgb(178,204,214);}</style><style data-emotion-css="12neuit">.css-12neuit{font-size:85%;}</style><pre class="css-duxjoh">import java.io.*;
+    <!-- --><figcaption class="gatsby-resp-image-figcaption css-13jeo2h">삼각형이 다각형 외부에 형성됨</figcaption>
+  <!-- --></figure></p><p class="css-1r6yuhw">위의 그림과 같은 경우에는 직관적으로 해당 풀이가 성립하지 않는것 같다.</p><p class="css-1r6yuhw">여기서 상기해야 할 사실이 있다. CCW 알고리즘은 부호를 갖는다는 점이다.</p><p class="css-1r6yuhw">이런 사실로 인해 다각형 외부에 삼각형이 형성된 경우에는 다각형 내부에 형성된 삼각형과는 반대의 부호를 가지게 된다.</p><p class="css-1r6yuhw">이는 누적된 면적에서 필요 없는 부분의 면적을 빼는 효과를 가져온다.</p><p class="css-1r6yuhw">위의 그림으로 보면 CCW(Base, A, B)의 면적에서 CCW(Base, B, C)의 면적을 빼야 원하는 다각형의 면적이 도출된다는 것을 알 수 있다.</p><p class="css-1r6yuhw">하지만 부호를 갖는다는 특성으로 인해 최종 결과값이 음수가 될 수 있다는 문제가 발생한다.</p><p class="css-1r6yuhw">최종 결과의 크기는 같지만 부호만 다를 수 있으므로 해당 문제는 절대값을 통해 해결할 수 있다.</p><p class="css-1r6yuhw">지금까지 설명한 풀이를 코드로 구현하면 다음과 같다.</p><details markdown="1"><summary>코드 보기(Java)</summary><style data-emotion-css="duxjoh">.css-duxjoh{padding:1rem;margin:0;margin-bottom:2rem;font-size:85%;color:#d6deeb;background-color:#011627;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;overflow:auto;border-radius:0.5rem;tab-size:4;margin-top:2rem;}.css-duxjoh .changed{color:rgb(162,191,252);font-style:italic;}.css-duxjoh .deleted{color:rgba(239,83,80,0.56);font-style:italic;}.css-duxjoh .inserted,.css-duxjoh .attr-name{color:rgb(173,219,103);font-style:italic;}.css-duxjoh .comment{color:rgb(99,119,119);font-style:italic;}.css-duxjoh .string,.css-duxjoh .url{color:rgb(173,219,103);}.css-duxjoh .variable{color:rgb(214,222,235);}.css-duxjoh .number{color:rgb(247,140,108);}.css-duxjoh .builtin,.css-duxjoh .char,.css-duxjoh .constant,.css-duxjoh .function{color:rgb(130,170,255);}.css-duxjoh .punctuation{color:rgb(199,146,234);}.css-duxjoh .selector,.css-duxjoh .doctype{color:rgb(199,146,234);font-style:italic;}.css-duxjoh .class-name{color:rgb(255,203,139);}.css-duxjoh .tag,.css-duxjoh .operator,.css-duxjoh .keyword{color:rgb(127,219,202);}.css-duxjoh .boolean{color:rgb(255,88,116);}.css-duxjoh .property{color:rgb(128,203,196);}.css-duxjoh .namespace{color:rgb(178,204,214);}</style><style data-emotion-css="12neuit">.css-12neuit{font-size:85%;}</style><pre class="css-duxjoh">import java.io.*;
 
 public class Main {
     // 하나의 점을 저장할 클래스
@@ -120,138 +120,161 @@ public class Main {
     }
 }
 <!-- --></pre></details><details markdown="1"><summary>코드 보기(C++)</summary><pre class="css-duxjoh">#include &lt;iostream&gt;
-#include &lt;stack&gt;
+#include &lt;cmath&gt;
 
 #define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
 #define endl &#x27;\n&#x27;
 
 using namespace std;
+typedef pair&lt;long, long&gt; point;
+
+// CCW 알고리즘 구현
+double CCW(point p1, point p2, point p3) {
+    double S = p1.first * p2.second + p2.first * p3.second + p3.first * p1.second;
+    S -= p1.second * p2.first + p2.second * p3.first + p3.second * p1.first;
+
+    return S / 2;
+}
 
 int main() {
     fastio;
     
-    stack&lt;int&gt; stk;
-
-    // 고도 변화 지점의 개수 입력
+    // 점의 개수 입력 받음
     int N;
     cin &gt;&gt; N;
+    point points[N];
 
-    int tower = 0; // 건물 개수 저장할 변수
+    // 각 점의 좌표 입력 받음
     for (int i = 0; i &lt; N; i++) {
-        int nextX, nextY;
-        cin &gt;&gt; nextX &gt;&gt; nextY; // 스택에 추가할 고도 입력
+        long x, y;
+        cin &gt;&gt; x &gt;&gt; y;
         
-        // 건물의 끝점인 경우 pop 및 개수 증가
-        while(!stk.empty() &amp;&amp; stk.top() &gt; nextY) {
-            stk.pop();
-            tower++;
-        }
-
-        if(nextY == 0) {
-            // 고도가 0이면 건물 남은 건물 없음
-            while(!stk.empty()) stk.pop();
-        } else if(stk.empty() || stk.top() &lt; nextY){
-            // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
-            stk.push(nextY);
-        }
+        points[i] = point(x, y);
     }
-    
-    // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
-    cout &lt;&lt; tower + stk.size() &lt;&lt; endl;
+
+    // CCW를 통해 다각형 면적 누적
+    double res = 0;
+    for(int i = 1; i &lt; N; i++) {
+        res += CCW(points[0], points[i - 1], points[i]);
+    }
+
+    // 소수점 첫째 자리까지 반올림
+    cout &lt;&lt; fixed;
+    cout.precision(1);
+    cout &lt;&lt; abs(res) &lt;&lt; endl;
     
     return 0;
 }
 <!-- --></pre></details><details markdown="1"><summary>코드 보기(Kotlin)</summary><pre class="css-duxjoh">import java.util.*;
 
+// 하나의 점을 저장하기 위한 클래스
+class Point(x: Long, y: Long) {
+    var x = x
+    var y = y
+}
+
+// CCW 알고리즘 구현
+fun CCW(p1: Point, p2: Point, p3: Point): Double {
+    var S = p1.x * p2.y + p2.x * p3.y + p3.x * p1.y
+    S = S - (p1.y * p2.x + p2.y * p3.x + p3.y * p1.x)
+
+    return S / 2.0
+}
+
 fun main(args: Array&lt;String&gt;) {
-    var stk = Stack&lt;Int&gt;()
-
-    // 고도 변화 지점의 개수 입력
+    // 점의 개수 입력 받음
     var N = readLine()!!.toInt()
+    var points = ArrayList&lt;Point&gt;()
     
-    var tower = 0  // 건물 개수 저장할 변수
+    // 각 점의 좌표 입력 받음
     for (i in 0 until N) {
-        var info = readLine()!!.split(&quot; &quot;)
-        var nextY = info[1].toInt() // 스택에 추가할 고도 입력
+        var s = readLine()!!.split(&quot; &quot;)
+        points += Point(s[0].toLong(), s[1].toLong())
+    }
 
-        // 건물의 끝점일 경우 pop 및 개수 증가
-        while (stk.isNotEmpty() &amp;&amp; stk.peek() &gt; nextY) {
-            stk.pop()
-            tower += 1
-        }
-
-        if (nextY == 0) {
-            // 고도가 0이면 남은 건물 없음
-            stk.clear()
-        } else if (stk.isEmpty() || stk.peek() &lt; nextY) {
-            // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
-            stk.push(nextY)
-        }
+    // CCW를 통해 다각형 면적 누적
+    var res: Double = 0.0
+    for (i in 1 until N) {
+        res += CCW(points[0], points[i - 1], points[i])
     }
     
-    // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
-    print(tower + stk.size)
+    println(String.format(&quot;%.1f&quot;, Math.abs(res)))
 }
 <!-- --></pre></details><details markdown="1"><summary>코드 보기(Python)</summary><pre class="css-duxjoh">from sys import stdin
 
+# 하나의 점을 저장하기 위한 클래스
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+# CCW 알고리즘 구현
+def CCW(p1, p2, p3):
+    S = p1.x * p2.y + p2.x * p3.y + p3.x * p1.y
+    S -= p1.y * p2.x + p2.y * p3.x + p3.y * p1.x
+
+    return S / 2
+
 def main():
-    stk = []
+    # 점의 개수 입력 받음
+    N = int(input())
+    points = []
 
-    # 고도 변화 지점의 개수 입력
-    N = int(stdin.readline())
-    
-    tower = 0  # 건물 개수 저장할 변수
+    # 각 점의 좌표 입력 받음
     for i in range(N):
-        info = stdin.readline().split(&#x27; &#x27;)
-        nextY = int(info[1]) # 스택에 추가할 고도 입력
+        s = stdin.readline().split(&#x27; &#x27;)
+        points.append(Point(int(s[0]), int(s[1])))
 
-        # 건물의 끝점일 경우 pop 및 개수 증가
-        while stk and stk[-1] &gt; nextY:
-            stk.pop()
-            tower += 1
+    # CCW를 통해 다각형 면적 누적
+    res = 0
+    for i in range(1, N):
+        res += CCW(points[0], points[i - 1], points[i])
 
-        if nextY == 0:
-            # 고도가 0이면 남은 건물 없음
-            stk.clear()
-        elif not stk or stk[-1] &lt; nextY:
-            # nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
-            stk.append(nextY)
-
-    # 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
-    print(tower + len(stk))
+    # 소수점 첫째 자리까지 반올림
+    print(abs(round(res, 1)))
 
 if __name__ == &quot;__main__&quot;:
     main()
 <!-- --></pre></details><details markdown="1"><summary>코드 보기(Swift)</summary><pre class="css-duxjoh">import Foundation
 
-func main() {
-    var stk = Array&lt;Int&gt;()
-
-    // 고도 변화 지점의 개수 입력
-    var N = Int(readLine()!)!
+// 하나의 점을 저장하기 위한 클래스
+class Point {
+    var x: Int64
+    var y: Int64
     
-    var tower = 0  // 건물 개수 저장할 변수
-    for i in 0..&lt;N {
-        var info = readLine()!.split(separator: &quot; &quot;)
-        var nextY = Int(info[1])! // 스택에 추가할 고도 입력
-
-        // 건물의 끝점일 경우 pop 및 개수 증가
-        while !stk.isEmpty &amp;&amp; stk.last! &gt; nextY {
-            stk.popLast()
-            tower += 1
-        }
-
-        if nextY == 0 {
-            // 고도가 0이면 남은 건물 없음
-            stk.removeAll()
-        } else if stk.isEmpty || stk.last! &lt; nextY {
-            // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
-            stk.append(nextY)
-        }
+    init(x: Int64, y: Int64) {
+        self.x = x
+        self.y = y
     }
-    
-    // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
-    print(tower + stk.count)
+}
+
+// CCW 알고리즘 구현
+func CCW(p1: Point, p2: Point, p3: Point)-&gt; Double {
+    var S = p1.x * p2.y + p2.x * p3.y + p3.x * p1.y
+    S = S - (p1.y * p2.x + p2.y * p3.x + p3.y * p1.x)
+
+    return Double(S) / 2.0
+}
+
+func main() {
+    // 점의 개수 입력 받음
+    var N = Int(readLine()!)!
+    var points = Array&lt;Point&gt;()
+
+    // 각 점의 좌표 입력 받음
+    for i in 0..&lt;N {
+        var s = readLine()!.split(separator: &quot; &quot;)
+        points.append(Point(x: Int64(s[0])!, y: Int64(s[1])!))
+    }
+
+    // CCW를 통해 다각형 면적 누적
+    var res: Double = 0
+    for i in 1..&lt;N {
+        res += CCW(p1: points[0], p2: points[i - 1], p3: points[i]);
+    }
+
+    // 소수점 1번째까지 반올림
+    print(abs(round(res * 10) / 10))
 }
 
 main()
