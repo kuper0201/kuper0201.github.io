@@ -48,13 +48,27 @@ CCW에 대해 설명한 글에서 벡터에 외적을 하면 두 벡터가 이�
 
 본 문제에서는 "다각형을 이루는 순서대로" 점의 좌표가 주어진다고 하였으므로 순차적으로 반복하면 인접한 점을 지날 수 있다.
 
-위의 예시를 보다보면 삼각형이 다각형 내부에 형성되지 않는 경우에도 해당 풀이가 성립하는지에 대한 의문이 생긴다.
+위의 예시를 보다보면 삼각형이 다각형 외부에 형성되는 경우에도 해당 풀이가 성립하는지에 대한 의문이 생긴다.
 
-삼각형이 다각형 내부에 형성되지 않는 경우에 대한 예시 그림은 아래와 같다.
+삼각형이 다각형 외부에 형성 되는 경우에 대한 예시 그림은 아래와 같다.
 
-![삼각형이 다각형 내부에 형성되지 않음](./images/no_triangle_in_poly.jpg)
+![삼각형이 다각형 외부에 형성됨](./images/no_triangle_in_poly.jpg)
 
-이러한 경우에는 
+위의 그림과 같은 경우에는 직관적으로 해당 풀이가 성립하지 않는것 같다.
+
+여기서 상기해야 할 사실이 있다. CCW 알고리즘은 부호를 갖는다는 점이다.
+
+이런 사실로 인해 다각형 외부에 삼각형이 형성된 경우에는 다각형 내부에 형성된 삼각형과는 반대의 부호를 가지게 된다.
+
+이는 누적된 면적에서 필요 없는 부분의 면적을 빼는 효과를 가져온다.
+
+위의 그림으로 보면 CCW(Base, A, B)의 면적에서 CCW(Base, B, C)의 면적을 빼야 원하는 다각형의 면적이 도출된다는 것을 알 수 있다.
+
+하지만 부호를 갖는다는 특성으로 인해 최종 결과값이 음수가 될 수 있다는 문제가 발생한다.
+
+최종 결과의 크기는 같지만 부호만 다를 수 있으므로 해당 문제는 절대값을 통해 해결할 수 있다.
+
+지금까지 설명한 풀이를 코드로 구현하면 다음과 같다.
 
 <details markdown="1">
 <summary>코드 보기(Java)</summary>
@@ -111,44 +125,48 @@ public class Main {
 
 ```cpp
 #include <iostream>
-#include <stack>
+#include <cmath>
 
 #define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
 #define endl '\n'
 
 using namespace std;
+typedef pair<long, long> point;
+
+// CCW 알고리즘 구현
+double CCW(point p1, point p2, point p3) {
+    double S = p1.first * p2.second + p2.first * p3.second + p3.first * p1.second;
+    S -= p1.second * p2.first + p2.second * p3.first + p3.second * p1.first;
+
+    return S / 2;
+}
 
 int main() {
     fastio;
     
-    stack<int> stk;
-
-    // 고도 변화 지점의 개수 입력
+    // 점의 개수 입력 받음
     int N;
     cin >> N;
+    point points[N];
 
-    int tower = 0; // 건물 개수 저장할 변수
+    // 각 점의 좌표 입력 받음
     for (int i = 0; i < N; i++) {
-        int nextX, nextY;
-        cin >> nextX >> nextY; // 스택에 추가할 고도 입력
+        long x, y;
+        cin >> x >> y;
         
-        // 건물의 끝점인 경우 pop 및 개수 증가
-        while(!stk.empty() && stk.top() > nextY) {
-            stk.pop();
-            tower++;
-        }
-
-        if(nextY == 0) {
-            // 고도가 0이면 건물 남은 건물 없음
-            while(!stk.empty()) stk.pop();
-        } else if(stk.empty() || stk.top() < nextY){
-            // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
-            stk.push(nextY);
-        }
+        points[i] = point(x, y);
     }
-    
-    // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
-    cout << tower + stk.size() << endl;
+
+    // CCW를 통해 다각형 면적 누적
+    double res = 0;
+    for(int i = 1; i < N; i++) {
+        res += CCW(points[0], points[i - 1], points[i]);
+    }
+
+    // 소수점 첫째 자리까지 반올림
+    cout << fixed;
+    cout.precision(1);
+    cout << abs(res) << endl;
     
     return 0;
 }
@@ -161,34 +179,38 @@ int main() {
 ```javascript
 import java.util.*;
 
+// 하나의 점을 저장하기 위한 클래스
+class Point(x: Long, y: Long) {
+    var x = x
+    var y = y
+}
+
+// CCW 알고리즘 구현
+fun CCW(p1: Point, p2: Point, p3: Point): Double {
+    var S = p1.x * p2.y + p2.x * p3.y + p3.x * p1.y
+    S = S - (p1.y * p2.x + p2.y * p3.x + p3.y * p1.x)
+
+    return S / 2.0
+}
+
 fun main(args: Array<String>) {
-    var stk = Stack<Int>()
-
-    // 고도 변화 지점의 개수 입력
+    // 점의 개수 입력 받음
     var N = readLine()!!.toInt()
+    var points = ArrayList<Point>()
     
-    var tower = 0  // 건물 개수 저장할 변수
+    // 각 점의 좌표 입력 받음
     for (i in 0 until N) {
-        var info = readLine()!!.split(" ")
-        var nextY = info[1].toInt() // 스택에 추가할 고도 입력
+        var s = readLine()!!.split(" ")
+        points += Point(s[0].toLong(), s[1].toLong())
+    }
 
-        // 건물의 끝점일 경우 pop 및 개수 증가
-        while (stk.isNotEmpty() && stk.peek() > nextY) {
-            stk.pop()
-            tower += 1
-        }
-
-        if (nextY == 0) {
-            // 고도가 0이면 남은 건물 없음
-            stk.clear()
-        } else if (stk.isEmpty() || stk.peek() < nextY) {
-            // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
-            stk.push(nextY)
-        }
+    // CCW를 통해 다각형 면적 누적
+    var res: Double = 0.0
+    for (i in 1 until N) {
+        res += CCW(points[0], points[i - 1], points[i])
     }
     
-    // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
-    print(tower + stk.size)
+    println(String.format("%.1f", Math.abs(res)))
 }
 ```
 </details>
@@ -199,31 +221,36 @@ fun main(args: Array<String>) {
 ```python
 from sys import stdin
 
+# 하나의 점을 저장하기 위한 클래스
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+# CCW 알고리즘 구현
+def CCW(p1, p2, p3):
+    S = p1.x * p2.y + p2.x * p3.y + p3.x * p1.y
+    S -= p1.y * p2.x + p2.y * p3.x + p3.y * p1.x
+
+    return S / 2
+
 def main():
-    stk = []
+    # 점의 개수 입력 받음
+    N = int(input())
+    points = []
 
-    # 고도 변화 지점의 개수 입력
-    N = int(stdin.readline())
-    
-    tower = 0  # 건물 개수 저장할 변수
+    # 각 점의 좌표 입력 받음
     for i in range(N):
-        info = stdin.readline().split(' ')
-        nextY = int(info[1]) # 스택에 추가할 고도 입력
+        s = stdin.readline().split(' ')
+        points.append(Point(int(s[0]), int(s[1])))
 
-        # 건물의 끝점일 경우 pop 및 개수 증가
-        while stk and stk[-1] > nextY:
-            stk.pop()
-            tower += 1
+    # CCW를 통해 다각형 면적 누적
+    res = 0
+    for i in range(1, N):
+        res += CCW(points[0], points[i - 1], points[i])
 
-        if nextY == 0:
-            # 고도가 0이면 남은 건물 없음
-            stk.clear()
-        elif not stk or stk[-1] < nextY:
-            # nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
-            stk.append(nextY)
-
-    # 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
-    print(tower + len(stk))
+    # 소수점 첫째 자리까지 반올림
+    print(abs(round(res, 1)))
 
 if __name__ == "__main__":
     main()
@@ -236,34 +263,44 @@ if __name__ == "__main__":
 ```cpp
 import Foundation
 
-func main() {
-    var stk = Array<Int>()
-
-    // 고도 변화 지점의 개수 입력
-    var N = Int(readLine()!)!
+// 하나의 점을 저장하기 위한 클래스
+class Point {
+    var x: Int64
+    var y: Int64
     
-    var tower = 0  // 건물 개수 저장할 변수
-    for i in 0..<N {
-        var info = readLine()!.split(separator: " ")
-        var nextY = Int(info[1])! // 스택에 추가할 고도 입력
-
-        // 건물의 끝점일 경우 pop 및 개수 증가
-        while !stk.isEmpty && stk.last! > nextY {
-            stk.popLast()
-            tower += 1
-        }
-
-        if nextY == 0 {
-            // 고도가 0이면 남은 건물 없음
-            stk.removeAll()
-        } else if stk.isEmpty || stk.last! < nextY {
-            // nextY != 0이고 스택 비었거나, 건물의 시작점일 경우 스택에 추가
-            stk.append(nextY)
-        }
+    init(x: Int64, y: Int64) {
+        self.x = x
+        self.y = y
     }
-    
-    // 건물 개수와 스택에 남은(끝점이 명시되지 않은) 건물의 합
-    print(tower + stk.count)
+}
+
+// CCW 알고리즘 구현
+func CCW(p1: Point, p2: Point, p3: Point)-> Double {
+    var S = p1.x * p2.y + p2.x * p3.y + p3.x * p1.y
+    S = S - (p1.y * p2.x + p2.y * p3.x + p3.y * p1.x)
+
+    return Double(S) / 2.0
+}
+
+func main() {
+    // 점의 개수 입력 받음
+    var N = Int(readLine()!)!
+    var points = Array<Point>()
+
+    // 각 점의 좌표 입력 받음
+    for i in 0..<N {
+        var s = readLine()!.split(separator: " ")
+        points.append(Point(x: Int64(s[0])!, y: Int64(s[1])!))
+    }
+
+    // CCW를 통해 다각형 면적 누적
+    var res: Double = 0
+    for i in 1..<N {
+        res += CCW(p1: points[0], p2: points[i - 1], p3: points[i]);
+    }
+
+    // 소수점 1번째까지 반올림
+    print(abs(round(res * 10) / 10))
 }
 
 main()
