@@ -1,7 +1,7 @@
 {
-  "name": "AI",
+  "name": "인공 지능",
   "slug": "ai",
   "icon": "ai.svg",
-  "description": "AI 공부 기록",
+  "description": "인공 지능 공부 기록",
   "color": "#341EA9"
 }
