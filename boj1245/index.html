@@ -215,16 +215,16 @@ dir = [[0, -1], [0, 1], [1, 0], [-1, 0], [-1, 1], [-1, -1], [1, -1], [1, 1]]
 
 def DFS(x, y):
     global flag
-    visit[x][y] = True;
+    visit[x][y] = True
     
     for k in dir:
-        nextX = x + k[0];
-        nextY = y + k[1];
+        nextX = x + k[0]
+        nextY = y + k[1]
         if nextX &gt;= 0 and nextY &gt;= 0 and nextX &lt; N and nextY &lt; M:
             if mountain[nextX][nextY] &gt; mountain[x][y]:
-                flag = True;
+                flag = True
             if not visit[nextX][nextY] and mountain[nextX][nextY] == mountain[x][y]:
-                DFS(nextX, nextY);
+                DFS(nextX, nextY)
 
 def main():
     global N, M, top, flag

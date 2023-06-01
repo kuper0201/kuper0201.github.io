@@ -166,24 +166,24 @@ fun main(args: Array&lt;String&gt;) {
         for(ch in str) {
             if (ch == &#x27;(&#x27;) {
                 // 스택에 여는 괄호 추가
-                stk.push(ch);
+                stk.push(ch)
             } else if (ch == &#x27;)&#x27;) {
                 // 스택이 비었거나 여는 괄호가 아니라면 VPS가 아님
                 if(stk.isEmpty() || stk.peek() != &#x27;(&#x27;) {
-                    isVPS = false;
-                    break;
+                    isVPS = false
+                    break
                 }
 
                 // 스택이 비어있지 않고, 여는 괄호 일 경우 스택에서 제거
-                stk.pop();
+                stk.pop()
             }
         }
 
         // 전부 순회 하였는데 스택 비어있지 않으면 VPS가 아님
-        if(stk.size != 0) isVPS = false;
+        if(stk.size != 0) isVPS = false
 
-        if(isVPS) println(&quot;YES&quot;);
-        else println(&quot;NO&quot;);
+        if(isVPS) println(&quot;YES&quot;)
+        else println(&quot;NO&quot;)
     }
 }
 <!-- --></pre></details><details markdown="1"><summary>코드 보기(Python)</summary><pre class="css-duxjoh">from sys import stdin
