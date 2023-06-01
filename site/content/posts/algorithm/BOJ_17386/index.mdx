@@ -174,7 +174,7 @@ int main() {
 <summary>코드 보기(Kotlin)</summary>
 
 ```javascript
-import java.util.*;
+import java.util.*
 
 // 하나의 점을 저장하기 위한 클래스
 class Point(x: Long, y: Long) {
@@ -196,21 +196,21 @@ fun main(args: Array<String>) {
     var points = ArrayList<Point>()
     for(i in 0 until 2) {
         var info = readLine()!!.split(" ")
-        points += Point(info[0].toLong(), info[1].toLong());
-        points += Point(info[2].toLong(), info[3].toLong());
+        points += Point(info[0].toLong(), info[1].toLong())
+        points += Point(info[2].toLong(), info[3].toLong())
     }
 
     // 선분 AB와 점 C, D를 CCW
-    var abc = CCW(points[0], points[1], points[2]);
-    var abd = CCW(points[0], points[1], points[3]);
+    var abc = CCW(points[0], points[1], points[2])
+    var abd = CCW(points[0], points[1], points[3])
 
     // 선분 CD와 점 A, B를 CCW
-    var cda = CCW(points[2], points[3], points[0]);
-    var cdb = CCW(points[2], points[3], points[1]);
+    var cda = CCW(points[2], points[3], points[0])
+    var cdb = CCW(points[2], points[3], points[1])
 
     // CCW의 결과가 {양수, 음수}이므로 곱하면 음수가 되어야 함
-    if(abc * abd < 0 && cda * cdb < 0) println("1");
-    else println("0");
+    if(abc * abd < 0 && cda * cdb < 0) println("1")
+    else println("0")
 }
 ```
 </details>

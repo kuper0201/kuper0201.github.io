@@ -212,7 +212,7 @@ fun dfs(visit: Array<BooleanArray>, i: Int, j: Int, color:Char) {
         return
     }
         
-    visit[i][j] = true;
+    visit[i][j] = true
     
     for (k in 0 until 4) {
         dfs(visit, i + dxdy[k][0], j + dxdy[k][1], color)
@@ -279,9 +279,9 @@ dxdy = [[0, 1], [1, 0], [0, -1], [-1, 0]]
 
 def dfs(visit, i, j, color):
     if i < 0 or i >= N or j < 0 or j >= N or visit[i][j] or picture[i][j] != color:
-        return;
+        return
         
-    visit[i][j] = True;
+    visit[i][j] = True
     
     global dxdy
     for dx, dy in dxdy:
@@ -347,7 +347,7 @@ func dfs(_ visit: inout [[Bool]], _ i: Int, _ j: Int, _ color:Character) {
         return
     }
         
-    visit[i][j] = true;
+    visit[i][j] = true
     
     for k in 0..<4 {
         dfs(&visit, i + dxdy[k][0], j + dxdy[k][1], color)

@@ -190,24 +190,24 @@ fun main(args: Array<String>) {
         for(ch in str) {
             if (ch == '(') {
                 // 스택에 여는 괄호 추가
-                stk.push(ch);
+                stk.push(ch)
             } else if (ch == ')') {
                 // 스택이 비었거나 여는 괄호가 아니라면 VPS가 아님
                 if(stk.isEmpty() || stk.peek() != '(') {
-                    isVPS = false;
-                    break;
+                    isVPS = false
+                    break
                 }
 
                 // 스택이 비어있지 않고, 여는 괄호 일 경우 스택에서 제거
-                stk.pop();
+                stk.pop()
             }
         }
 
         // 전부 순회 하였는데 스택 비어있지 않으면 VPS가 아님
-        if(stk.size != 0) isVPS = false;
+        if(stk.size != 0) isVPS = false
 
-        if(isVPS) println("YES");
-        else println("NO");
+        if(isVPS) println("YES")
+        else println("NO")
     }
 }
 ```
