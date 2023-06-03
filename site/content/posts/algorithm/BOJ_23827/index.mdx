@@ -14,30 +14,41 @@ import "katex/dist/katex.min.css";
 
 ### <a href="https://boj.kr/23827" target="_blank">BOJ 23827 수열 (Easy)</a>
 
-모든 원소가 양의 정수이고, 길이가 
-$N$인 수열 
-$A_1, A_2, ..., A_N$이 주어진다. 
-$1 \le i < j \le N$을 만족하는 모든 정수쌍 
-$(i, j)$에 대해 
-$A_i \times A_j$의 합을 
-$1\, 000 \, 000 \, 007$로 나눈 나머지를 구하시오.
+모든 원소가 양의 정수이고, 길이가 $N$인 수열 $A_1, A_2, ..., A_N$이 주어진다.<br/>
+$1 \le i < j \le N$을 만족하는 모든 정수쌍 $(i, j)$에 대해 $A_i \times A_j$의 합을 $1\, 000 \, 000 \, 007$로 나눈 나머지를 구하시오.
 
 ---
 
 ## 입력
 
-첫째 줄에 수열 
-$A$의 길이 
-$N$이 주어진다.
-
-둘째 줄에 수열 
-$A_1, A_2, \cdots, A_N$이 공백으로 구분되어 주어진다.
+첫째 줄에 수열 $A$의 길이 $N$이 주어진다.<br/>
+둘째 줄에 수열 $A_1, A_2, \cdots, A_N$이 공백으로 구분되어 주어진다.
 
 ---
 
 ## 풀이
 
+해당 문제를 처음 보고 가장 먼저 떠올릴 수 있는 방법은 두 개의 반복문을 이용해 모든 정수쌍을 탐색하는 것이다.
 
+하지만 해당 문제의 제약 조건 중  $2 \le N \le 500\,000$으로 인해 $\mathcal{O}(N^{2})$의 시간복잡도를 가지는 로직으로는 시간 초과가 발생한다.
+
+따라서 문제를 해결하기 위해서는 새로운 아이디어가 필요하다.
+
+[5, 3, 6, 7]의 수열이 존재한다고 가정하겠다.
+
+수열에서 모든 정수쌍을 구해서 더해보면 아래의 식과 같다.
+
+(5 * 3) + (5 * 6) + (5 * 7) + (3 * 6) + (3 * 7) + (6 * 7)
+
+위의 식에서 공통항을 빼내면 다음 식처럼 표현할 수 있다.
+
+5 * (3 + 6 + 7) + 3 * (6 + 7) + (6 * 7)
+
+해당 식을 통해 arr[i] * (arr의 총합 - arr[i])의 총합이라는 사실을 알 수 있다.
+
+순차 탐색으로 수열의 총합을 구하는데 걸리는 시간복잡도는 $\mathcal{O}(N)$이고, 전체 수열을 순회하며 수식의 연산을 진행하는 시간 또한 $\mathcal{O}(N)$의 시간복잡도를 가진다.
+
+따라서 위의 수식을 구현하면 $\mathcal{O}(2N)$의 시간복잡도만으로 문제를 해결할 수 있다.
 
 <details markdown="1">
 <summary>코드 보기(Java)</summary>
@@ -46,37 +57,30 @@ $A_1, A_2, \cdots, A_N$이 공백으로 구분되어 주어진다.
 import java.io.*;
 
 public class Main {
-    static int[] score, memo;
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        // 계단의 개수 입력
+        // 수열의 개수 입력
         int N = Integer.parseInt(br.readLine());
-        score = new int[N];
-        memo = new int[N];
+        long sum = 0;
+        long[] arr = new long[N];
 
-        // 계단별 점수 입력
+        // 수열 입력 및 수열의 총합 구하기
+        String[] s = br.readLine().split(" ");
         for(int i = 0; i < N; i++) {
-            score[i] = Integer.parseInt(br.readLine());
+            arr[i] = Long.parseLong(s[i]);
+            sum += arr[i];
         }
 
-        memo[0] = score[0]; // 첫 항 설정
-        System.out.println(recursive(N - 1)); // 재귀함수 호출
-    }
+        // 현재값 * (총합 - 현재값) 구한 후 나머지 연산
+        long res = 0;
+        for(int i = 0; i < N; i++) {
+            sum -= arr[i];
+            res += (arr[i] * sum);
+            res %= 1000000007;
+        }
 
-    // DP 수행하는 재귀 함수
-    public static int recursive(int n) {
-        if(n < 0) return 0; // 음수번째 계단은 없으므로 0 반환
-        if(memo[n] != 0) return memo[n]; // 이전에 계산한 값 존재하면 계산 불필요
-
-        int tmp1 = recursive(n - 3) + score[n - 1]; // 3층 이전의 값 + 1층 이전의 값
-        int tmp2 = recursive(n - 2); // 2층 이전의 값
-
-        // N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
-        memo[n] = Math.max(tmp1, tmp2) + score[n];
-
-        return memo[n];
+        System.out.println(res);
     }
 }
 ```
@@ -87,48 +91,36 @@ public class Main {
 
 ```cpp
 #include <iostream>
-#include <algorithm>
-#include <vector>
-#include <set>
 
 #define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
 #define endl '\n'
 
 using namespace std;
 
-int *score, *memo;
-
-// DP 수행하는 재귀 함수
-int recursive(int n) {
-    if(n < 0) return 0; // 음수번째 계단은 없으므로 0 반환
-    if(memo[n] != 0) return memo[n]; // 이전에 계산한 값 존재하면 계산 불필요
-
-    int tmp1 = recursive(n - 3) + score[n - 1]; // 3층 이전의 값 + 1층 이전의 값
-    int tmp2 = recursive(n - 2); // 2층 이전의 값
-
-    // N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
-    memo[n] = max(tmp1, tmp2) + score[n];
-
-    return memo[n];
-}
-
 int main() {
     fastio;
     
-    // 계단의 개수 입력
+    // 수열의 개수 입력
     int N;
     cin >> N;
-    
-    score = new int[N]{0, };
-    memo = new int[N]{0, };
-    
-    // 계단별 점수 입력
+    long sum = 0;
+    long arr[N];
+
+    // 수열 입력 및 수열의 총합 구하기
     for(int i = 0; i < N; i++) {
-        cin >> score[i];
+        cin >> arr[i];
+        sum += arr[i];
     }
 
-    memo[0] = score[0]; // 첫 항 설정
-    cout << recursive(N - 1) << endl; // 재귀함수 호출
+    // 현재값 * (총합 - 현재값) 구한 후 나머지 연산
+    long res = 0;
+    for(int i = 0; i < N; i++) {
+        sum -= arr[i];
+        res += (arr[i] * sum);
+        res %= 1000000007;
+    }
+    
+    cout << res << endl;
     
     return 0;
 }
@@ -139,37 +131,28 @@ int main() {
 <summary>코드 보기(Kotlin)</summary>
 
 ```javascript
-lateinit var score: Array<Int>
-lateinit var memo: Array<Int>
-
-// DP 수행하는 재귀 함수
-fun recursive(n: Int): Int {
-    if(n < 0) return 0 // 음수번째 계단은 없으므로 0 반환
-    if(memo[n] != 0) return memo[n] // 이전에 계산한 값 존재하면 계산 불필요
-
-    var tmp1 = recursive(n - 3) + score[n - 1] // 3층 이전의 값 + 1층 이전의 값
-    var tmp2 = recursive(n - 2) // 2층 이전의 값
-
-    // N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
-    memo[n] = Math.max(tmp1, tmp2) + score[n]
-
-    return memo[n]
-}
-
 fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
-    // 계단의 개수 입력
+    // 수열의 개수 입력
     var N = readLine().toInt()
-    
-    score = Array<Int>(N, {0})
-    memo = Array<Int>(N, {0})
-    
-    // 계단별 점수 입력
+    var sum: Long = 0
+    var arr = Array<Long>(N, {0})
+
+    // 수열 입력 및 수열의 총합 구하기
+    var str = readLine().split(" ")
     for(i in 0 until N) {
-        score[i] = readLine().toInt()
+        arr[i] = str[i].toLong()
+        sum += arr[i]
     }
 
-    memo[0] = score[0] // 첫 항 설정
-    println(recursive(N - 1)) // 재귀함수 호출
+    // 현재값 * (총합 - 현재값) 구한 후 나머지 연산
+    var res: Long = 0
+    for(i in 0 until N) {
+        sum -= arr[i]
+        res += (arr[i] * sum)
+        res %= 1000000007
+    }
+    
+    println(res)
 }
 ```
 </details>
@@ -180,40 +163,26 @@ fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
 ```python
 from sys import stdin
 
-score = None
-memo = None
-
-# DP 수행하는 재귀 함수
-def recursive(n):
-    global score, memo
-
-    if n < 0:
-        return 0 # 음수번째 계단은 없으므로 0 반환
-    if memo[n] != 0:
-        return memo[n] # 이전에 계산한 값 존재하면 계산 불필요
-
-    tmp1 = recursive(n - 3) + score[n - 1] # 3층 이전의 값 + 1층 이전의 값
-    tmp2 = recursive(n - 2) # 2층 이전의 값
-
-    # N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
-    memo[n] = max(tmp1, tmp2) + score[n]
-
-    return memo[n]
-
 def main():
-    # 계단의 개수 입력
+    # 수열의 개수 입력
     N = int(stdin.readline())
+    sum = 0
+    arr = [0] * N
 
-    global score, memo
-    score = [0] * N
-    memo = [0] * N
-
-    # 계단별 점수 입력
+    # 수열 입력 및 수열의 총합 구하기
+    str = stdin.readline().split(' ')
     for i in range(N):
-        score[i] = int(stdin.readline())
+        arr[i] = int(str[i])
+        sum = sum + arr[i]
 
-    memo[0] = score[0]  # 첫 항 설정
-    print(recursive(N - 1))  # 재귀함수 호출
+    # 현재값 * (총합 - 현재값) 구한 후 나머지 연산
+    res = 0
+    for i in range(N):
+        sum = sum - arr[i]
+        res = res + (arr[i] * sum)
+        res = res % 1000000007
+
+    print(res)
 
 if __name__ == "__main__":
     main()
@@ -226,44 +195,28 @@ if __name__ == "__main__":
 ```cpp
 import Foundation
 
-var score: Array<Int>!
-var memo: Array<Int>!
-
-// DP 수행하는 재귀 함수
-func recursive(n: Int)-> Int {
-    if(n < 0) {
-        // 음수번째 계단은 없으므로 0 반환
-        return 0
-    }
-    
-    if(memo[n] != 0) {
-        // 이전에 계산한 값 존재하면 계산 불필요
-        return memo[n]
-    }
-
-    var tmp1 = recursive(n: n - 3) + score[n - 1] // 3층 이전의 값 + 1층 이전의 값
-    var tmp2 = recursive(n: n - 2) // 2층 이전의 값
-
-    // N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
-    memo[n] = max(tmp1, tmp2) + score[n]
-
-    return memo[n]
-}
-
 func main() {
-    // 계단의 개수 입력
+    // 수열의 개수 입력
     var N = Int(readLine()!)!
-    
-    score = Array<Int>(repeating: 0, count: N)
-    memo = Array<Int>(repeating: 0, count: N)
-    
-    // 계단별 점수 입력
+    var sum: Int64 = 0
+    var arr = Array<Int64>(repeating: 0, count: N)
+
+    // 수열 입력 및 수열의 총합 구하기
+    var str = readLine()!.split(separator: " ")
     for i in 0..<N {
-        score[i] = Int(readLine()!)!
+        arr[i] = Int64(str[i])!
+        sum += arr[i]
     }
 
-    memo[0] = score[0] // 첫 항 설정
-    print(recursive(n: N - 1)) // 재귀함수 호출
+    // 현재값 * (총합 - 현재값) 구한 후 나머지 연산
+    var res: Int64 = 0
+    for i in 0..<N {
+        sum -= arr[i]
+        res += (arr[i] * sum)
+        res %= 1000000007
+    }
+    
+    print(res)
 }
 
 main()
