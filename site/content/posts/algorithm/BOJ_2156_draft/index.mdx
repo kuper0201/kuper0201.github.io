@@ -1,0 +1,272 @@
+---
+title: "BOJ 2156 포도주 시식"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj2156
+thumbnail: cover.jpg
+draft: true
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/2156" target="_blank">BOJ 2156 포도주 시식</a>
+
+효주는 포도주 시식회에 갔다. 그 곳에 갔더니, 테이블 위에 다양한 포도주가 들어있는 포도주 잔이 일렬로 놓여 있었다. 효주는 포도주 시식을 하려고 하는데, 여기에는 다음과 같은 두 가지 규칙이 있다.
+
+1. 포도주 잔을 선택하면 그 잔에 들어있는 포도주는 모두 마셔야 하고, 마신 후에는 원래 위치에 다시 놓아야 한다.
+2. 연속으로 놓여 있는 3잔을 모두 마실 수는 없다.
+
+효주는 될 수 있는 대로 많은 양의 포도주를 맛보기 위해서 어떤 포도주 잔을 선택해야 할지 고민하고 있다. 1부터 n까지의 번호가 붙어 있는 n개의 포도주 잔이 순서대로 테이블 위에 놓여 있고, 각 포도주 잔에 들어있는 포도주의 양이 주어졌을 때, 효주를 도와 가장 많은 양의 포도주를 마실 수 있도록 하는 프로그램을 작성하시오. 
+
+예를 들어 6개의 포도주 잔이 있고, 각각의 잔에 순서대로 6, 10, 13, 9, 8, 1 만큼의 포도주가 들어 있을 때, 첫 번째, 두 번째, 네 번째, 다섯 번째 포도주 잔을 선택하면 총 포도주 양이 33으로 최대로 마실 수 있다.
+
+---
+
+## 입력
+
+첫째 줄에 포도주 잔의 개수 n이 주어진다. (1 ≤ n ≤ 10,000) 둘째 줄부터 n+1번째 줄까지 포도주 잔에 들어있는 포도주의 양이 순서대로 주어진다. 포도주의 양은 1,000 이하의 음이 아닌 정수이다.
+
+---
+
+## 풀이
+
+[BOJ 2579 계단 오르기](https://jeong-jun.su/boj2579/)문제와 비슷한 문제이다.
+
+다른 점은 마지막 계단을 밟아야 한다는 등의 제약조건이 존재하지 않는다는 점이다.
+
+
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    static int[] score, memo;
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // 계단의 개수 입력
+        int N = Integer.parseInt(br.readLine());
+        score = new int[N];
+        memo = new int[N];
+
+        // 계단별 점수 입력
+        for(int i = 0; i < N; i++) {
+            score[i] = Integer.parseInt(br.readLine());
+        }
+
+        memo[0] = score[0]; // 첫 항 설정
+        System.out.println(recursive(N - 1)); // 재귀함수 호출
+    }
+
+    // DP 수행하는 재귀 함수
+    public static int recursive(int n) {
+        if(n < 0) return 0; // 음수번째 계단은 없으므로 0 반환
+        if(memo[n] != 0) return memo[n]; // 이전에 계산한 값 존재하면 계산 불필요
+
+        int tmp1 = recursive(n - 3) + score[n - 1]; // 3층 이전의 값 + 1층 이전의 값
+        int tmp2 = recursive(n - 2); // 2층 이전의 값
+
+        // N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
+        memo[n] = Math.max(tmp1, tmp2) + score[n];
+
+        return memo[n];
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <set>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int *score, *memo;
+
+// DP 수행하는 재귀 함수
+int recursive(int n) {
+    if(n < 0) return 0; // 음수번째 계단은 없으므로 0 반환
+    if(memo[n] != 0) return memo[n]; // 이전에 계산한 값 존재하면 계산 불필요
+
+    int tmp1 = recursive(n - 3) + score[n - 1]; // 3층 이전의 값 + 1층 이전의 값
+    int tmp2 = recursive(n - 2); // 2층 이전의 값
+
+    // N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
+    memo[n] = max(tmp1, tmp2) + score[n];
+
+    return memo[n];
+}
+
+int main() {
+    fastio;
+    
+    // 계단의 개수 입력
+    int N;
+    cin >> N;
+    
+    score = new int[N]{0, };
+    memo = new int[N]{0, };
+    
+    // 계단별 점수 입력
+    for(int i = 0; i < N; i++) {
+        cin >> score[i];
+    }
+
+    memo[0] = score[0]; // 첫 항 설정
+    cout << recursive(N - 1) << endl; // 재귀함수 호출
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+lateinit var score: Array<Int>
+lateinit var memo: Array<Int>
+
+// DP 수행하는 재귀 함수
+fun recursive(n: Int): Int {
+    if(n < 0) return 0 // 음수번째 계단은 없으므로 0 반환
+    if(memo[n] != 0) return memo[n] // 이전에 계산한 값 존재하면 계산 불필요
+
+    var tmp1 = recursive(n - 3) + score[n - 1] // 3층 이전의 값 + 1층 이전의 값
+    var tmp2 = recursive(n - 2) // 2층 이전의 값
+
+    // N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
+    memo[n] = Math.max(tmp1, tmp2) + score[n]
+
+    return memo[n]
+}
+
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 계단의 개수 입력
+    var N = readLine().toInt()
+    
+    score = Array<Int>(N, {0})
+    memo = Array<Int>(N, {0})
+    
+    // 계단별 점수 입력
+    for(i in 0 until N) {
+        score[i] = readLine().toInt()
+    }
+
+    memo[0] = score[0] // 첫 항 설정
+    println(recursive(N - 1)) // 재귀함수 호출
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+score = None
+memo = None
+
+# DP 수행하는 재귀 함수
+def recursive(n):
+    global score, memo
+
+    if n < 0:
+        return 0 # 음수번째 계단은 없으므로 0 반환
+    if memo[n] != 0:
+        return memo[n] # 이전에 계산한 값 존재하면 계산 불필요
+
+    tmp1 = recursive(n - 3) + score[n - 1] # 3층 이전의 값 + 1층 이전의 값
+    tmp2 = recursive(n - 2) # 2층 이전의 값
+
+    # N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
+    memo[n] = max(tmp1, tmp2) + score[n]
+
+    return memo[n]
+
+def main():
+    # 계단의 개수 입력
+    N = int(stdin.readline())
+
+    global score, memo
+    score = [0] * N
+    memo = [0] * N
+
+    # 계단별 점수 입력
+    for i in range(N):
+        score[i] = int(stdin.readline())
+
+    memo[0] = score[0]  # 첫 항 설정
+    print(recursive(N - 1))  # 재귀함수 호출
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+var score: Array<Int>!
+var memo: Array<Int>!
+
+// DP 수행하는 재귀 함수
+func recursive(n: Int)-> Int {
+    if(n < 0) {
+        // 음수번째 계단은 없으므로 0 반환
+        return 0
+    }
+    
+    if(memo[n] != 0) {
+        // 이전에 계산한 값 존재하면 계산 불필요
+        return memo[n]
+    }
+
+    var tmp1 = recursive(n: n - 3) + score[n - 1] // 3층 이전의 값 + 1층 이전의 값
+    var tmp2 = recursive(n: n - 2) // 2층 이전의 값
+
+    // N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
+    memo[n] = max(tmp1, tmp2) + score[n]
+
+    return memo[n]
+}
+
+func main() {
+    // 계단의 개수 입력
+    var N = Int(readLine()!)!
+    
+    score = Array<Int>(repeating: 0, count: N)
+    memo = Array<Int>(repeating: 0, count: N)
+    
+    // 계단별 점수 입력
+    for i in 0..<N {
+        score[i] = Int(readLine()!)!
+    }
+
+    memo[0] = score[0] // 첫 항 설정
+    print(recursive(n: N - 1)) // 재귀함수 호출
+}
+
+main()
+```
+</details>
