@@ -34,9 +34,7 @@ import "katex/dist/katex.min.css";
 
 ## 풀이
 
-[BOJ 2579 계단 오르기](https://jeong-jun.su/boj2579/)문제와 비슷한 문제이다.
-
-다른 점은 마지막 계단을 밟아야 한다는 등의 제약조건이 존재하지 않는다는 점이다.
+해당 문제는 [BOJ 2579 계단 오르기](https://jeong-jun.su/boj2579/)와 비슷한 문제로 DP(Dynamic Programming)를 이용하면 해결 할 수 있다.
 
 
 
@@ -44,43 +42,35 @@ import "katex/dist/katex.min.css";
 <summary>코드 보기(Java)</summary>
 
 ```javascript
-import java.io.*;
+import java.util.Scanner;
 
 public class Main {
-    static int[] score, memo;
+    static int[] dp;
 
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        // 계단의 개수 입력
-        int N = Integer.parseInt(br.readLine());
-        score = new int[N];
-        memo = new int[N];
+        int N = scanner.nextInt();
+        int[] arr = new int[N + 1];
+        int[] dp = new int[N + 1];
 
-        // 계단별 점수 입력
-        for(int i = 0; i < N; i++) {
-            score[i] = Integer.parseInt(br.readLine());
+        for(int i = 1; i < N + 1; i++) {
+            arr[i] = scanner.nextInt();
         }
 
-        memo[0] = score[0]; // 첫 항 설정
-        System.out.println(recursive(N - 1)); // 재귀함수 호출
+        dp[1] = arr[1];
+
+        if(N > 1)
+            dp[2] = arr[1] + arr[2];
+
+        for(int i = 3; i < N + 1; i++) {
+            dp[i] = Math.max(dp[i - 3] + arr[i] + arr[i - 1], dp[i - 2] + arr[i]);
+            dp[i] = Math.max(dp[i], dp[i - 1]);
+        }
+
+        System.out.println(dp[N]);
     }
-
-    // DP 수행하는 재귀 함수
-    public static int recursive(int n) {
-        if(n < 0) return 0; // 음수번째 계단은 없으므로 0 반환
-        if(memo[n] != 0) return memo[n]; // 이전에 계산한 값 존재하면 계산 불필요
-
-        int tmp1 = recursive(n - 3) + score[n - 1]; // 3층 이전의 값 + 1층 이전의 값
-        int tmp2 = recursive(n - 2); // 2층 이전의 값
-
-        // N번째 계단까지 점수의 최대는 (N - 1)최대 + N번째 계단 점수
-        memo[n] = Math.max(tmp1, tmp2) + score[n];
-
-        return memo[n];
-    }
-}
-```
+}```
 </details>
 
 <details markdown="1">
