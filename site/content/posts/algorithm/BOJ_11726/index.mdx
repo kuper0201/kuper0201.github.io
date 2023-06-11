@@ -42,15 +42,27 @@ thumbnail: cover.jpg
 ![N=2이고 2×1 타일로 채우는 경우](./images/N2_2x1.png)
 ![N=2이고 1×2 타일로 채우는 경우](./images/N2_1x2.png)
 
-마지막으로 N=3인 경우를 살펴 보면 N=2인 직사각형에 1×2 타일 하나를 추가하는 경우와 N=1인 직사각형에 2×1 타일 2개를 추가하는 경우를 고려할 수 있다.
+마지막으로 N=3인 경우를 살펴 보면 N=2인 직사각형에 1×2 타일 하나를 추가하는 경우와 N=1인 직사각형에 2×1 타일 2개를 추가하는 경우를 고려할 수 있다. 그림으로 나타내면 다음과 같다.
 
-따라서 점화식은 다음과 같다.
+![N=2 직사각형 + 1×2 타일 1개](./images/N3_N2.png)
+![N=1 직사각형 + 2×1 타일 2개](./images/N3_N1.png)
+
+이러한 규칙을 점화식으로 나타내면 다음과 같다.
 
 ```
 dp[N] = dp[N-1] + dp[N-2]
 ```
 
-찾아낸 점화식을 코드로 구현하면 해당 문제를 해결 할 수 있다.
+해당 점화식이 맞는지 확인하기 위해서 N=1부터 N=5까지의 개수를 손수 구해보면 다음과 같다.
+
+```
+1, 2, 3, 5, 8
+```
+
+구한 수열에서도 점화식이 성립하는 것을 알 수 있다.
+피보나치 수열과 같은 결과라는 것 또한 알 수 있다.
+
+따라서 찾아낸 점화식을 코드로 구현하면 해당 문제를 해결 할 수 있다.
 
 <details markdown="1">
 <summary>코드 보기(Java)</summary>
@@ -59,30 +71,26 @@ dp[N] = dp[N-1] + dp[N-2]
 import java.io.*;
 
 public class Main {
-    static int[] dp;
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+        
+        // 가로 길이 입력
         int N = Integer.parseInt(br.readLine());
-        dp = new int[N + 2];
+        int[] dp = new int[N + 2];
+
+        // 첫 항 설정
         dp[1] = 1;
 
-        System.out.print(recursive(N + 1));
-    }
-
-    static int recursive(int n) {
-        if(n <= 1) return dp[n];
-
-        if(dp[n] == 0) {
-            dp[n] = recursive(n - 1) + recursive(n - 2);
-            dp[n] %= 10007;
+        // 점화식에 따라 dp배열 업데이트
+        for(int i = 2; i <= N + 1; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+            dp[i] %= 10007;
         }
 
-        return dp[n];
+        // 정답 출력
+        System.out.print(dp[N + 1]);
     }
-}
-```
+}```
 </details>
 
 <details markdown="1">
@@ -90,6 +98,7 @@ public class Main {
 
 ```cpp
 #include <iostream>
+#include <cstring>
 
 #define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
 #define endl '\n'
@@ -99,37 +108,23 @@ using namespace std;
 int main() {
     fastio;
     
-    // 테스트 개수 케이스 입력
+    // 가로 길이 입력
     int N;
     cin >> N;
-    
-    for (int i = 0; i < N; i++) {
-        int M; // 학생 수
-        cin >> M;
-        
-        int scores[M];
+    int dp[N + 2];
+    memset(dp, 0, sizeof(dp));
 
-        int count = 0;
-        double total = 0, avg = 0;
-        for (int j = 0; j < M; j++) { // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
-            cin >> scores[j];
-            total += scores[j];
-        }
+    // 첫 항 설정
+    dp[1] = 1;
 
-        // 평균 구하기
-        avg = total / M;
-
-        // 평균을 넘는 학생 수 세기
-        for (int j = 0; j < M; j++) {
-            if (scores[j] > avg) count++;
-        }
-        
-        std::cout<<fixed;
-        cout.precision(3);
-        
-        // 평균 넘는 학생 수 퍼센트 구하고 출력
-        cout << 100.0 * ((double)count / (double)M) << "%" << endl;
+    // 점화식에 따라 dp배열 업데이트
+    for(int i = 2; i <= N + 1; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+        dp[i] %= 10007;
     }
+
+    // 정답 출력
+    cout << dp[N + 1] << endl;
     
     return 0;
 }
@@ -141,33 +136,21 @@ int main() {
 
 ```javascript
 fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
-    // 테스트 개수 케이스 입력
+    // 가로 길이 입력
     var N = readLine().toInt()
-    for (i in 0 until N) {
-        var s = readLine().split(" ") // 테스트 케이스 한 줄 입력
-        var M = s[0].toInt() // 학생 수
-        var scores = Array<Int>(M, {0})
+    var dp = Array<Int>(N + 2, {0})
 
-        var count = 0
-        var total: Double = 0.0
-        var avg: Double = 0.0
-        
-        for (j in 1 until M + 1) { // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
-            scores[j - 1] = s[j].toInt()
-            total += scores[j - 1]
-        }
+    // 첫 항 설정
+    dp[1] = 1
 
-        // 평균 구하기
-        avg = total / M
-
-        // 평균을 넘는 학생 수 세기
-        for (j in 0 until M) {
-            if (scores[j] > avg) count++
-        }
-
-        // 평균 넘는 학생 수 퍼센트 구하고 출력
-        println(String.format("%.3f%%", 100.0 * (count.toDouble() / M.toDouble())))
+    // 점화식에 따라 dp배열 업데이트
+    for (i in 2 .. N + 1) {
+        dp[i] = dp[i - 1] + dp[i - 2]
+        dp[i] %= 10007
     }
+
+    // 정답 출력
+    println(dp[N + 1])
 }
 ```
 </details>
@@ -179,33 +162,20 @@ fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
 from sys import stdin
 
 def main():
-    # 테스트 개수 케이스 입력
+    # 가로 길이 입력
     N = int(stdin.readline())
-    for i in range(N):
-        s = stdin.readline().split(' ') # 테스트 케이스 한 줄 입력
-        M = int(s[0]) # 학생 수
-        scores = [0] * M
+    dp = [0] * (N + 2)
 
-        count = 0
-        total = 0.0
-        avg = 0.0
+    # 첫 항 설정
+    dp[1] = 1
 
-        # 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
-        for j in range(1, M + 1):
-            scores[j - 1] = int(s[j])
-            total = total + scores[j - 1]
+    # 점화식에 따라 dp배열 업데이트
+    for i in range(2, N + 2):
+        dp[i] = dp[i - 1] + dp[i - 2]
+        dp[i] = dp[i] % 10007
 
-        # 평균 구하기
-        avg = total / M
-
-        # 평균을 넘는 학생 수 세기
-        for j in range(M):
-            if scores[j] > avg:
-                count = count + 1
-
-        # 평균 넘는 학생 수 퍼센트 구하고 출력
-        res = 100.0 * (float(count) / float(M))
-        print(f"{res:.3f}%")
+    # 정답 출력
+    print(dp[N + 1])
 
 if __name__ == "__main__":
     main()
@@ -219,37 +189,21 @@ if __name__ == "__main__":
 import Foundation
 
 func main() {
-    // 테스트 개수 케이스 입력
+    // 가로 길이 입력
     var N = Int(readLine()!)!
-    for i in 0..<N {
-        var s = readLine()!.split(separator: " ") // 테스트 케이스 한 줄 입력
-        var M = Int(s[0])! // 학생 수
-        var scores = [Int](repeating: 0, count: M)
+    var dp = [Int](repeating: 0, count: N + 2)
 
-        var count = 0
-        var total: Double = 0.0
-        var avg: Double = 0.0
+    // 첫 항 설정
+    dp[1] = 1
 
-        // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
-        for j in 1..<M+1 {
-            scores[j - 1] = Int(s[j])!
-            total = total + Double(scores[j - 1])
-        }
-        
-        // 평균 구하기
-        avg = total / Double(M)
-
-        // 평균을 넘는 학생 수 세기
-        for j in 0..<M {
-            if Double(scores[j]) > avg {
-                count = count + 1
-            }
-        }
-            
-        // 평균 넘는 학생 수 퍼센트 구하고 출력
-        var res = 100.0 * (Double(count) / Double(M))
-        print(String(format: "%.3f%%", res))
+    // 점화식에 따라 dp배열 업데이트
+    for i in 2..<N + 2 {
+        dp[i] = dp[i - 1] + dp[i - 2]
+        dp[i] %= 10007
     }
+
+    // 정답 출력
+    print(dp[N + 1])
 }
 
 main()
