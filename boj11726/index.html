@@ -82,34 +82,57 @@
   <!-- --></a>
     <!-- --></span>
     <!-- --><figcaption class="gatsby-resp-image-figcaption css-13jeo2h">N=2이고 1×2 타일로 채우는 경우</figcaption>
-  <!-- --></figure></p><p class="css-1r6yuhw">마지막으로 N=3인 경우를 살펴 보면 N=2인 직사각형에 1×2 타일 하나를 추가하는 경우와 N=1인 직사각형에 2×1 타일 2개를 추가하는 경우를 고려할 수 있다.</p><p class="css-1r6yuhw">따라서 점화식은 다음과 같다.</p><style data-emotion-css="duxjoh">.css-duxjoh{padding:1rem;margin:0;margin-bottom:2rem;font-size:85%;color:#d6deeb;background-color:#011627;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;overflow:auto;border-radius:0.5rem;tab-size:4;margin-top:2rem;}.css-duxjoh .changed{color:rgb(162,191,252);font-style:italic;}.css-duxjoh .deleted{color:rgba(239,83,80,0.56);font-style:italic;}.css-duxjoh .inserted,.css-duxjoh .attr-name{color:rgb(173,219,103);font-style:italic;}.css-duxjoh .comment{color:rgb(99,119,119);font-style:italic;}.css-duxjoh .string,.css-duxjoh .url{color:rgb(173,219,103);}.css-duxjoh .variable{color:rgb(214,222,235);}.css-duxjoh .number{color:rgb(247,140,108);}.css-duxjoh .builtin,.css-duxjoh .char,.css-duxjoh .constant,.css-duxjoh .function{color:rgb(130,170,255);}.css-duxjoh .punctuation{color:rgb(199,146,234);}.css-duxjoh .selector,.css-duxjoh .doctype{color:rgb(199,146,234);font-style:italic;}.css-duxjoh .class-name{color:rgb(255,203,139);}.css-duxjoh .tag,.css-duxjoh .operator,.css-duxjoh .keyword{color:rgb(127,219,202);}.css-duxjoh .boolean{color:rgb(255,88,116);}.css-duxjoh .property{color:rgb(128,203,196);}.css-duxjoh .namespace{color:rgb(178,204,214);}</style><style data-emotion-css="12neuit">.css-12neuit{font-size:85%;}</style><pre class="css-duxjoh">dp[N] = dp[N-1] + dp[N-2]
-<!-- --></pre><p class="css-1r6yuhw">찾아낸 점화식을 코드로 구현하면 해당 문제를 해결 할 수 있다.</p><details markdown="1"><summary>코드 보기(Java)</summary><pre class="css-duxjoh">import java.io.*;
+  <!-- --></figure></p><p class="css-1r6yuhw">마지막으로 N=3인 경우를 살펴 보면 N=2인 직사각형에 1×2 타일 하나를 추가하는 경우와 N=1인 직사각형에 2×1 타일 2개를 추가하는 경우를 고려할 수 있다. 그림으로 나타내면 다음과 같다.</p><p class="css-1r6yuhw"><figure class="gatsby-resp-image-figure css-cm98ls">
+    <!-- --><span class="gatsby-resp-image-wrapper" style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:531px">
+      <!-- --><a class="gatsby-resp-image-link css-16rz9cl" href="/static/648e711610812edb2cc8e1d6a5c1d4b5/d4713/N3_N2.png" style="display:block" target="_blank" rel="noopener">
+    <!-- --><span class="gatsby-resp-image-background-image" style="padding-bottom:49.079754601226995%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABLUlEQVQoz52S227CMBBE8wdtoQRIyMVOHDt2HMKtD/3//5pqFiKQkKqWh5Eje+d4Nt7EqB5V3qLemasKA11a6MpCl91ttQ97d7GWHlV0KLYaoz8iydc1Vh8Z1ssdPt8zlJnGGE5wbYQzEd7u4doBwe4xuEmMFC979C7fNmC4pNgq2dh8FkgXudxIIw8JMtrDtgNsE+C7UWqo3UYJmN7tqhRwpwMSHqSLO5DtE9g1AW3dSxGhc0oCKMKu3ly87K7T/hnIhLE/oqkdDvGC/XCW1vkLehP/D2TCYCdJNcULvk7fAmJxcNNrwOiPMMoLVFbl0ZtR9FLLklBdH2N+FBbPj8IHoO/PCafhLOPib6NC0OAOMmdl1oiayknKX4Hz+GRpJaPAVb7T8mmPevTMwB/whxCmf7rOXQAAAABJRU5ErkJggg==&#x27;);background-size:cover;display:block"></span>
+  <!-- --><img class="gatsby-resp-image-image css-1nh7vc8" alt="N=2 직사각형 + 1×2 타일 1개" title="N=2 직사각형 + 1×2 타일 1개" src="/static/648e711610812edb2cc8e1d6a5c1d4b5/d4713/N3_N2.png" srcSet="/static/648e711610812edb2cc8e1d6a5c1d4b5/222b7/N3_N2.png 163w,/static/648e711610812edb2cc8e1d6a5c1d4b5/ff46a/N3_N2.png 325w,/static/648e711610812edb2cc8e1d6a5c1d4b5/d4713/N3_N2.png 531w" sizes="(max-width: 531px) 100vw, 531px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0" loading="lazy" decoding="async"/>
+  <!-- --></a>
+    <!-- --></span>
+    <!-- --><figcaption class="gatsby-resp-image-figcaption css-13jeo2h">N=2 직사각형 + 1×2 타일 1개</figcaption>
+  <!-- --></figure>
+<!-- --><figure class="gatsby-resp-image-figure css-cm98ls">
+    <!-- --><span class="gatsby-resp-image-wrapper" style="position:relative;display:block;margin-left:auto;margin-right:auto;max-width:531px">
+      <!-- --><a class="gatsby-resp-image-link css-16rz9cl" href="/static/bb4c9c231c4fa1dd37e90aabb7deb23d/d4713/N3_N1.png" style="display:block" target="_blank" rel="noopener">
+    <!-- --><span class="gatsby-resp-image-background-image" style="padding-bottom:49.079754601226995%;position:relative;bottom:0;left:0;background-image:url(&#x27;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABF0lEQVQoz5VS2W6DMBDkD5oLwn2YKw6BABGK+v8fNtUsdUsjVJSHlWXv7OzujK0y00iCAmlYzhGVUHENldTz+U8Qy5osqhB5Ct11hBWcU9h7H+djiNPOR+QrdM0DdX5DqwewYehmiP0csa/kZLGKKyxrjx+uYK3Iy+TBPUVwDoF0vOkBRarR6lGmN0UmiGMTEvPu2bFgKtXAYsI5/BKSoKl75MlFTjYgmPlXwrk2kBy3q9R1nXC8P0WPe/OQ1ZjzneQnOBFxnHCTkBoN7YRp+JTVqQvfSGCCd0pCTbcnDAsxg86RkE7au78a2vs3VqZmzaX/NmVYNeUtQhL07QRddaIhneNXel2Zpm1qaL6PEX5pxFosawzhF4MBDKEuMPn4AAAAAElFTkSuQmCC&#x27;);background-size:cover;display:block"></span>
+  <!-- --><img class="gatsby-resp-image-image css-1nh7vc8" alt="N=1 직사각형 + 2×1 타일 2개" title="N=1 직사각형 + 2×1 타일 2개" src="/static/bb4c9c231c4fa1dd37e90aabb7deb23d/d4713/N3_N1.png" srcSet="/static/bb4c9c231c4fa1dd37e90aabb7deb23d/222b7/N3_N1.png 163w,/static/bb4c9c231c4fa1dd37e90aabb7deb23d/ff46a/N3_N1.png 325w,/static/bb4c9c231c4fa1dd37e90aabb7deb23d/d4713/N3_N1.png 531w" sizes="(max-width: 531px) 100vw, 531px" style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0" loading="lazy" decoding="async"/>
+  <!-- --></a>
+    <!-- --></span>
+    <!-- --><figcaption class="gatsby-resp-image-figcaption css-13jeo2h">N=1 직사각형 + 2×1 타일 2개</figcaption>
+  <!-- --></figure></p><p class="css-1r6yuhw">이러한 규칙을 점화식으로 나타내면 다음과 같다.</p><style data-emotion-css="duxjoh">.css-duxjoh{padding:1rem;margin:0;margin-bottom:2rem;font-size:85%;color:#d6deeb;background-color:#011627;font-family:Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;overflow:auto;border-radius:0.5rem;tab-size:4;margin-top:2rem;}.css-duxjoh .changed{color:rgb(162,191,252);font-style:italic;}.css-duxjoh .deleted{color:rgba(239,83,80,0.56);font-style:italic;}.css-duxjoh .inserted,.css-duxjoh .attr-name{color:rgb(173,219,103);font-style:italic;}.css-duxjoh .comment{color:rgb(99,119,119);font-style:italic;}.css-duxjoh .string,.css-duxjoh .url{color:rgb(173,219,103);}.css-duxjoh .variable{color:rgb(214,222,235);}.css-duxjoh .number{color:rgb(247,140,108);}.css-duxjoh .builtin,.css-duxjoh .char,.css-duxjoh .constant,.css-duxjoh .function{color:rgb(130,170,255);}.css-duxjoh .punctuation{color:rgb(199,146,234);}.css-duxjoh .selector,.css-duxjoh .doctype{color:rgb(199,146,234);font-style:italic;}.css-duxjoh .class-name{color:rgb(255,203,139);}.css-duxjoh .tag,.css-duxjoh .operator,.css-duxjoh .keyword{color:rgb(127,219,202);}.css-duxjoh .boolean{color:rgb(255,88,116);}.css-duxjoh .property{color:rgb(128,203,196);}.css-duxjoh .namespace{color:rgb(178,204,214);}</style><style data-emotion-css="12neuit">.css-12neuit{font-size:85%;}</style><pre class="css-duxjoh">dp[N] = dp[N-1] + dp[N-2]
+<!-- --></pre><p class="css-1r6yuhw">해당 점화식이 맞는지 확인하기 위해서 N=1부터 N=5까지의 개수를 손수 구해보면 다음과 같다.</p><pre class="css-duxjoh">1, 2, 3, 5, 8
+<!-- --></pre><p class="css-1r6yuhw">구한 수열에서도 점화식이 성립하는 것을 알 수 있다.
+피보나치 수열과 같은 결과라는 것 또한 알 수 있다.</p><p class="css-1r6yuhw">따라서 찾아낸 점화식을 코드로 구현하면 해당 문제를 해결 할 수 있다.</p><details markdown="1"><summary>코드 보기(Java)</summary><pre class="css-duxjoh">import java.io.*;
 
 public class Main {
-    static int[] dp;
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+        
+        // 가로 길이 입력
         int N = Integer.parseInt(br.readLine());
-        dp = new int[N + 2];
+        int[] dp = new int[N + 2];
+
+        // 첫 항 설정
         dp[1] = 1;
 
-        System.out.print(recursive(N + 1));
-    }
-
-    static int recursive(int n) {
-        if(n &lt;= 1) return dp[n];
-
-        if(dp[n] == 0) {
-            dp[n] = recursive(n - 1) + recursive(n - 2);
-            dp[n] %= 10007;
+        // 점화식에 따라 dp배열 업데이트
+        for(int i = 2; i &lt;= N + 1; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+            dp[i] %= 10007;
         }
 
-        return dp[n];
+        // 정답 출력
+        System.out.print(dp[N + 1]);
     }
-}
-<!-- --></pre></details><details markdown="1"><summary>코드 보기(C++)</summary><pre class="css-duxjoh">#include &lt;iostream&gt;
+}```
+&lt;/details&gt;
+
+&lt;details markdown=&quot;1&quot;&gt;
+&lt;summary&gt;코드 보기(C++)&lt;/summary&gt;
+
+```cpp
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
 
 #define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
 #define endl &#x27;\n&#x27;
@@ -119,136 +142,81 @@ using namespace std;
 int main() {
     fastio;
     
-    // 테스트 개수 케이스 입력
+    // 가로 길이 입력
     int N;
     cin &gt;&gt; N;
-    
-    for (int i = 0; i &lt; N; i++) {
-        int M; // 학생 수
-        cin &gt;&gt; M;
-        
-        int scores[M];
+    int dp[N + 2];
+    memset(dp, 0, sizeof(dp));
 
-        int count = 0;
-        double total = 0, avg = 0;
-        for (int j = 0; j &lt; M; j++) { // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
-            cin &gt;&gt; scores[j];
-            total += scores[j];
-        }
+    // 첫 항 설정
+    dp[1] = 1;
 
-        // 평균 구하기
-        avg = total / M;
-
-        // 평균을 넘는 학생 수 세기
-        for (int j = 0; j &lt; M; j++) {
-            if (scores[j] &gt; avg) count++;
-        }
-        
-        std::cout&lt;&lt;fixed;
-        cout.precision(3);
-        
-        // 평균 넘는 학생 수 퍼센트 구하고 출력
-        cout &lt;&lt; 100.0 * ((double)count / (double)M) &lt;&lt; &quot;%&quot; &lt;&lt; endl;
+    // 점화식에 따라 dp배열 업데이트
+    for(int i = 2; i &lt;= N + 1; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+        dp[i] %= 10007;
     }
+
+    // 정답 출력
+    cout &lt;&lt; dp[N + 1] &lt;&lt; endl;
     
     return 0;
 }
 <!-- --></pre></details><details markdown="1"><summary>코드 보기(Kotlin)</summary><pre class="css-duxjoh">fun main(args: Array&lt;String&gt;) = with(System.`in`.bufferedReader()) {
-    // 테스트 개수 케이스 입력
+    // 가로 길이 입력
     var N = readLine().toInt()
-    for (i in 0 until N) {
-        var s = readLine().split(&quot; &quot;) // 테스트 케이스 한 줄 입력
-        var M = s[0].toInt() // 학생 수
-        var scores = Array&lt;Int&gt;(M, {0})
+    var dp = Array&lt;Int&gt;(N + 2, {0})
 
-        var count = 0
-        var total: Double = 0.0
-        var avg: Double = 0.0
-        
-        for (j in 1 until M + 1) { // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
-            scores[j - 1] = s[j].toInt()
-            total += scores[j - 1]
-        }
+    // 첫 항 설정
+    dp[1] = 1
 
-        // 평균 구하기
-        avg = total / M
-
-        // 평균을 넘는 학생 수 세기
-        for (j in 0 until M) {
-            if (scores[j] &gt; avg) count++
-        }
-
-        // 평균 넘는 학생 수 퍼센트 구하고 출력
-        println(String.format(&quot;%.3f%%&quot;, 100.0 * (count.toDouble() / M.toDouble())))
+    // 점화식에 따라 dp배열 업데이트
+    for (i in 2 .. N + 1) {
+        dp[i] = dp[i - 1] + dp[i - 2]
+        dp[i] %= 10007
     }
+
+    // 정답 출력
+    println(dp[N + 1])
 }
 <!-- --></pre></details><details markdown="1"><summary>코드 보기(Python)</summary><pre class="css-duxjoh">from sys import stdin
 
 def main():
-    # 테스트 개수 케이스 입력
+    # 가로 길이 입력
     N = int(stdin.readline())
-    for i in range(N):
-        s = stdin.readline().split(&#x27; &#x27;) # 테스트 케이스 한 줄 입력
-        M = int(s[0]) # 학생 수
-        scores = [0] * M
+    dp = [0] * (N + 2)
 
-        count = 0
-        total = 0.0
-        avg = 0.0
+    # 첫 항 설정
+    dp[1] = 1
 
-        # 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
-        for j in range(1, M + 1):
-            scores[j - 1] = int(s[j])
-            total = total + scores[j - 1]
+    # 점화식에 따라 dp배열 업데이트
+    for i in range(2, N + 2):
+        dp[i] = dp[i - 1] + dp[i - 2]
+        dp[i] = dp[i] % 10007
 
-        # 평균 구하기
-        avg = total / M
-
-        # 평균을 넘는 학생 수 세기
-        for j in range(M):
-            if scores[j] &gt; avg:
-                count = count + 1
-
-        # 평균 넘는 학생 수 퍼센트 구하고 출력
-        res = 100.0 * (float(count) / float(M))
-        print(f&quot;{res:.3f}%&quot;)
+    # 정답 출력
+    print(dp[N + 1])
 
 if __name__ == &quot;__main__&quot;:
     main()
 <!-- --></pre></details><details markdown="1"><summary>코드 보기(Swift)</summary><pre class="css-duxjoh">import Foundation
 
 func main() {
-    // 테스트 개수 케이스 입력
+    // 가로 길이 입력
     var N = Int(readLine()!)!
-    for i in 0..&lt;N {
-        var s = readLine()!.split(separator: &quot; &quot;) // 테스트 케이스 한 줄 입력
-        var M = Int(s[0])! // 학생 수
-        var scores = [Int](repeating: 0, count: M)
+    var dp = [Int](repeating: 0, count: N + 2)
 
-        var count = 0
-        var total: Double = 0.0
-        var avg: Double = 0.0
+    // 첫 항 설정
+    dp[1] = 1
 
-        // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
-        for j in 1..&lt;M+1 {
-            scores[j - 1] = Int(s[j])!
-            total = total + Double(scores[j - 1])
-        }
-        
-        // 평균 구하기
-        avg = total / Double(M)
-
-        // 평균을 넘는 학생 수 세기
-        for j in 0..&lt;M {
-            if Double(scores[j]) &gt; avg {
-                count = count + 1
-            }
-        }
-            
-        // 평균 넘는 학생 수 퍼센트 구하고 출력
-        var res = 100.0 * (Double(count) / Double(M))
-        print(String(format: &quot;%.3f%%&quot;, res))
+    // 점화식에 따라 dp배열 업데이트
+    for i in 2..&lt;N + 2 {
+        dp[i] = dp[i - 1] + dp[i - 2]
+        dp[i] %= 10007
     }
+
+    // 정답 출력
+    print(dp[N + 1])
 }
 
 main()
