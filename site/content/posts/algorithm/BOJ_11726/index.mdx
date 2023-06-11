@@ -1,0 +1,245 @@
+---
+title: "BOJ 11726 2×n 타일링"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj11726
+thumbnail: cover.jpg
+---
+
+## 문제
+
+### <a href="https://boj.kr/11726" target="_blank">BOJ 11726 2×n 타일링</a>
+
+2×n 크기의 직사각형을 1×2, 2×1 타일로 채우는 방법의 수를 구하는 프로그램을 작성하시오.
+
+아래 그림은 2×5 크기의 직사각형을 채운 한 가지 방법의 예이다.
+
+![예시 이미지](./images/example.png)
+
+---
+
+## 입력
+
+첫째 줄에 n이 주어진다. (1 ≤ n ≤ 1,000)
+
+---
+
+## 풀이
+
+해당 문제는 단순 구현 문제로 평균 계산과 비율 계산 시 정수, 소수 변환 부분만 유의하면 고려할 사항이 없는 문제이다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        // 테스트 개수 케이스 입력
+        int N = Integer.parseInt(br.readLine());
+        for (int i = 0; i < N; i++) {
+            String[] s = br.readLine().split(" "); // 테스트 케이스 한 줄 입력
+            int M = Integer.parseInt(s[0]); // 학생 수
+            int[] scores = new int[M];
+
+            int count = 0;
+            double total = 0, avg = 0;
+            for (int j = 1; j < M + 1; j++) { // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
+                scores[j - 1] = Integer.parseInt(s[j]);
+                total += scores[j - 1];
+            }
+
+            // 평균 구하기
+            avg = total / M;
+
+            // 평균을 넘는 학생 수 세기
+            for (int j = 0; j < M; j++) {
+                if (scores[j] > avg) count++;
+            }
+
+            // 평균 넘는 학생 수 퍼센트 구하고 출력
+            sb.append(String.format("%.3f%%\n", 100.0 * ((double)count / (double)M)));
+        }
+
+        System.out.println(sb);
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+    
+    // 테스트 개수 케이스 입력
+    int N;
+    cin >> N;
+    
+    for (int i = 0; i < N; i++) {
+        int M; // 학생 수
+        cin >> M;
+        
+        int scores[M];
+
+        int count = 0;
+        double total = 0, avg = 0;
+        for (int j = 0; j < M; j++) { // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
+            cin >> scores[j];
+            total += scores[j];
+        }
+
+        // 평균 구하기
+        avg = total / M;
+
+        // 평균을 넘는 학생 수 세기
+        for (int j = 0; j < M; j++) {
+            if (scores[j] > avg) count++;
+        }
+        
+        std::cout<<fixed;
+        cout.precision(3);
+        
+        // 평균 넘는 학생 수 퍼센트 구하고 출력
+        cout << 100.0 * ((double)count / (double)M) << "%" << endl;
+    }
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 테스트 개수 케이스 입력
+    var N = readLine().toInt()
+    for (i in 0 until N) {
+        var s = readLine().split(" ") // 테스트 케이스 한 줄 입력
+        var M = s[0].toInt() // 학생 수
+        var scores = Array<Int>(M, {0})
+
+        var count = 0
+        var total: Double = 0.0
+        var avg: Double = 0.0
+        
+        for (j in 1 until M + 1) { // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
+            scores[j - 1] = s[j].toInt()
+            total += scores[j - 1]
+        }
+
+        // 평균 구하기
+        avg = total / M
+
+        // 평균을 넘는 학생 수 세기
+        for (j in 0 until M) {
+            if (scores[j] > avg) count++
+        }
+
+        // 평균 넘는 학생 수 퍼센트 구하고 출력
+        println(String.format("%.3f%%", 100.0 * (count.toDouble() / M.toDouble())))
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    # 테스트 개수 케이스 입력
+    N = int(stdin.readline())
+    for i in range(N):
+        s = stdin.readline().split(' ') # 테스트 케이스 한 줄 입력
+        M = int(s[0]) # 학생 수
+        scores = [0] * M
+
+        count = 0
+        total = 0.0
+        avg = 0.0
+
+        # 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
+        for j in range(1, M + 1):
+            scores[j - 1] = int(s[j])
+            total = total + scores[j - 1]
+
+        # 평균 구하기
+        avg = total / M
+
+        # 평균을 넘는 학생 수 세기
+        for j in range(M):
+            if scores[j] > avg:
+                count = count + 1
+
+        # 평균 넘는 학생 수 퍼센트 구하고 출력
+        res = 100.0 * (float(count) / float(M))
+        print(f"{res:.3f}%")
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    // 테스트 개수 케이스 입력
+    var N = Int(readLine()!)!
+    for i in 0..<N {
+        var s = readLine()!.split(separator: " ") // 테스트 케이스 한 줄 입력
+        var M = Int(s[0])! // 학생 수
+        var scores = [Int](repeating: 0, count: M)
+
+        var count = 0
+        var total: Double = 0.0
+        var avg: Double = 0.0
+
+        // 1번 ~ 마지막까지 점수 배열에 넣고 총합 구하기
+        for j in 1..<M+1 {
+            scores[j - 1] = Int(s[j])!
+            total = total + Double(scores[j - 1])
+        }
+        
+        // 평균 구하기
+        avg = total / Double(M)
+
+        // 평균을 넘는 학생 수 세기
+        for j in 0..<M {
+            if Double(scores[j]) > avg {
+                count = count + 1
+            }
+        }
+            
+        // 평균 넘는 학생 수 퍼센트 구하고 출력
+        var res = 100.0 * (Double(count) / Double(M))
+        print(String(format: "%.3f%%", res))
+    }
+}
+
+main()
+```
+</details>
