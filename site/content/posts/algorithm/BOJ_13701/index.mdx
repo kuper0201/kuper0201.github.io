@@ -1,0 +1,178 @@
+---
+title: "BOJ 13701 중복 제거"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj13701
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/13701" target="_blank">BOJ 13701 중복 제거 바로 가기</a>
+
+문제: N개의 정수 A1, A2, ..., AN 을 읽고, 이들 중에서 반복되는 수를 제외하고 남은 N'개의 수 B1, B2, ..., BN’ 을 입력된 순서대로 출력하시오. 이때,
+
+1. $ 0 ≤ A_{i} < 2^{25} = 33554432, i=1,2,…,N. $
+2. 입력의 개수 N은 1 이상 500만 이하이다.
+
+---
+
+## 입력
+
+첫째 줄에 $ A_{1}, A_{2}, ..., A_{N}이 주어진다.
+
+---
+
+## 풀이
+
+
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        // 가로 길이 입력
+        int N = Integer.parseInt(br.readLine());
+        int[] dp = new int[N + 2];
+
+        // 첫 항 설정
+        dp[1] = 1;
+
+        // 점화식에 따라 dp배열 업데이트
+        for(int i = 2; i <= N + 1; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+            dp[i] %= 10007;
+        }
+
+        // 정답 출력
+        System.out.print(dp[N + 1]);
+    }
+}```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <cstring>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+    
+    // 가로 길이 입력
+    int N;
+    cin >> N;
+    int dp[N + 2];
+    memset(dp, 0, sizeof(dp));
+
+    // 첫 항 설정
+    dp[1] = 1;
+
+    // 점화식에 따라 dp배열 업데이트
+    for(int i = 2; i <= N + 1; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+        dp[i] %= 10007;
+    }
+
+    // 정답 출력
+    cout << dp[N + 1] << endl;
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 가로 길이 입력
+    var N = readLine().toInt()
+    var dp = Array<Int>(N + 2, {0})
+
+    // 첫 항 설정
+    dp[1] = 1
+
+    // 점화식에 따라 dp배열 업데이트
+    for (i in 2 .. N + 1) {
+        dp[i] = dp[i - 1] + dp[i - 2]
+        dp[i] %= 10007
+    }
+
+    // 정답 출력
+    println(dp[N + 1])
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    # 가로 길이 입력
+    N = int(stdin.readline())
+    dp = [0] * (N + 2)
+
+    # 첫 항 설정
+    dp[1] = 1
+
+    # 점화식에 따라 dp배열 업데이트
+    for i in range(2, N + 2):
+        dp[i] = dp[i - 1] + dp[i - 2]
+        dp[i] = dp[i] % 10007
+
+    # 정답 출력
+    print(dp[N + 1])
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    // 가로 길이 입력
+    var N = Int(readLine()!)!
+    var dp = [Int](repeating: 0, count: N + 2)
+
+    // 첫 항 설정
+    dp[1] = 1
+
+    // 점화식에 따라 dp배열 업데이트
+    for i in 2..<N + 2 {
+        dp[i] = dp[i - 1] + dp[i - 2]
+        dp[i] %= 10007
+    }
+
+    // 정답 출력
+    print(dp[N + 1])
+}
+
+main()
+```
+</details>
