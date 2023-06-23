@@ -63,26 +63,30 @@ $A_{i}$에 입력 가능한 숫자의 크기는 $2^{25}$이므로 32bit인 정�
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         
-        // 가로 길이 입력
-        int N = Integer.parseInt(br.readLine());
-        int[] dp = new int[N + 2];
+        // 33,554,432 / int(32bit)
+        int[] bit = new int[1048576];
 
-        // 첫 항 설정
-        dp[1] = 1;
+        String[] s = br.readLine().split(" ");
+        for(String str : s) {
+            int M = Integer.parseInt(str);
+            int idx = M / 32; // 배열의 idx번째
+            int sft = (1 << (M % 32)); // idx번째 배열의 sft번째 비트
 
-        // 점화식에 따라 dp배열 업데이트
-        for(int i = 2; i <= N + 1; i++) {
-            dp[i] = dp[i - 1] + dp[i - 2];
-            dp[i] %= 10007;
+            // 존재하지 않으면 출력, 비트 설정
+            if((bit[idx] & sft) == 0) {
+                sb.append(str + " ");
+                bit[idx] |= sft;
+            }
         }
 
-        // 정답 출력
-        System.out.print(dp[N + 1]);
+        System.out.println(sb);
     }
-}```
+}
+```
 </details>
 
 <details markdown="1">
@@ -90,7 +94,6 @@ public class Main {
 
 ```cpp
 #include <iostream>
-#include <cstring>
 
 #define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
 #define endl '\n'
@@ -100,23 +103,20 @@ using namespace std;
 int main() {
     fastio;
     
-    // 가로 길이 입력
-    int N;
-    cin >> N;
-    int dp[N + 2];
-    memset(dp, 0, sizeof(dp));
+    // 33,554,432 / int(32bit)
+    int bit[1048576] = {0, };
+    
+    int M;
+    while(cin >> M) {
+        int idx = M / 32; // 배열의 idx번째
+        int sft = (1 << (M % 32)); // idx번째 배열의 sft번째 비트
 
-    // 첫 항 설정
-    dp[1] = 1;
-
-    // 점화식에 따라 dp배열 업데이트
-    for(int i = 2; i <= N + 1; i++) {
-        dp[i] = dp[i - 1] + dp[i - 2];
-        dp[i] %= 10007;
+        // 존재하지 않으면 출력, 비트 설정
+        if((bit[idx] & sft) == 0) {
+            cout << M << " ";
+            bit[idx] |= sft;
+        }
     }
-
-    // 정답 출력
-    cout << dp[N + 1] << endl;
     
     return 0;
 }
@@ -128,21 +128,25 @@ int main() {
 
 ```javascript
 fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
-    // 가로 길이 입력
-    var N = readLine().toInt()
-    var dp = Array<Int>(N + 2, {0})
+    var sb = StringBuilder()
 
-    // 첫 항 설정
-    dp[1] = 1
+    // 33,554,432 / int(32bit)
+    var bit = Array<Int>(1048576, {0})
+    
+    var s = readLine().split(" ")
+    for (str in s) {
+        var M = str.toInt()
+        var idx = M / 32 // 배열의 idx번째
+        var sft = (1 shl (M % 32)) // idx번째 배열의 sft번째 비트
 
-    // 점화식에 따라 dp배열 업데이트
-    for (i in 2 .. N + 1) {
-        dp[i] = dp[i - 1] + dp[i - 2]
-        dp[i] %= 10007
+        // 존재하지 않으면 출력, 비트 설정
+        if((bit[idx] and sft) == 0) {
+            sb.append(str +" ")
+            bit[idx] = bit[idx] or sft
+        }
     }
-
-    // 정답 출력
-    println(dp[N + 1])
+    
+    println(sb)
 }
 ```
 </details>
@@ -151,23 +155,37 @@ fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
 <summary>코드 보기(Python)</summary>
 
 ```python
-from sys import stdin
+import os
+import sys
+
+# 33,554,432 / int(32bit)
+bit = [0] * 1048576
+
+def setBit(M):
+    global bit
+    idx = M // 32  # 배열의 idx번째
+    sft = (1 << (M % 32))  # idx번째 배열의 sft번째 비트
+
+    # 존재하지 않으면 출력, 비트 설정
+    if (bit[idx] & sft) == 0:
+        print(M, end=' ')
+        bit[idx] = bit[idx] | sft
 
 def main():
-    # 가로 길이 입력
-    N = int(stdin.readline())
-    dp = [0] * (N + 2)
+    reader = os.fdopen(sys.stdin.fileno(), 'rb', 1000000)
+    while True:
+        M = 0
+        while True:
+            ch = reader.read(1)
+            if b'0' <= ch <= b'9':
+                M = 10 * M + int(ch)
+            elif ch == b' ':
+                break
+            else:
+                setBit(M)
+                exit()
 
-    # 첫 항 설정
-    dp[1] = 1
-
-    # 점화식에 따라 dp배열 업데이트
-    for i in range(2, N + 2):
-        dp[i] = dp[i - 1] + dp[i - 2]
-        dp[i] = dp[i] % 10007
-
-    # 정답 출력
-    print(dp[N + 1])
+        setBit(M)
 
 if __name__ == "__main__":
     main()
@@ -181,21 +199,21 @@ if __name__ == "__main__":
 import Foundation
 
 func main() {
-    // 가로 길이 입력
-    var N = Int(readLine()!)!
-    var dp = [Int](repeating: 0, count: N + 2)
+    // 33,554,432 / int(32bit)
+    var bit = [Int](repeating: 0, count: 1048576)
+    
+    var s = readLine()!.split(separator: " ")
+    for str in s {
+        var M = Int(str)!
+        var idx = M / 32 // 배열의 idx번째
+        var sft = (1 << (M % 32)) // idx번째 배열의 sft번째 비트
 
-    // 첫 항 설정
-    dp[1] = 1
-
-    // 점화식에 따라 dp배열 업데이트
-    for i in 2..<N + 2 {
-        dp[i] = dp[i - 1] + dp[i - 2]
-        dp[i] %= 10007
+        // 존재하지 않으면 출력, 비트 설정
+        if((bit[idx] & sft) == 0) {
+            print(str, terminator: " ")
+            bit[idx] = bit[idx] | sft
+        }
     }
-
-    // 정답 출력
-    print(dp[N + 1])
 }
 
 main()
