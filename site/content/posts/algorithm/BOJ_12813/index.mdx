@@ -1,0 +1,354 @@
+---
+title: "BOJ 12813 이진수 연산"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj12813
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/12813" target="_blank">BOJ 12813 이진수 연산 바로 가기</a>
+
+총 100,000 비트로 이루어진 이진수 A와 B가 주어진다.
+
+이때, A & B, A | B, A ^ B, ~A, ~B를 한 값을 출력하는 프로그램을 작성하시오.
+
+---
+
+## 입력
+
+첫째 줄에 이진수 A, 둘째 줄에 이진수 B가 주어진다.
+
+두 이진수의 길이는 모두 100,000이다.
+
+예제의 경우에만 길이가 10이며, 예제는 채점하지 않는다.
+
+---
+
+## 풀이
+
+해당 문제는 단순 구현 문제로 비트 단위 연산을 구현하면 쉽게 해결 할 수 있다.
+
+각 연산은 아래와 같은 진리표를 참고하여 구현하면 된다.
+
+| A | B | A & B |
+|---|---|---|
+| 0 | 0 | 0 |
+| 0 | 1 | 0 |
+| 1 | 0 | 0 |
+| 1 | 1 | 1 |
+
+AND(&)연산의 경우에는 두 비트의 합이 2일 경우에만 1을 반환한다.
+
+| A | B | A &#124; B |
+|---|---|---|
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 1 |
+
+OR(|)연산의 경우에는 두 비트의 합이 1 이상일 경우에 1을 반환한다.
+
+| A | B | A ^ B |
+|---|---|---|
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
+
+XOR(^)연산의 경우에는 두 비트의 합이 1일 경우에만 1을 반환한다.
+
+| A | ~A |
+|---|---|
+| 0 | 1 |
+| 1 | 0 |
+
+NOT(~)연산의 경우에는 비트의 값이 0인 경우에 1을 반환한다.
+
+위의 연산별 규칙들을 구현하면 문제를 해결 할 수 있다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // 두개의 이진수 입력
+        String s1 = new StringBuilder(br.readLine()).reverse().toString();
+        String s2 = new StringBuilder(br.readLine()).reverse().toString();
+
+        // 계산 결과 저장하기 위한 배열
+        StringBuilder[] sb = new StringBuilder[5];
+        for(int i = 0; i < sb.length; i++) sb[i] = new StringBuilder();
+
+        for(int i = 0; i < 100000; i++) {
+            int c1 = s1.charAt(i) - '0';
+            int c2 = s2.charAt(i) - '0';
+
+            // AND 연산
+            if(c1 + c2 == 2) sb[0].append('1');
+            else sb[0].append('0');
+
+            // OR 연산
+            if(c1 + c2 >= 1) sb[1].append('1');
+            else sb[1].append('0');
+
+            // XOR 연산
+            if(c1 != c2) sb[2].append('1');
+            else sb[2].append('0');
+
+            // NOT 연산
+            if(c1 == 0) sb[3].append('1');
+            else sb[3].append('0');
+
+            // NOT 연산
+            if(c2 == 0) sb[4].append('1');
+            else sb[4].append('0');
+        }
+
+        for(StringBuilder out : sb) {
+            System.out.println(out.reverse());
+        }
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <algorithm>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+    
+    // 두개의 이진수 입력
+    string s1, s2;
+    cin >> s1 >> s2;
+    
+    reverse(s1.begin(), s1.end());
+    reverse(s2.begin(), s2.end());
+    
+    // 계산 결과 저장하기 위한 배열
+    string sb[5];
+
+    for(int i = 0; i < 100000; i++) {
+        int c1 = s1[i] - '0';
+        int c2 = s2[i] - '0';
+
+        // AND 연산
+        if(c1 + c2 == 2) sb[0] += '1';
+        else sb[0] += '0';
+
+        // OR 연산
+        if(c1 + c2 >= 1) sb[1] += '1';
+        else sb[1] += '0';
+
+        // XOR 연산
+        if(c1 != c2) sb[2] += '1';
+        else sb[2] += '0';
+
+        // NOT 연산
+        if(c1 == 0) sb[3] += '1';
+        else sb[3] += '0';
+
+        // NOT 연산
+        if(c2 == 0) sb[4] += '1';
+        else sb[4] += '0';
+    }
+
+    for(string out : sb) {
+        reverse(out.begin(), out.end());
+        cout << out << endl;
+    }
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 두개의 이진수 입력
+    var s1 = readLine().reversed()
+    var s2 = readLine().reversed()
+    
+    // 계산 결과 저장하기 위한 배열
+    var sb = Array<StringBuilder?>(5){null}
+    for(i in 0 until 5) {
+        sb[i] = StringBuilder()
+    }
+    
+    for(i in 0 until 100000) {
+        var c1 = s1[i] - '0'
+        var c2 = s2[i] - '0'
+
+        // AND 연산
+        if(c1 + c2 == 2) sb[0]!!.append("1")
+        else sb[0]!!.append("0")
+
+        // OR 연산
+        if(c1 + c2 >= 1) sb[1]!!.append("1")
+        else sb[1]!!.append("0")
+
+        // XOR 연산
+        if(c1 != c2) sb[2]!!.append("1")
+        else sb[2] = sb[2]!!.append("0")
+
+        // NOT 연산
+        if(c1 == 0) sb[3]!!.append("1")
+        else sb[3]!!.append("0")
+
+        // NOT 연산
+        if(c2 == 0) sb[4]!!.append("1")
+        else sb[4]!!.append("0")
+    }
+
+    for(out in sb) {
+        println(out!!.reversed())
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    # 두개의 이진수 입력
+    s1 = stdin.readline()
+    s2 = stdin.readline()
+    
+    # Null 문자 제거
+    s1 = s1[::-1].strip()
+    s2 = s2[::-1].strip()
+
+    # 계산 결과 저장하기 위한 배열
+    sb = [""] * 5
+
+    for i in range(100000):
+        c1 = ord(s1[i]) - ord('0')
+        c2 = ord(s2[i]) - ord('0')
+
+        # AND 연산
+        if c1 + c2 == 2:
+            sb[0] = sb[0] + "1"
+        else:
+            sb[0] = sb[0] + "0"
+
+        # OR 연산
+        if c1 + c2 >= 1:
+            sb[1] = sb[1] + "1"
+        else:
+            sb[1] = sb[1] + "0"
+
+        # XOR 연산
+        if c1 != c2:
+            sb[2] = sb[2] + "1"
+        else:
+            sb[2] = sb[2] + "0"
+
+        # NOT 연산
+        if c1 == 0:
+            sb[3] = sb[3] + "1"
+        else:
+            sb[3] = sb[3] + "0"
+
+        # NOT 연산
+        if c2 == 0:
+            sb[4] = sb[4] + "1"
+        else:
+            sb[4] = sb[4] + "0"
+
+    for out in sb:
+        print(out[::-1])
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    // 두개의 이진수 입력
+    var s1 = String(readLine()!.reversed())
+    var s2 = String(readLine()!.reversed())
+    
+    // 계산 결과 저장하기 위한 배열
+    var sb = [String](repeating: "", count: 5)
+    
+    for i in 0..<100000 {
+        var c1 = Int(String(s1[String.Index(encodedOffset: i)]))!
+        var c2 = Int(String(s2[String.Index(encodedOffset: i)]))!
+        
+        // AND 연산
+        if(c1 + c2 == 2) {
+            sb[0].append("1")
+        } else {
+            sb[0].append("0")
+        }
+
+        // OR 연산
+        if(c1 + c2 >= 1) {
+            sb[1].append("1")
+        } else {
+            sb[1].append("0")
+        }
+
+        // XOR 연산
+        if(c1 != c2) {
+            sb[2].append("1")
+        } else {
+            sb[2].append("0")
+        }
+
+        // NOT 연산
+        if(c1 == 0) {
+            sb[3].append("1")
+        } else {
+            sb[3].append("0")
+        }
+
+        // NOT 연산
+        if(c2 == 0) {
+            sb[4].append("1")
+        } else {
+            sb[4].append("0")
+        }
+    }
+    
+    for out in sb {
+        print(String(out.reversed()))
+    }
+}
+
+main()
+```
+</details>
