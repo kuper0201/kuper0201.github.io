@@ -1,0 +1,233 @@
+---
+title: "BOJ 1016 제곱 ㄴㄴ 수"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj1016
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/1016" target="_blank">BOJ 1016 제곱 ㄴㄴ 수 바로 가기</a>
+
+어떤 정수 X가 1보다 큰 제곱수로 나누어 떨어지지 않을 때, 그 수를 제곱ㄴㄴ수라고 한다.<br/>
+제곱수는 정수의 제곱이다. min과 max가 주어지면, min보다 크거나 같고, max보다 작거나 같은 제곱ㄴㄴ수가 몇 개 있는지 출력한다.
+
+---
+
+## 입력
+
+첫째 줄에 두 정수 min과 max가 주어진다.
+
+---
+
+## 제한
+
+1 ≤ min ≤ 1,000,000,000,000
+min ≤ max ≤ min + 1,000,000
+
+---
+
+## 풀이
+
+해당 문제를 해결하기 위해 가장 먼저 떠올릴수 있는 아이디어는 min부터 max까지의 수를 하나씩 인수분해 하여 제곱의 배수인지 판별하는 방법이다.
+
+하지만 입력되는 숫자가 매우 크기 때문에 위와 같은 방식의 로직은 시간 초과가 발생한다. 따라서 효율적인 방법을 찾아야 한다.
+
+'에라토스테네스의 체'는 주어진 범위 내의 소수를 찾는 알고리즘으로, 이를 응용하면 해당 문제를 효율적으로 풀어 낼 수 있다.
+'에라토스테네스의 체'에 관한 자세한 내용은 <link>에 자세히 정리해 두었다.
+
+에라토스테네스의 체를 응용한 로직은 다음과 같다.
+
+1. 제곱ㄴㄴ수를 판별하기 위한 Set을 하나 생성한다.<br/>일반적으로는 배열을 이용하지만 본 풀이에서는 중복 제거와 적은 메모리 사용을 위해 Set을 이용하였다.
+2. 2부터 $\sqrt{max}$까지 제곱하며 그의 배수를 모두 Set에 저장한다.<br/>예를 들어 (2*2)*1, (2*2)*2, (2*2)*3 ... (2*2)*K의 수들은 모두 제곱수의 배수이므로 Set에 저장한다. 이때 (2*2)*K <= max인 만큼만 반복한다.
+3. Set에 저장되어 있는 숫자들은 모두 제곱ㄴㄴ수가 아닌 숫자이므로, 전체 숫자의 개수(max - min + 1)에서 Set의 크기를 뺀 값이 제곱ㄴㄴ수의 개수이다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        HashSet<Long> set = new HashSet<>();
+
+        // 시작과 끝 입력
+        String[] str = br.readLine().split(" ");
+        long min = Long.parseLong(str[0]);
+        long max = Long.parseLong(str[1]);
+
+        // 에라토스테네스의 체
+        int end = (int)Math.sqrt(max);
+        for(long i = 2; i <= end; i++) {
+            long square = i * i;
+            long start = min / square; // 시작점 계산
+            if(min % square != 0) start++; // 시작점 보정
+
+            // set에 제곱수 넣기
+            for(long j = start; j * square <= max; j++) {
+                set.add(j * square);
+            }
+        }
+
+        // 전체 개수에서 제곱의 개수 빼기
+        System.out.println(max - min + 1 - set.size());
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <cmath>
+#include <set>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+    
+    set<long> s;
+    
+    // 시작과 끝 입력
+    long min, max;
+    cin >> min >> max;
+
+    // 에라토스테네스의 체
+    int end = (int)sqrt(max);
+    for(long i = 2; i <= end; i++) {
+        long square = i * i;
+        long start = min / square; // 시작점 계산
+        if(min % square != 0) start++; // 시작점 보정
+
+        // set에 제곱수 넣기
+        for(long j = start; j * square <= max; j++) {
+            s.insert(j * square);
+        }
+    }
+
+    // 전체 개수에서 제곱의 개수 빼기
+    cout << (max - min + 1 - s.size()) << endl;
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+import kotlin.math.sqrt
+
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    var set: MutableSet<Long> = mutableSetOf()
+
+    // 시작과 끝 입력
+    var str = readLine().split(" ")
+    var min = str[0].toLong()
+    var max = str[1].toLong()
+
+    // 에라토스테네스의 체
+    var end = sqrt(max.toDouble()).toInt()
+    for(i in 2..end) {
+        var square = i * i
+        var start = min / square // 시작점 계산
+        if(min % square != 0L) start++ // 시작점 보정
+
+        // set에 제곱수 넣기
+        for(j in start..(max / square)) {
+            set.add(j * square)
+        }
+    }
+
+    // 전체 개수에서 제곱의 개수 빼기
+    println(max - min + 1 - set.size)
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+import math
+
+def main():
+    s = set()
+
+    # 시작과 끝 입력
+    str = stdin.readline().split(" ")
+    min = int(str[0])
+    max = int(str[1])
+
+    # 에라토스테네스의 체
+    end = int(math.sqrt(max))
+    for i in range(2, end + 1):
+        square = i * i
+        start = min // square # 시작점 계산
+        if min % square != 0:
+            start = start + 1 # 시작점 보정
+
+        # set에 제곱수 넣기
+        for j in range(start, (max // square) + 1):
+            s.add(j * square)
+
+    # 전체 개수에서 제곱의 개수 빼기
+    print(max - min + 1 - len(s))
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    var set =  Set<Int64>()
+
+    // 시작과 끝 입력
+    var str = readLine()!.split(separator: " ")
+    var min = Int64(str[0])!
+    var max = Int64(str[1])!
+
+    // 에라토스테네스의 체
+    var end = Int(sqrt(Double(max)))
+    for i in 2..<end + 1 {
+        var square = Int64(i) * Int64(i)
+        var start = min / square // 시작점 계산
+        if(min % square != 0) { // 시작점 보정
+            start += 1
+        }
+
+        // set에 제곱수 넣기
+        for j in start..<(max / square) + 1 {
+            set.insert(j * square)
+        }
+    }
+
+    // 전체 개수에서 제곱의 개수 빼기
+    print(max - min + 1 - Int64(set.count))
+}
+
+main()
+```
+</details>
