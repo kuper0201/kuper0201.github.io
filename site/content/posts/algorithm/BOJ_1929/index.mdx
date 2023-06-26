@@ -1,0 +1,228 @@
+---
+title: "BOJ 1929 소수 구하기"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj1929
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/1929" target="_blank">BOJ 1929 소수 구하기 바로 가기</a>
+
+M이상 N이하의 소수를 모두 출력하는 프로그램을 작성하시오.
+
+---
+
+## 입력
+
+첫째 줄에 두 정수 min과 max가 주어진다.
+
+---
+
+## 제한
+
+첫째 줄에 자연수 M과 N이 빈 칸을 사이에 두고 주어진다.<br/>
+(1 ≤ M ≤ N ≤ 1,000,000) M이상 N이하의 소수가 하나 이상 있는 입력만 주어진다.
+
+---
+
+## 풀이
+
+해당 문제는 범위 내에 존재하는 소수를 모두 출력하는 문제이다.
+
+입력의 최대값이 백만이므로 M...N의 숫자를 2...N의 숫자로 하나하나 나누어 소수를 판별하게 되면 시간 초과가 발생한다. 
+
+'에라토스테네스의 체'는 소수의 배수들을 제외하는 방식으로 효율적인 소수 판별을 달성한다.
+
+'에라토스테네스의 체'를 시각화한 이미지는 다음과 같다.
+
+1. 1은 소수가 아니므로 제외한다.
+![](./images/table.jpg)
+
+2. 첫 번째 소수인 2의 배수를 제외한다.(2는 제외하지 않는다)
+
+3. 두 번째 소수인 3의 배수를 제외한다.(3은 제외하지 않는다)
+
+4. 세 번째 소수인 5의 배수를 제외한다.(5는 제외하지 않는다)
+
+5. K번째 소수가 $\sqrt{max}$보다 작을 동안 반복하여 제외한다.(K번째 소수는 제외하지 않는다)
+
+
+
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        
+        // 시작과 끝 입력
+        String[] s = br.readLine().split(" ");
+        int min = Integer.parseInt(s[0]);
+        int max = Integer.parseInt(s[1]) + 1;
+
+        boolean[] chk = new boolean[max]; // max 만큼의 배열 생성
+        chk[1] = true; // 1은 소수가 아님
+
+        // 에라토스테네스의 체
+        for (int i = 2; i < max; i++) { // 2부터 max까지
+            for (int j = i * 2; j < max; j += i) { // 배수 지우기
+                chk[j] = true;
+            }
+        }
+
+        for (int i = min; i < max; i++) {
+            if (!chk[i]) {
+                sb.append(i +"\n");
+            }
+        }
+
+        System.out.println(sb);
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <cstring>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+    
+    // 시작과 끝 입력
+    int min, max;
+    cin >> min >> max;
+    max += 1;
+
+    bool chk[max]; // max 만큼의 배열 생성
+    memset(chk, false, sizeof(chk));
+    chk[1] = true; // 1은 소수가 아님
+
+    // 에라토스테네스의 체
+    for (int i = 2; i < max; i++) { // 2부터 max까지
+        for (int j = i * 2; j < max; j += i) { // 배수 지우기
+            chk[j] = true;
+        }
+    }
+
+    for (int i = min; i < max; i++) {
+        if (!chk[i]) {
+            cout << i << endl;
+        }
+    }
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 시작과 끝 입력
+    var str = readLine().split(" ")
+    var min = str[0].toInt()
+    var max = str[1].toInt() + 1
+    
+    var chk = Array(max, {false}) // max 만큼의 배열 생성
+    chk[1] = true // 1은 소수가 아님
+
+    // 에라토스테네스의 체
+    for(i in 2 until max) { // 2부터 max까지
+        for (j in (i * 2) until max step i) { // 배수 지우기
+            chk[j] = true
+        }
+    }
+    
+    for(i in min until max) {
+        if (!chk[i]) {
+            println(i)
+        }
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    # 시작과 끝 입력
+    str = stdin.readline().split(" ")
+    min = int(str[0])
+    max = int(str[1]) + 1
+
+    chk = [False] * max # max 만큼의 배열 생성
+    chk[1] = True # 1은 소수가 아님
+
+    # 에라토스테네스의 체
+    for i in range(2, max): # 2부터 max까지
+        for j in range(i * 2, max, i): # 배수 지우기
+            chk[j] = True
+
+    for i in range(min, max):
+        if chk[i] == False:
+            print(i)
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    // 시작과 끝 입력
+    var str = readLine()!.split(separator: " ")
+    var min = Int(str[0])!
+    var max = Int(str[1])! + 1
+    
+    var chk = Array(repeating: false, count: max) // max 만큼의 배열 생성
+    chk[1] = true // 1은 소수가 아님
+
+    // 에라토스테네스의 체
+    for i in 2..<max { // 2부터 max까지
+        for j in stride(from: i * 2, to: max, by: i) { // 배수 지우기
+            chk[j] = true
+        }
+    }
+    
+    for i in min..<max {
+        if !chk[i] {
+            print(i)
+        }
+    }
+
+}
+
+main()
+```
+</details>
