@@ -1,0 +1,208 @@
+---
+title: "BOJ 17219 비밀번호 찾기"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj17219
+thumbnail: cover.jpg
+---
+
+## 문제
+
+### <a href="https://boj.kr/17219" target="_blank">BOJ 17219 비밀번호 찾기 바로 가기</a>
+
+2019 HEPC - MAVEN League의 "[비밀번호 만들기](https://www.acmicpc.net/problem/17218)"와 같은 방식으로 비밀번호를 만든 경민이는 한 가지 문제점을 발견하였다. 비밀번호가 랜덤으로 만들어져서 기억을 못 한다는 것이었다! 그래서 경민이는 메모장에 사이트의 주소와 비밀번호를 저장해두기로 했다. 하지만 컴맹인 경민이는 메모장에서 찾기 기능을 활용하지 못하고 직접 눈으로 사이트의 주소와 비밀번호를 찾았다. 메모장에 저장된 사이트의 수가 늘어나면서 경민이는 비밀번호를 찾는 일에 시간을 너무 많이 쓰게 되었다. 이를 딱하게 여긴 문석이는 경민이를 위해 메모장에서 비밀번호를 찾는 프로그램을 만들기로 결심하였다! 문석이를 도와 경민이의 메모장에서 비밀번호를 찾아주는 프로그램을 만들어보자.
+
+---
+
+## 입력
+
+첫째 줄에 저장된 사이트 주소의 수 N(1 ≤ N ≤ 100,000)과 비밀번호를 찾으려는 사이트 주소의 수 M(1 ≤ M ≤ 100,000)이 주어진다.
+
+두번째 줄부터 N개의 줄에 걸쳐 각 줄에 사이트 주소와 비밀번호가 공백으로 구분되어 주어진다. 사이트 주소는 알파벳 소문자, 알파벳 대문자, 대시('-'), 마침표('.')로 이루어져 있고, 중복되지 않는다. 비밀번호는 알파벳 대문자로만 이루어져 있다. 모두 길이는 최대 20자이다.
+
+N+2번째 줄부터 M개의 줄에 걸쳐 비밀번호를 찾으려는 사이트 주소가 한줄에 하나씩 입력된다. 이때, 반드시 이미 저장된 사이트 주소가 입력된다.
+
+---
+
+## 풀이
+
+해당 문제는 저장된 주소와 비밀번호를 입력받아 이후에 주어진 주소에 대응하는 비밀번호를 찾는 문제이다.
+
+해당 문제는 Key-Value 쌍을 저장하는 맵 또는 딕셔너리 자료구조를 이용하면 쉽게 해결이 가능하다.
+
+순차 탐색을 이용한 방법도 존재하겠지만 이는 $O(N\times M)$의 시간복잡도를 가진다.
+
+N, M의 제한이 100,000 이하이므로 $O(N\times M)$의 시간복잡도를 가지는 알고리즘으로는 시간초과가 발생한다.
+
+맵과 딕셔너리 자료구조는 Hashing을 이용하여 Key에 접근하므로 O(1)의 시간복잡도로 원하는 Key에 접근할 수 있다.
+
+따라서 순차탐색을 이용하는 방법보다 맵 또는 딕셔너리를 이용하는 것이 효율적이다.
+
+구현해야 할 로직은 아래와 같다.
+
+1. 저장된 주소와 비밀번호를 입력받아 맵에 넣는다.
+2. 비밀번호를 찾으려는 주소를 입력받아 맵에서 비밀번호를 찾아 출력한다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        // 주소와 비밀번호 저장할 맵 생성
+        HashMap<String, String> map = new HashMap<>();
+
+        String[] s = br.readLine().split(" ");
+        int M = Integer.parseInt(s[0]);
+        int N = Integer.parseInt(s[1]);
+
+        // 맵에 주소와 암호 넣기
+        for(int i = 0; i < M; i++) {
+            s = br.readLine().split(" ");
+            map.put(s[0], s[1]);
+        }
+
+        // 찾을 주소의 비밀번호 출력
+        for(int i = 0; i < N; i++) {
+            sb.append(map.get(br.readLine()) +"\n");
+        }
+
+        System.out.println(sb);
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <map>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+
+    // 주소와 비밀번호 저장할 맵 생성
+    map<string, string> m;
+    
+    int M, N;
+    cin >> M >> N;
+
+    // 맵에 주소와 암호 넣기
+    for(int i = 0; i < M; i++) {
+        string s1, s2;
+        cin >> s1 >> s2;
+        
+        m[s1] = s2;
+    }
+
+    // 찾을 주소의 비밀번호 출력
+    for(int i = 0; i < N; i++) {
+        string s;
+        cin >> s;
+        
+        cout << m[s] << endl;
+    }
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 주소와 비밀번호 저장할 맵 생성
+    var map = mutableMapOf<String, String>()
+
+    var s = readLine().split(" ")
+    var M = s[0].toInt()
+    var N = s[1].toInt()
+
+    // 맵에 주소와 암호 넣기
+    for(i in 0 until M) {
+        s = readLine().split(" ")
+        map.put(s[0], s[1])
+    }
+
+    // 찾을 주소의 비밀번호 출력
+    for(i in 0 until N) {
+        println(map.get(readLine()))
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    # 주소와 비밀번호 저장할 맵 생성
+    map = {}
+
+    s = stdin.readline().split(" ")
+    M = int(s[0])
+    N = int(s[1])
+
+    # 맵에 주소와 암호 넣기
+    for i in range(0, M):
+        s = stdin.readline().split(" ")
+        map[s[0]] = s[1].strip()
+
+    # 찾을 주소의 비밀번호 출력
+    for i in range(0, N):
+        print(map[stdin.readline().strip()])
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    // 주소와 비밀번호 저장할 맵 생성
+    var map = Dictionary<String, String>()
+    
+    var s = readLine()!.split(separator: " ")
+    var M = Int(s[0])!
+    var N = Int(s[1])!
+    
+    // 맵에 주소와 암호 넣기
+    for i in 0..<M {
+        s = readLine()!.split(separator: " ")
+        map[String(s[0])] = String(s[1])
+    }
+    
+    // 찾을 주소의 비밀번호 출력
+    for i in 0..<N {
+        print(map[String(readLine()!)]!)
+    }
+}
+
+main()
+```
+</details>
