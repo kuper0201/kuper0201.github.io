@@ -1,0 +1,243 @@
+---
+title: "BOJ 23794 골뱅이 찍기 - 정사각형"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj23794
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/23794" target="_blank">BOJ 23794 골뱅이 찍기 - 정사각형 바로 가기</a>
+
+첫째 줄과 N+2번째 줄에는 골뱅이 N+2개를 출력한다.
+
+둘째 줄부터 N+1번째 줄까지는 예제 출력과 같은 방식으로 골뱅이 2개와 공백 N개를 출력한다.
+
+---
+
+## 입력
+
+첫째 줄에 정수 $N$($1 \leq N \leq 100$)이 주어진다.
+
+---
+
+## 풀이
+
+해당 문제는 골뱅이(@)문자를 이용해 정사각형을 출력하는 문제이다.
+
+이러한 유형의 문제는 그려야 할 전체 이미지를 부분적으로 나누어 생각하면 쉽게 해결할 수 있다.
+
+정사각형은 가로줄 2개와 세로줄 2개로 이루어져 있다.
+
+이러한 사실을 바탕으로 해당 문제를 해결할 수 있는 로직을 생각해 보면 아래와 같다.
+
+1. N+2개의 골뱅이로 이루어진 가로줄 하나 출력
+2. 골뱅이 2개와 공백 N개로 이루어진 세로줄 2개 출력
+3. N+2개의 골뱅이로 이루어진 가로줄 하나 출력
+
+필자는 가로줄과 세로줄을 각각 그리는 함수를 구현하여 해당 문제를 해결했다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    static StringBuilder sb = new StringBuilder();
+    
+    // 가로줄 그리는 함수
+    static void drawHor(int N) {
+        for(int i = 0; i < N + 2; i++) sb.append("@");
+        sb.append("\n");
+    }
+    
+    // 세로줄 그리는 함수
+    static void drawVer(int N) {
+        for(int i = 0; i < N; i++) {
+            sb.append("@");
+            for(int j = 0; j < N; j++) sb.append(" ");
+            sb.append("@\n");
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // 정수 N 입력
+        int N = Integer.parseInt(br.readLine());
+        drawHor(N); // 가로줄 그리기
+        drawVer(N); // 세로줄 그리기
+        drawHor(N); // 가로줄 그리기
+
+        System.out.println(sb);
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <string>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+string sb;
+
+// 가로줄 그리는 함수
+void drawHor(int N) {
+    for(int i = 0; i < N + 2; i++) sb += "@";
+    sb += "\n";
+}
+
+// 세로줄 그리는 함수
+void drawVer(int N) {
+    for(int i = 0; i < N; i++) {
+        sb += "@";
+        for(int j = 0; j < N; j++) sb += " ";
+        sb += "@\n";
+    }
+}
+
+int main() {
+    fastio;
+    
+    // 정수 N 입력
+    int N;
+    cin >> N;
+    
+    drawHor(N); // 가로줄 그리기
+    drawVer(N); // 세로줄 그리기
+    drawHor(N); // 가로줄 그리기
+    
+    cout << sb << endl;
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+var sb = ""
+
+// 가로줄 그리는 함수
+fun drawHor(N: Int) {
+    for(i in 0 until (N + 2)) sb += "@"
+    sb += "\n"
+}
+
+// 세로줄 그리는 함수
+fun drawVer(N: Int) {
+    for(i in 0 until N) {
+        sb += "@"
+        for(j in 0 until N) sb += " "
+        sb += "@\n"
+    }
+}
+
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 정수 N 입력
+    var N = readLine().toInt()
+    
+    drawHor(N) // 가로줄 그리기
+    drawVer(N) // 세로줄 그리기
+    drawHor(N) // 가로줄 그리기
+    
+    println(sb)
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+sb = ""
+
+# 가로줄 그리는 함수
+def drawHor(N):
+    global sb
+    for i in range(0, (N + 2)):
+        sb += "@"
+    sb += "\n"
+
+# 세로줄 그리는 함수
+def drawVer(N):
+    global sb
+    for i in range(0, N):
+        sb += "@"
+        for j in range(0, N):
+            sb += " "
+        sb += "@\n"
+
+def main():
+    # 정수 N 입력
+    N = int(stdin.readline())
+
+    drawHor(N) # 가로줄 그리기
+    drawVer(N) # 세로줄 그리기
+    drawHor(N) # 가로줄 그리기
+
+    print(sb)
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+var sb = ""
+
+// 가로줄 그리는 함수
+func drawHor(N: Int) {
+    for i in 0..<(N + 2) {
+        sb += "@"
+    }
+    sb += "\n"
+}
+
+// 세로줄 그리는 함수
+func drawVer(N: Int) {
+    for i in 0..<N {
+        sb += "@"
+        for j in 0..<N {
+            sb += " "
+        }
+        sb += "@\n"
+    }
+}
+
+func main() {
+    // 정수 N 입력
+    var N = Int(readLine()!)!
+
+    drawHor(N: N) // 가로줄 그리기
+    drawVer(N: N) // 세로줄 그리기
+    drawHor(N: N) // 가로줄 그리기
+
+    print(sb)
+}
+
+main()
+```
+</details>
