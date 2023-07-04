@@ -1,0 +1,177 @@
+---
+title: "BOJ 10818 최소, 최대"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj10818
+thumbnail: cover.jpg
+---
+
+## 문제
+
+### <a href="https://boj.kr/10818" target="_blank">BOJ 10818 최소, 최대 바로 가기</a>
+
+N개의 정수가 주어진다. 이때, 최솟값과 최댓값을 구하는 프로그램을 작성하시오.
+
+---
+
+## 입력
+
+첫째 줄에 정수의 개수 N (1 ≤ N ≤ 1,000,000)이 주어진다. 둘째 줄에는 N개의 정수를 공백으로 구분해서 주어진다. 모든 정수는 -1,000,000보다 크거나 같고, 1,000,000보다 작거나 같은 정수이다.
+
+---
+
+## 풀이
+
+해당 문제는 N개의 정수 중 최솟값과 최댓값을 구하는 단순 구현 문제이다.
+
+최솟값과 최댓값을 저장하기 위한 변수를 생성하고 N개의 정수를 순회하며 최솟값과 최댓값을 업데이트하는 방식으로 로직을 구현하면 해당 문제를 쉽게 해결할 수 있다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int min = 1000000, max = -1000000; // 최솟값과 최댓값 초기화
+
+        int N = Integer.parseInt(br.readLine()); // 정수의 개수 입력
+        String[] s = br.readLine().split(" "); // N개의 정수 입력
+        for(int i = 0; i < N; i++) {
+            int num = Integer.parseInt(s[i]);
+            min = (num < min) ? num : min; // 최솟값 판별
+            max = (num < max) ? max : num; // 최댓값 판별
+        }
+
+        System.out.println(min +" " +max);
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+    
+    int min = 1000000, max = -1000000; // 최솟값과 최댓값 초기화
+
+    int N;
+    cin >> N; // 정수의 개수 입력
+    
+    int num;
+    for(int i = 0; i < N; i++) {
+        cin >> num; // 정수 입력
+        min = (num < min) ? num : min; // 최솟값 판별
+        max = (num < max) ? max : num; // 최댓값 판별
+    }
+
+    cout << min << " " << max << endl;
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 최솟값과 최댓값 초기화
+    var min = 1000000
+    var max = -1000000
+
+    var N = readLine().toInt() // 정수의 개수 입력
+    
+    var s = readLine().split(" ")
+    for(i in 0 until N) {
+        var num = s[i].toInt() // 정수 입력
+        if(num < min) { // 최솟값 판별
+            min = num
+        }
+        
+        if(num > max) { // 최댓값 판별
+            max = num
+        } 
+    }
+    
+    println(min.toString() +" " +max.toString())
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    # 최솟값과 최댓값 초기화
+    min = 1000000
+    max = -1000000
+
+    # 정수의 개수 입력
+    N = int(stdin.readline())
+
+    s = stdin.readline().split(' ')
+    for i in range(0, N):
+        num = int(s[i])
+        if num < min:
+            min = num
+
+        if num > max:
+            max = num
+
+    print(str(min) +" " +str(max))
+    
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    // 최솟값과 최댓값 초기화
+    var min = 1000000
+    var max = -1000000
+    
+    var N = Int(readLine()!)! // 정수의 개수 입력
+        
+    var s = readLine()!.split(separator: " ")
+    for i in 0..<N {
+        var num = Int(s[i])! // 정수 입력
+        if(num < min) { // 최솟값 판별
+            min = num
+        }
+            
+        if(num > max) { // 최댓값 판별
+            max = num
+        }
+    }
+    
+    print(min, max)
+}
+
+main()
+```
+</details>
