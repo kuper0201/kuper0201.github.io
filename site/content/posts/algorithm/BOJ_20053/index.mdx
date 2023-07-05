@@ -1,0 +1,241 @@
+---
+title: "BOJ 20053 최소, 최대 2"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj20053
+thumbnail: cover.jpg
+---
+
+## 문제
+
+### <a href="https://boj.kr/20053" target="_blank">BOJ 20053 최소, 최대 2 바로 가기</a>
+
+N개의 정수가 주어진다. 이때, 최솟값과 최댓값을 구하는 프로그램을 작성하시오.
+
+---
+
+## 입력
+
+첫째 줄에 테스트 케이스의 개수 T (1 ≤ T ≤ 10)가 주어진다. 각 테스트 케이스는 두 줄로 이루어져 있다.
+
+각 테스트 케이스의 첫째 줄에 정수의 개수 N (1 ≤ N ≤ 1,000,000)이 주어진다. 둘째 줄에는 N개의 정수를 공백으로 구분해서 주어진다. 모든 정수는 -1,000,000보다 크거나 같고, 1,000,000보다 작거나 같은 정수이다.
+
+---
+
+## 풀이
+
+해당 문제는 <a href="https://boj.kr/10818" target="_blank">BOJ 10818 최소, 최대</a> 문제와 같은 문제로 테스트 케이스만 하나에서 여러개로 늘어난 문제이다.
+
+따라서 이전에 작성한 <a href="https://jeong-jun.su/boj10818" target="_blank">BOJ 10818 최소, 최대</a> 글과 같은 로직에 테스트 케이스 T만큼 반복하는 부분만 추가해주면 된다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        int T = Integer.parseInt(br.readLine()); // 테스트 케이스 개수 입력
+        for(int i = 0; i < T; i++) {
+            int min = 1000000, max = -1000000; // 최솟값과 최댓값 초기화
+            int N = Integer.parseInt(br.readLine()); // 정수의 개수 입력
+            String[] s = br.readLine().split(" "); // N개의 정수 입력
+            for (int k = 0; k < N; k++) {
+                int num = Integer.parseInt(s[k]);
+                min = (num < min) ? num : min; // 최솟값 판별
+                max = (num < max) ? max : num; // 최댓값 판별
+            }
+            
+            sb.append(min +" " +max +"\n");
+        }
+
+        System.out.println(sb);
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <string>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+
+    int T, N, num;
+    cin >> T; // 테스트 케이스 개수 입력
+    for(int i = 0; i < T; i++) {
+        int min = 1000000, max = -1000000; // 최솟값과 최댓값 초기화
+        cin >> N; // 정수의 개수 입력
+        for (int k = 0; k < N; k++) {
+            cin >> num; // 정수 입력
+            min = (num < min) ? num : min; // 최솟값 판별
+            max = (num < max) ? max : num; // 최댓값 판별
+        }
+        
+        cout << min << " " << max << endl;
+    }
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    var T = readLine().toInt() // 테스트 케이스 개수 입력
+    
+    for (i in 0 until T) {
+        // 최솟값과 최댓값 초기화
+        var min = 1000000
+        var max = -1000000
+
+        var N = readLine().toInt() // 정수의 개수 입력
+        var s = readLine().split(" ")
+        for(j in 0 until N) {
+            var num = s[j].toInt() // 정수 입력
+            if(num < min) { // 최솟값 판별
+                min = num
+            }
+        
+            if(num > max) { // 최댓값 판별
+                max = num
+            } 
+        }
+        
+        println(min.toString() +" " +max.toString())
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    T = int(stdin.readline()) # 테스트 케이스 개수 입력
+    for i in range(0, T):
+        # 최솟값과 최댓값 초기화
+        min = 1000000
+        max = -1000000
+
+        # 정수의 개수 입력
+        N = int(stdin.readline())
+        s = stdin.readline().split(' ')
+        for j in range(0, N):
+            num = int(s[j])
+            if num < min:
+                min = num
+
+            if num > max:
+                max = num
+
+        print(str(min) + " " + str(max))
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+Swift의 경우에는 빠른 입출력을 따로 지원하는 함수가 없으므로 표준 입력을 사용해야 한다.
+
+하지만 표준 입력은 버퍼링으로 인해 시간 초과가 발생하게 된다.
+
+따라서 표준 입력 스트림을 파일 핸들을 이용하여 접근하는 방식으로 구현해야 한다.
+
+빠른 입력을 구현한 클래스인 FileIO 클래스는 rarebook92님의 블로그 중 <a href="https://velog.io/@rarebook92/%EB%B0%B1%EC%A4%80%EC%9D%80-Swift%EC%97%90%EA%B2%8C-%EA%B4%80%EB%8C%80%ED%95%B4%EB%9D%BC" target="_blank">백준은 Swift 시간초과에 관대해줘라
+</a>라는 글에서 발췌하여 수정하여 사용하였다.
+
+```cpp
+import Foundation
+
+final class FileIO {
+    private let buffer: Data
+    private var index: Int = 0
+    
+    init(fileHandle: FileHandle = FileHandle.standardInput) {
+        self.buffer = try! fileHandle.readToEnd()! // 인덱스 범위 넘어가는 것 방지
+    }
+    
+    @inline(__always) private func read() -> UInt8 {
+        defer {
+            index += 1
+        }
+        guard index < buffer.count else { return 0 }
+        
+        return buffer[index]
+    }
+    
+    @inline(__always) func readInt() -> Int {
+        var sum = 0
+        var now = read()
+        var isPositive = true
+        
+        while now == 10 || now == 32 { now = read() } // 공백과 줄바꿈 무시
+        if now == 45 { isPositive.toggle(); now = read() } // 음수 처리
+        while now >= 48, now <= 57 {
+            sum = sum * 10 + Int(now-48)
+            now = read()
+        }
+        
+        return sum * (isPositive ? 1:-1)
+    }
+}
+
+func main() {
+    var sb = ""
+    var fio = FileIO()
+    
+    var T = fio.readInt() // 테스트 케이스 개수 입력
+    for i in 0..<T {
+        // 최솟값과 최댓값 초기화
+        var min = 1000000
+        var max = -1000000
+        
+        var N = fio.readInt() // 정수의 개수 입력
+        for j in 0..<N {
+            var num = fio.readInt() // 정수 입력
+            if(num < min) { // 최솟값 판별
+                min = num
+            }
+            
+            if(num > max) { // 최댓값 판별
+                max = num
+            }
+        }
+        
+        sb.write(String(min))
+        sb.write(" ")
+        sb.write(String(max))
+        sb.write("\n")
+    }
+    
+    print(sb)
+}
+
+main()
+```
+</details>
