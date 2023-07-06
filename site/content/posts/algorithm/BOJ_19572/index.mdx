@@ -1,0 +1,195 @@
+---
+title: "BOJ 19572 가뭄(Small)"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj19572
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/19572" target="_blank">BOJ 19572 가뭄(Small) 바로 가기</a>
+
+가뭄에 찌든 신촌을 위해서 국렬이는 세 칸으로 구성되어 있는 신촌에 비를 내릴 것이다. 그러나 국렬이는 무능해서 각 칸마다 비를 내리지 못하고, 두 칸에 동일하게 비를 내리는 것만 할 수 있다.
+
+1번째 칸, 2번째 칸에 동시에 뿌리는 비의 강수량을 a cm, 1번째 칸, 3번째 칸에 동시에 뿌리는 비의 강수량을 b cm, 2번째 칸, 3번째 칸에 동시에 뿌리는 비의 강수량을 c cm라고 하자. a, b, c는 모두 양의 실수여야 한다. 가뭄에 찌든 신촌이라도 비가 너무 많이 오면 상당히 곤란하고, 비가 너무 조금 와도 곤란하다. 그래서 각 칸에 해당하는 지역은 강수량이 정확히 $d_{i}$ cm가 되어야 한다. 이때 정확한 a, b, c의 값을 구하여라.
+
+---
+
+## 입력
+
+3개의 양의 정수가 입력으로 들어온다. 각각은 $d_{1}, d_{2}, d_{3}$을 의미한다. (1 ≤ d1, d2, d3 ≤ 106)
+
+---
+
+## 풀이
+
+해당 문제는 세 개의 칸에 동시에 비를 내렸을 때 정확히 주어진 값이 되도록 하는 강수량을 구하는 문제로 단순 수학 문제이다.
+
+d1, d2, d3는 각각 아래와 같은 식으로 설명할 수 있다.
+
+a + b = d1
+a + c = d2
+b + c = d3
+
+각 식을 연립하여 정리하면 다음과 같은 결과를 도출 할 수 있다.
+
+a = (d1 + d2 - d3) / 2
+b = (d1 - d2 + d3) / 2
+c = (-d1 + d2 + d3) / 2
+
+도출된 a, b, c에 대한 식을 계산하면 해당 문제를 쉽게 해결 할 수 있다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // 필요한 강수량 입력
+        String[] s = br.readLine().split(" ");
+        int d1 = Integer.parseInt(s[0]);
+        int d2 = Integer.parseInt(s[1]);
+        int d3 = Integer.parseInt(s[2]);
+
+        // 방정식 풀기
+        double a = (d1 + d2 - d3) / 2.0;
+        double b = (d1 - d2 + d3) / 2.0;
+        double c = (-d1 + d2 + d3) / 2.0;
+
+        // 정답 출력
+        if (a <= 0 || b <= 0 || c <= 0) System.out.println("-1"); // a, b, c 중 하나라도 0 이하이면 -1
+        else System.out.println(String.format("1\n%.1f %.1f %.1f", a, b, c));
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <string>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+
+    // 필요한 강수량 입력
+    int d1, d2, d3;
+    cin >> d1 >> d2 >> d3;
+    
+    // 방정식 풀기
+    double a = (d1 + d2 - d3) / 2.0;
+    double b = (d1 - d2 + d3) / 2.0;
+    double c = (-d1 + d2 + d3) / 2.0;
+
+    // 정답 출력
+    if (a <= 0 || b <= 0 || c <= 0) cout << -1 << endl; // a, b, c 중 하나라도 0 이하이면 -1
+    else {
+        cout << 1 << endl;
+        cout << fixed;
+        cout.precision(1);
+        cout << a << " " << b << " " << c << endl;
+    }
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 필요한 강수량 입력
+    var s = readLine().split(" ")
+    var d1 = s[0].toInt()
+    var d2 = s[1].toInt()
+    var d3 = s[2].toInt()
+    
+    // 방정식 풀기
+    var a = (d1 + d2 - d3) / 2.0
+    var b = (d1 - d2 + d3) / 2.0
+    var c = (-d1 + d2 + d3) / 2.0
+
+    // 정답 출력
+    if (a <= 0 || b <= 0 || c <= 0) println("-1") // a, b, c 중 하나라도 0 이하이면 -1
+    else println("1\n" +a.toString() +" " +b.toString() +" " +c.toString())
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    # 필요한 강수량 입력
+    s = stdin.readline().split(' ')
+    d1 = int(s[0])
+    d2 = int(s[1])
+    d3 = int(s[2])
+
+    # 방정식 풀기
+    a = (d1 + d2 - d3) / 2.0
+    b = (d1 - d2 + d3) / 2.0
+    c = (-d1 + d2 + d3) / 2.0
+
+    # 정답 출력
+    if a <= 0 or b <= 0 or c <= 0: # a, b, c 중 하나라도 0 이하이면 -1
+        print("-1")
+    else:
+        print("1\n" +str(a) +" " +str(b) +" " +str(c))
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    // 필요한 강수량 입력
+    var s = readLine()!.split(separator: " ")
+    var d1 = Int(s[0])!
+    var d2 = Int(s[1])!
+    var d3 = Int(s[2])!
+    
+    // 방정식 풀기
+    var a = Double(d1 + d2 - d3) / 2.0
+    var b = Double(d1 - d2 + d3) / 2.0
+    var c = Double(-d1 + d2 + d3) / 2.0
+    
+    // 정답 출력
+    if (a <= 0 || b <= 0 || c <= 0) { // a, b, c 중 하나라도 0 이하이면 -1
+        print("-1")
+    } else {
+        print("1")
+        print(a, b, c)
+    }
+}
+
+main()
+```
+</details>
