@@ -1,0 +1,145 @@
+---
+title: "BOJ 14909 양수 개수 세기"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj14909
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/14909" target="_blank">BOJ 14909 양수 개수 세기 바로 가기</a>
+
+주어진 N개의 정수 중에서 양의 정수의 개수를 출력하는 프로그램을 작성하시오.
+
+---
+
+## 입력
+
+첫째 줄에 최대 1,000,000개의 정수가 주어진다. 입력으로 주어지는 정수는 -1,000,000보다 크거나 같고, 1,000,000보다 작거나 같다.
+
+---
+
+## 풀이
+
+해당 문제는 N개의 정수 중 양의 정수의 개수만을 출력하는 문제로 단순 구현 문제이다.
+
+양의 정수의 개수를 저장할 변수를 선언하고 정수를 입력받아 양수일 경우에만 하나씩 증가시키는 방식으로 해결하였다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] s = br.readLine().split(" "); // 정수 입력
+
+        int cnt = 0;
+        for(String n : s) { // 양수 판별
+            if(Integer.parseInt(n) > 0) cnt++;
+        }
+
+        System.out.println(cnt);
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+#include <string>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+    
+    int n, cnt = 0;
+    while(true) {
+        cin >> n; // 정수 입력
+        if(cin.eof()) break;
+        
+        // 양수 판별
+        if(n > 0) cnt++;
+    }
+    
+    cout << cnt << endl;
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    var s = readLine().split(" ") // 정수 입력
+
+    var cnt = 0
+    for(n in s) { // 양수 판별
+        if(Integer.parseInt(n) > 0) cnt++
+    }
+
+    println(cnt)
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    s = stdin.readline().split(' ') # 정수 입력
+
+    cnt = 0
+    for n in s: # 양수 판별
+        if int(n) > 0:
+            cnt += 1
+
+    print(cnt)
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    var s = readLine()!.split(separator: " ") // 정수 입력
+    
+    var cnt = 0
+    for n in s { // 양수 판별
+        if Int(n)! > 0 {
+            cnt += 1
+        }
+    }
+    
+    print(cnt)
+}
+
+main()
+```
+</details>
