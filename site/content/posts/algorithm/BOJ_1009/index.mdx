@@ -1,0 +1,214 @@
+---
+title: "BOJ 1009 분산처리"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj1009
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/1009" target="_blank">BOJ 1009 분산처리 바로 가기</a>
+
+재용이는 최신 컴퓨터 10대를 가지고 있다. 어느 날 재용이는 많은 데이터를 처리해야 될 일이 생겨서 각 컴퓨터에 1번부터 10번까지의 번호를 부여하고, 10대의 컴퓨터가 다음과 같은 방법으로 데이터들을 처리하기로 하였다.
+
+1번 데이터는 1번 컴퓨터, 2번 데이터는 2번 컴퓨터, 3번 데이터는 3번 컴퓨터, ... ,
+
+10번 데이터는 10번 컴퓨터, 11번 데이터는 1번 컴퓨터, 12번 데이터는 2번 컴퓨터, ...
+
+총 데이터의 개수는 항상 $a^{b}$개의 형태로 주어진다. 재용이는 문득 마지막 데이터가 처리될 컴퓨터의 번호가 궁금해졌다. 이를 수행해주는 프로그램을 작성하라.
+
+---
+
+## 입력
+
+입력의 첫 줄에는 테스트 케이스의 개수 T가 주어진다. 그 다음 줄부터 각각의 테스트 케이스에 대해 정수 a와 b가 주어진다. (1 ≤ a < 100, 1 ≤ b < 1,000,000)
+
+---
+
+## 풀이
+
+해당 문제는 $a^{b}$개의 데이터가 존재 할 때 가장 마지막의 데이터를 처리하게 되는 컴퓨터를 구하라는 문제이다.
+
+a, b의 제약 조건이 무척 크므로 단순 거듭 제곱 연산을 통해 로직을 구현하면 오버플로우로 인해 정확한 값을 얻을 수 없을 것이다.
+
+하지만 컴퓨터가 10대라는 사실을 생각하면 쉽게 해결이 가능하다.
+
+컴퓨터가 10대라는 사실은 곧 (데이터의 총 개수 % 10) 번째의 컴퓨터가 마지막 데이터를 처리함을 의미한다.
+
+또한 10으로 나눈 나머지는 1의 자리를 의미하므로 거듭 제곱의 전체 자리수를 계산 할 필요 없이 1의 자리만을 유의하면 된다는 의미이다.
+
+주의해야 할 점은 나머지 연산의 결과가 0이 될 경우이다.
+
+나머지 연산의 결과가 0일 경우에는 0번째 컴퓨터를 의미한다고 생각하기 쉽지만, 컴퓨터는 1번부터 10번까지 존재하기 때문에 연산 결과가 0인 데이터는 10번째 컴퓨터가 처리해야 한다.
+
+위에서 설명한 아이디어와 주의 사항을 구현하면 해당 문제를 해결 할 수 있다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        // 테스트 케이스 개수 입력
+        int T = Integer.parseInt(br.readLine());
+        for(int i = 0; i < T; i++) {
+            // a, b 입력
+            String[] s = br.readLine().split(" ");
+            int a = Integer.parseInt(s[0]);
+            int b = Integer.parseInt(s[1]);
+
+            int res = 1;
+            for(int j = 0; j < b; j++) {
+                res *= a; // 거듭제곱
+                res %= 10; // 1의 자리만 남기기
+            }
+
+            if(res == 0) sb.append("10\n"); // 0일 경우 10번 컴퓨터가 처리
+            else sb.append(res +"\n"); // 나머지는 res번 컴퓨터가 처리
+        }
+
+        System.out.println(sb);
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int main() {
+    fastio;
+    
+    // 테스트 케이스 개수 입력
+    int T;
+    cin >> T;
+    
+    for(int i = 0; i < T; i++) {
+        // a, b 입력
+        int a, b;
+        cin >> a >> b;
+        
+        int res = 1;
+        for(int j = 0; j < b; j++) {
+            res *= a; // 거듭제곱
+            res %= 10; // 1의 자리만 남기기
+        }
+
+        if(res == 0) cout << "10" << endl; // 0일 경우 10번 컴퓨터가 처리
+        else cout << res << endl; // 나머지는 res번 컴퓨터가 처리
+    }
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // 테스트 케이스 개수 입력
+    var T = readLine().toInt()
+    
+    for(i in 0 until T) {
+        // a, b 입력
+        var s = readLine().split(" ")
+        var a = s[0].toInt()
+        var b = s[1].toInt()
+
+        var res = 1
+        for(j in 0 until b) {
+            res *= a // 거듭제곱
+            res %= 10 // 1의 자리만 남기기
+        }
+        
+        if(res == 0) println("10") // 0일 경우 10번 컴퓨터가 처리
+        else println(res) // 나머지는 res번 컴퓨터가 처리
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def main():
+    # 테스트 케이스 개수 입력
+    T = int(stdin.readline())
+
+    for i in range(0, T):
+        # a, b 입력
+        s = stdin.readline().split(" ")
+        a = int(s[0])
+        b = int(s[1])
+
+        res = 1
+        for j in range(0, b):
+            res *= a # 거듭제곱
+            res %= 10 # 1의 자리만 남기기
+
+        if res == 0:
+            print("10") # 0일 경우 10번 컴퓨터가 처리
+        else:
+            print(res) # 나머지는 res번 컴퓨터가 처리
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func main() {
+    // 테스트 케이스 개수 입력
+    var T = Int(readLine()!)!
+    
+    for i in 0..<T {
+        // a, b 입력
+        var s = readLine()!.split(separator: " ")
+        var a = Int(s[0])!
+        var b = Int(s[1])!
+
+        var res = 1
+        for j in 0..<b {
+            res *= a // 거듭제곱
+            res %= 10 // 1의 자리만 남기기
+        }
+        
+        if(res == 0) {
+            print("10") // 0일 경우 10번 컴퓨터가 처리
+        } else {
+            print(res) // 나머지는 res번 컴퓨터가 처리
+        }
+    }
+}
+
+main()
+```
+</details>
