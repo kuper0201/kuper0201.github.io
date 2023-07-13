@@ -1,0 +1,173 @@
+---
+title: "BOJ 11050 이항 계수 1"
+category: "알고리즘"
+author: kuper0201
+tags: ['#algorithm']
+date: 2023-05-25
+slug: boj11050
+thumbnail: cover.jpg
+---
+
+import "katex/dist/katex.min.css";
+
+## 문제
+
+### <a href="https://boj.kr/11050" target="_blank">BOJ 11050 이항 계수 1 바로 가기</a>
+
+자연수 N과 정수 K가 주어졌을 때 이항 계수 $\binom{N}{K}$를 구하는 프로그램을 작성하시오.
+
+---
+
+## 입력
+
+첫째 줄에 N과 K가 주어진다. (1 ≤ N ≤ 10, 0 ≤ K ≤ N)
+
+---
+
+## 풀이
+
+해당 문제는 이항 계수를 구하라는 문제로 먼저 이항 계수가 무엇인지 알아야 해결 가능한 문제이다.
+
+이항 계수란 N개의 집합에서 K개의 원소만큼 순서없이 선택하는 경우의 수를 의미하며 문제에서 표기한 방법인 $\binom{N}{K}$ 대신 $_{N}\textrm{C}_{K}$ 형식으로 표기하기도 한다.
+
+$_{N}\textrm{C}_{K}$은 조합이므로 공식을 이용하면 쉽게 계산 할 수 있다.<br/>
+조합의 공식은 아래와 같다.
+
+$_{N}\textrm{C}_{K} = \frac{N!}{K! \times (N - K)!}$
+
+해당 문제는 팩토리얼 함수를 구현하여 도출된 공식대로 계산하여 출력하면 쉽게 해결이 가능하다.
+
+<details markdown="1">
+<summary>코드 보기(Java)</summary>
+
+```javascript
+import java.io.*;
+
+public class Main {
+    public static int factorial(int N) {
+        if(N == 0) return 1;
+        return N * factorial(N - 1);
+    }
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        // N, K 입력
+        String[] s = br.readLine().split(" ");
+        int N = Integer.parseInt(s[0]);
+        int K = Integer.parseInt(s[1]);
+        
+        // nCk 계산
+        int res = factorial(N) / (factorial(K) * factorial(N - K));
+        System.out.println(res);
+    }
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(C++)</summary>
+
+```cpp
+#include <iostream>
+
+#define fastio ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+#define endl '\n'
+
+using namespace std;
+
+int factorial(int N) {
+    if(N == 0) return 1;
+    return N * factorial(N - 1);
+}
+
+int main() {
+    fastio;
+    
+    // N, K 입력
+    int N, K;
+    cin >> N >> K;
+
+    // nCk 계산
+    int res = factorial(N) / (factorial(K) * factorial(N - K));
+    cout << res << endl;
+    
+    return 0;
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Kotlin)</summary>
+
+```javascript
+fun factorial(N: Int): Int {
+    if(N == 0) return 1
+    return N * factorial(N - 1)
+}
+
+fun main(args: Array<String>) = with(System.`in`.bufferedReader()) {
+    // N, K 입력
+    var s = readLine().split(" ")
+    var N = s[0].toInt()
+    var K = s[1].toInt()
+
+    // nCk 계산
+    var res = factorial(N) / (factorial(K) * factorial(N - K))
+    println(res)
+}
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Python)</summary>
+
+```python
+from sys import stdin
+
+def factorial(N):
+    if N == 0:
+        return 1
+    else:
+        return N * factorial(N - 1)
+
+def main():
+    # N, K 입력
+    s = stdin.readline().split(' ')
+    N = int(s[0])
+    K = int(s[1])
+
+    # nCk 계산
+    res = factorial(N) // (factorial(K) * factorial(N - K))
+    print(res)
+
+if __name__ == "__main__":
+    main()
+```
+</details>
+
+<details markdown="1">
+<summary>코드 보기(Swift)</summary>
+
+```cpp
+import Foundation
+
+func factorial(N: Int)-> Int {
+    if N == 0 { return 1 }
+    return N * factorial(N: N - 1)
+}
+
+func main() {
+    // N, K 입력
+    var s = readLine()!.split(separator: " ")
+    var N = Int(s[0])!
+    var K = Int(s[1])!
+
+    // nCk 계산
+    var res = factorial(N: N) / (factorial(N: K) * factorial(N: N - K))
+    print(res)
+}
+
+main()
+```
+</details>
