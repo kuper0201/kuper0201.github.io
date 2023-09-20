@@ -75,6 +75,12 @@ MAPS 데이터셋은 음악의 연주가 아닌 단일 음과 다중 음에 대�
 
 하지만 푸리에 변환을 사용하면 원본 신호에서 구성 파형을 추출할 수 있지만, 각 파형의 시간 정보를 잃어버린다는 문제가 존재합니다.
 
+"젓가락 행진곡" 오디오 데이터를 이용하여 푸리에 변환을 시각화 해 보겠습니다.
+
+해당 오디오 파일은 아래의 재생 버튼을 클릭하여 직접 들어 볼 수 있습니다.
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1620578010&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user48602683" title="user48602683" target="_blank" style="color: #cccccc; text-decoration: none;">user48602683</a> · <a href="https://soundcloud.com/user48602683/chopsticks" title="Chopsticks" target="_blank" style="color: #cccccc; text-decoration: none;">Chopsticks</a></div>
+
 아래 이미지는 "젓가락 행진곡" 오디오를 푸리에 변환한 이미지입니다.
 
 ![Fourier Transform](images/FourierTransform.png)
@@ -92,8 +98,6 @@ MAPS 데이터셋은 음악의 연주가 아닌 단일 음과 다중 음에 대�
 STFT(Short Time Fourier Transform)는 전체 신호를 작은 시간 단위(Frame)로 나누어서 각 시간 단위에 대한 푸리에 변환을 수행합니다.
 
 따라서 주파수 정보와 시간 정보를 동시에 보존 할 수 있습니다.
-
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1620578010&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user48602683" title="user48602683" target="_blank" style="color: #cccccc; text-decoration: none;">user48602683</a> · <a href="https://soundcloud.com/user48602683/chopsticks" title="Chopsticks" target="_blank" style="color: #cccccc; text-decoration: none;">Chopsticks</a></div>
 
 아래의 이미지는 "젓가락 행진곡"을 STFT를 이용해 스펙트로그램으로 변환한 이미지입니다.
 
@@ -157,9 +161,9 @@ Length 데이터의 경우에는 Onset 이후 해당 음이 끝나기 까지를 
 
 해당 시각화 또한 "젓가락 행진곡"을 사용하였습니다.
 
-![전처리 시각화](./images/TargetPreVisual.png)
+![전처리 시각화](images/TargetPreVisual.png)
 
-이미지를 확인해 보면 Onset 데이터는 고정된 시간 만큼 처리되었고, Length 데이터는 해당 음의 종료 시점까지의 길이만큼 처리 된 것을 볼 수 있습니다.
+이미지를 확인해 보면 Onset 데이터는 고정된 시간 만큼 처리되었고, Length 데이터는 해당 음의 종료 시점까지의 길이만큼 처리 된 것을 확인 할 수 있습니다.
 
 ### 배치 분할
 
