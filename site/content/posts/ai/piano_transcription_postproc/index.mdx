@@ -1,0 +1,38 @@
+---
+title: "피아노 음악 채보 - 3. 후처리 및 성능 평가"
+category: "인공 지능"
+author: kuper0201
+tags: ['#AI', '#projects']
+date: 2023-09-11
+slug: piano-transcription-postproc
+thumbnail: cover.jpg
+draft: false
+---
+
+## 바로가기
+
+### &nbsp; &nbsp; &nbsp; &nbsp;[피아노 음악 채보 - 1. 전처리](https://jeong-jun.su/piano-transcription-preproc)
+### &nbsp; &nbsp; &nbsp; &nbsp;[피아노 음악 채보 - 2. 모델 구현](https://jeong-jun.su/piano-transcription-model)
+### &nbsp; &nbsp; &nbsp; &nbsp;[피아노 음악 채보 - 3. 후처리 및 성능 평가(현재 글)](#서론)
+
+---
+
+## 서론
+
+이전 글에서는 피아노 채보 모델 학습을 위한 데이터셋을 확보하고, 전처리를 하였습니다.
+
+이번 글에서는 데이터셋을 이용하여 실제 모델을 구성하고 학습을 시켜보겠습니다.
+
+## 모델 선택
+
+음악과 같은 시계열 데이터는 RNN(Recurrent Neural Network)을 이용한 방식으로 처리하는 것이 일반적입니다.
+
+하지만 RNN은 "기울기 소실" 또는 "기울기 폭발" 문제로 인해 장기 의존성을 효과적으로 학습하기 어렵다는 문제를 가지고 있습니다.
+
+쉽게 말해 시퀀스의 길이가 길어질수록 학습해야 할 기울기가 희석되어 학습이 불안정해지거나 어려워진다는 것 입니다.
+
+이러한 문제를 개선하기 위해 제안된 것이 LSTM(Long Short Term Memory)입니다.
+
+LSTM은 RNN의 변형으로, 상기한 RNN의 문제점들을 완화하여 장기 의존성을 효과적으로 학습 할 수 있습니다.
+
+따라서 해당 프로젝트에서는 LSTM(Long Short Term Memory)를 이용한 방식으로 모델을 구축하기로 계획하였습니다.
