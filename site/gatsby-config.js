@@ -110,12 +110,20 @@ module.exports = {
         title: 'Topics',
         items: [
           {
-            name: 'Algorithm',
+            name: '인공 지능',
+            slug: '/category/ai/'
+          },
+          {
+            name: '알고리즘',
             slug: '/category/algorithm/'
           },
           {
-            name: 'Projects',
-            slug: '/category/projects/'
+            name: '임베디드',
+            slug: '/category/embedded/'
+          },
+          {
+            name: '서버 구축',
+            slug: '/category/server/'
           }
         ]
       },
