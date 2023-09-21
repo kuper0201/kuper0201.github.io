@@ -126,6 +126,19 @@ module.exports = {
             slug: '/category/server/'
           }
         ]
+      },
+      {
+        title: 'Tags',
+        items: [
+          {
+            name: '#algorithm',
+            slug: '/tag/algorithm/'
+          },
+          {
+            name: '#projects',
+            slug: '/tag/projects/'
+          }
+        ]
       }
     ]
   }
