@@ -39,7 +39,7 @@ RNN 아키텍처는 시계열 데이터의 패턴을 추출하는데 강한 특�
 
 이러한 문제를 개선하기 위해 제안된 것이 LSTM(Long Short Term Memory)입니다. LSTM은 RNN의 변형으로, 상기한 RNN의 문제점들을 완화하여 장기 의존성을 효과적으로 학습 할 수 있습니다.
 
-따라서 해당 프로젝트에서는 LSTM(Long Short Term Memory)을 이용한 방식으로 모델을 구축하기로 계획하였습니다.
+따라서 최종적으로 해당 프로젝트에서는 LSTM(Long Short Term Memory)을 이용한 방식으로 모델을 구축하기로 계획하였습니다.
 
 ---
 
@@ -113,6 +113,7 @@ def buildModel():
     model = keras.Model(inputs=input_layer, outputs=onset_out)
     return model
 
+# 학습하기 위한 함수
 def train(trainX, trainOnset, validX, validOnset):
     for x_name, onset_name in zip(glob.glob(trainX), glob.glob(trainOnset)):
         train_x.append(x_name)
