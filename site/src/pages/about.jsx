@@ -71,7 +71,7 @@ export default props => {
             <Box sx={styles.column}>
               <Section title='Skills'>
                 <Card variant='paper'>
-                  <a href="https://java.com/ko/"><img src="https://img.shields.io/badge/Java-red?style=for-the-badge&amp;logo=Java&amp;logoColor=white"/></a> &nbsp;
+                  <a href="https://java.com/ko/"><img src="https://img.shields.io/badge/Java-red?style=for-the-badge&amp;logo=openjdk&amp;logoColor=white"/></a> &nbsp;
                   <a href="https://isocpp.org/"><img src="https://img.shields.io/badge/-c++-00599C?style=for-the-badge&amp;logo=cplusplus&logoColor=white"/></a> &nbsp;
                   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-green?style=for-the-badge&amp;logo=Python&amp;logoColor=white"/></a> &nbsp;
                   <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/-Docker-blue?style=for-the-badge&amp;logo=Docker&logoColor=white"/></a> &nbsp;
