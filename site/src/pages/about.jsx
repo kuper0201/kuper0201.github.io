@@ -91,13 +91,13 @@ export default props => {
             <Box sx={styles.column}>
               <Section title='Skills'>
                 <Card variant='paper'>
-                  <a href="https://java.com/ko/"><img alt="Java" src="https://img.shields.io/badge/Java-red?style=for-the-badge&amp;logo=openjdk&amp;logoColor=white"/></a> &nbsp;
+                  <a href="https://java.com/ko/"><img alt="Java" src="https://img.shields.io/badge/Java-E89844?style=for-the-badge&amp;logo=openjdk&amp;logoColor=white"/></a> &nbsp;
                   <a href="https://isocpp.org/"><img alt="C/C++" src="https://img.shields.io/badge/-c++-00599C?style=for-the-badge&amp;logo=cplusplus&logoColor=white"/></a> &nbsp;
-                  <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-green?style=for-the-badge&amp;logo=Python&amp;logoColor=white"/></a> &nbsp;
+                  <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&amp;logo=Python&amp;logoColor=white"/></a> &nbsp;
                   <a href="https://www.android.com/"><img alt="Android" src="https://img.shields.io/badge/Android-34A853?style=for-the-badge&logo=Android&logoColor=white"/></a> &nbsp;
                   <a href="https://www.tensorflow.org/"><img alt="Tensorflow" src="https://img.shields.io/badge/Tensorflow-FF6F00?style=for-the-badge&logo=Tensorflow&logoColor=white"/></a> &nbsp;
                   <a href="https://pytorch.org/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=PyTorch&logoColor=white"/></a> &nbsp;
-                  <a href="https://www.docker.com/"><img alt="Docker" src="https://img.shields.io/badge/-Docker-blue?style=for-the-badge&amp;logo=Docker&logoColor=white"/></a> &nbsp;
+                  <a href="https://www.docker.com/"><img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&amp;logo=Docker&logoColor=white"/></a> &nbsp;
                   <a href="https://www.jetbrains.com/"><img alt="Intellij IDEA" src="https://img.shields.io/badge/-intellij-orange?style=for-the-badge&amp;logo=Intellij IDEA&logoColor=white"/></a> &nbsp;
                   <a href="https://github.com/"><img alt="GitHub" src="https://img.shields.io/badge/-GitHub-121418?style=for-the-badge&amp;logo=GitHub&logoColor=white"/></a> &nbsp;
                   <a href="https://archlinux.org/"><img alt="ArchLinux" src="https://img.shields.io/badge/-Arch Linux-blue?style=for-the-badge&amp;logo=Arch Linux&logoColor=white"/></a>
