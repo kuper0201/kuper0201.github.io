@@ -51,20 +51,13 @@ export default props => {
               <Section title='My Story'>
                 <Card variant='paper'>
                   <Text variant='p'>
-                    컴퓨터 공학을 전공했습니다.
-                  </Text>
-                  <Text variant='p'>
-                    머신 러닝과 크로스 플랫폼 개발, 서버 구축에 관심을 가지고 있습니다.
-                  </Text>
-                  <Text variant='p'>
-                    현재는 Flutter와 생성형 AI를 공부하고 있습니다.
+                    컴퓨터 공학을 전공했습니다.<br/>머신 러닝과 크로스 플랫폼 개발, 서버 구축에 관심을 가지고 있습니다.<br/>현재는 Flutter와 생성형 AI를 공부하고 있습니다.
                   </Text>
                 </Card>
               </Section>
               <Divider/>
               <Section title='Projects'>
                 <Card variant='paper'>
-                  <a href="https://github.com/kuper0201/NVMon">NVMon</a>
                   <table>
                     <tr align="center">
                       <th>Project</th>
@@ -72,23 +65,23 @@ export default props => {
                     </tr>
                     <tr align="center">
                       <td><a style={{color:"#667eea"}} href="https://github.com/kuper0201/NVMon">NVMon</a></td>
-                      <td>A small GUI tool for monitoring NVIDIA GPU</td>
+                      <td>NVIDIA GPU의 상태를 모니터링하기 위한 오버레이 도구</td>
                     </tr>
                     <tr align="center">
                       <td><a style={{color:"#667eea"}} href="https://github.com/kuper0201/LSGAN_Bird">LSGAN Bird</a></td>
-                      <td>Implementation of LSGAN paper</td>
+                      <td>GAN을 이용해 조류 이미지를 생성하기 위한 프로젝트</td>
                     </tr>
                     <tr align="center">
                       <td><a style={{color:"#667eea"}} href="https://github.com/kuper0201/FileCrypto_Flutter">File Crypto</a></td>
-                      <td>A cross platform tool for encrypt/decrypt files using ChaCha20</td>
+                      <td>ChaCha20을 이용해 파일을 암호화/복호화 할 수 있는 크로스플랫폼 앱</td>
                     </tr>
                     <tr align="center">
                       <td><a style={{color:"#667eea"}} href="https://github.com/kuper0201/Piano_Transcription">Piano Transcription</a></td>
-                      <td>A Machine Learning project for convert audio to MIDI file</td>
+                      <td>피아노 연주를 MIDI 파일로 변환하기 위한 머신러닝 프로젝트</td>
                     </tr>
                     <tr align="center">
                       <td><a style={{color:"#667eea"}} href="https://github.com/kuper0201/AutoSort_Android">AutoSort</a></td>
-                      <td>An android app for categorization files by extension</td>
+                      <td>저장공간의 파일을 확장자별로 분류하기 위한 안드로이드 앱</td>
                     </tr>
                   </table>
                 </Card>
