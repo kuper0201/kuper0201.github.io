@@ -1,5 +1,5 @@
 ---
-title: "피아노 음악 채보 - 3.후처리 및 성능 평가"
+title: "피아노 음악 채보 - 3.후처리 및 예측"
 category: "인공 지능"
 author: kuper0201
 tags: ['#AI', '#projects']
@@ -13,26 +13,60 @@ draft: false
 
 ### &nbsp; &nbsp; &nbsp; &nbsp;[피아노 음악 채보 - 1.전처리](https://jeong-jun.su/piano-transcription-preproc)
 ### &nbsp; &nbsp; &nbsp; &nbsp;[피아노 음악 채보 - 2.모델 구현](https://jeong-jun.su/piano-transcription-model)
-### &nbsp; &nbsp; &nbsp; &nbsp;[피아노 음악 채보 - 3.후처리 및 성능 평가(현재 글)](#서론)
+### &nbsp; &nbsp; &nbsp; &nbsp;[피아노 음악 채보 - 3.후처리 및 예측(현재 글)](#서론)
 
 ---
 
 ## 서론
 
-이전 글에서는 피아노 채보 모델 학습을 위한 데이터셋을 확보하고, 전처리를 하였습니다.
+이전 글에서는 Onset과 Length를 각각 감지하는 모델을 학습시켰습니다.
 
-이번 글에서는 데이터셋을 이용하여 실제 모델을 구성하고 학습을 시켜보겠습니다.
+이번 글에서는 모델 각각의 출력값을 하나의 MIDI파일로 병합하기 위한 후처리 과정에 대해 설명하겠습니다.
 
-## 모델 선택
+---
 
-음악과 같은 시계열 데이터는 RNN(Recurrent Neural Network)을 이용한 방식으로 처리하는 것이 일반적입니다.
+## 데이터 입력 및 예측
 
-하지만 RNN은 "기울기 소실" 또는 "기울기 폭발" 문제로 인해 장기 의존성을 효과적으로 학습하기 어렵다는 문제를 가지고 있습니다.
+원하는 오디오 파일을 모델에 입력하여 MIDI 형태로 출력받기 위해서는 학습할 때와 동일한 방법으로 입력 데이터를 전처리해 주어야 합니다.
 
-쉽게 말해 시퀀스의 길이가 길어질수록 학습해야 할 기울기가 희석되어 학습이 불안정해지거나 어려워진다는 것 입니다.
+따라서 [전처리](https://jeong-jun.su/piano-transcription-preproc) 글에서 언급한 것과 같이 CQT 변환을 수행하고 패딩을 추가 하였습니다.
 
-이러한 문제를 개선하기 위해 제안된 것이 LSTM(Long Short Term Memory)입니다.
+입력 데이터의 전처리가 완료되었으므로 Onset과 Length 모델을 각각 로딩하고 예측을 수행 할 수 있습니다.
 
-LSTM은 RNN의 변형으로, 상기한 RNN의 문제점들을 완화하여 장기 의존성을 효과적으로 학습 할 수 있습니다.
+예측 데이터의 형태가 3차원 배열이기 때문에 (오디오의 총 시간, 88) 형태로 변환해 주었습니다.
 
-따라서 해당 프로젝트에서는 LSTM(Long Short Term Memory)를 이용한 방식으로 모델을 구축하기로 계획하였습니다.
+---
+
+## MIDI 파일로 변환
+
+예측 데이터를 기반으로 새로운 MIDI 파일을 생성하기 위해 pretty_midi라는 라이브러리를 사용하였습니다.
+
+각 음계를 순회하며 Onset 예측 데이터에서 시작점을 찾고, Length 예측 데이터에서 해당 음의 길이를 찾는 방식으로 MIDI를 생성했습니다. 해당 음이 얼마나 세게 연주되는지에 대한 예측은 수행하지 않았으므로 velocity는 100으로 고정하였습니다.
+
+모든 음을 순회한 이후, 해당 MIDI 파일을 저장하면 데이터의 변환이 완료됩니다.
+
+---
+
+## 들어보기
+
+상기한 과정으로 Korobeiniki의 Tetris Theme를 변환해 보았습니다. 아래의 재생 버튼을 클릭해 직접 들어 볼 수 있습니다.
+
+### 원본 오디오
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1777591470&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user48602683" title="user48602683" target="_blank" style="color: #cccccc; text-decoration: none;">user48602683</a> · <a href="https://soundcloud.com/user48602683/tetris-theme-korobeiniki-arranged-for-piano-186249" title="Tetris - Theme - Korobeiniki - Arranged - For - Piano - 186249" target="_blank" style="color: #cccccc; text-decoration: none;">Tetris - Theme - Korobeiniki - Arranged - For - Piano - 186249</a></div>
+
+### 변환된 오디오
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1777593858&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user48602683" title="user48602683" target="_blank" style="color: #cccccc; text-decoration: none;">user48602683</a> · <a href="https://soundcloud.com/user48602683/transcripted-tetris-korobeiniki" title="Transcripted - Tetris - Korobeiniki" target="_blank" style="color: #cccccc; text-decoration: none;">Transcripted - Tetris - Korobeiniki</a></div>
+
+오디오를 들어보면 전체적인 멜로디와 반주는 원본과 비슷하지만 부분적으로 틀린 연주를 하는 경우도 볼 수 있습니다. 이러한 경우는 고조파에 영향을 받는 것으로 보이며 기존에 사용한 CQT와 다른 전처리 방식을 동시에 입력하는 **다중 입력** 방식의 모델을 학습하면 해결 가능 할 것으로 보입니다.
+
+---
+
+## 마무리
+
+해당 프로젝트를 진행하며 오디오 데이터의 전처리와 LSTM 모델을 접해 볼 수 있는 기회가 되었으며, 결과물 또한 나름 만족스럽게 도출되었습니다. 이후에도 상기한 다중 입력 방식의 모델을 구현해 보고 모델을 개선하는 방안을 더 연구해 보고 싶습니다.
+
+마지막으로, 전체 프로젝트에 대한 코드는 아래 GitHub 링크에서 확인하실 수 있습니다.
+
+[GitHub](https://github.com/kuper0201/Piano_Transcription)
