@@ -84,7 +84,6 @@ export default props => {
                   </table>
                 </Card>
               </Section>
-              <Divider/>
             </Box>
             <Box sx={styles.column}>
               <Section title='Skills'>
