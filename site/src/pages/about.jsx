@@ -50,7 +50,7 @@ export default props => {
             <Box sx={styles.column}>
               <Section title='My Story'>
                 <Card variant='paper'>
-                  <Text variant='p'>
+                  <Text variant='b'>
                     안녕하세요! 저는 컴퓨터 공학 전공자로서 머신러닝과 크로스플랫폼 개발에 많은 관심을 가지고 있습니다. 최근에는 Flutter와 생성형 AI에 대해 공부하고 있습니다. 저의 목표는 제가 습득한 기술들을 융합하여 혁신적인 솔루션을 창조하는 것입니다.
                   </Text>
                 </Card>
@@ -108,14 +108,6 @@ export default props => {
                 <Card variant='paper'>
                   <a href='https://solved.ac/kuper0201'>
                     <img style={{display: 'block', width: '100%', height: 'auto'}} src="http://mazassumnida.wtf/api/v2/generate_badge?boj=kuper0201"/>
-                  </a>
-                </Card>
-              </Section>
-              <Divider/>
-              <Section title='코드포스(CodeForces)'>
-                <Card variant='paper'>
-                  <a href='https://codeforces.com/profile/kuper0201'>
-                    <img style={{display: 'block', width: '100%', height: 'auto'}} src='https://cf.leed.at?id=kuper0201'/>
                   </a>
                 </Card>
               </Section>
