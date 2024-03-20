@@ -51,7 +51,7 @@ export default props => {
               <Section title='My Story'>
                 <Card variant='paper'>
                   <Text variant='p'>
-                    컴퓨터 공학을 전공했습니다.<br/>머신 러닝과 크로스 플랫폼 개발, 서버 구축에 관심을 가지고 있습니다.<br/>현재는 Flutter와 생성형 AI를 공부하고 있습니다.
+                    안녕하세요! 저는 컴퓨터 공학 전공자로서 머신러닝과 크로스플랫폼 개발에 많은 관심을 가지고 있습니다. 최근에는 Flutter와 생성형 AI에 대해 공부하고 있습니다. 저의 목표는 제가 습득한 기술들을 융합하여 혁신적인 솔루션을 창조하는 것입니다.
                   </Text>
                 </Card>
               </Section>
