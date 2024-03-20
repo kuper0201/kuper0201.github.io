@@ -64,29 +64,30 @@ export default props => {
               <Divider/>
               <Section title='Projects'>
                 <Card variant='paper'>
+                  <a href="https://github.com/kuper0201/NVMon">NVMon</a>
                   <table>
                     <tr align="center">
                       <th>Project</th>
                       <th>Description</th>
                     </tr>
                     <tr align="center">
-                      <td><a href="https://github.com/kuper0201/NVMon">NVMon</a></td>
+                      <td><a style="color:#667eea" href="https://github.com/kuper0201/NVMon">NVMon</a></td>
                       <td>A small GUI tool for monitoring NVIDIA GPU</td>
                     </tr>
                     <tr align="center">
-                      <td><a href="https://github.com/kuper0201/LSGAN_Bird">LSGAN Bird</a></td>
+                      <td><a style="color:#667eea" href="https://github.com/kuper0201/LSGAN_Bird">LSGAN Bird</a></td>
                       <td>Implementation of LSGAN paper</td>
                     </tr>
                     <tr align="center">
-                      <td><a href="https://github.com/kuper0201/FileCrypto_Flutter">File Crypto</a></td>
+                      <td><a style="color:#667eea" href="https://github.com/kuper0201/FileCrypto_Flutter">File Crypto</a></td>
                       <td>A cross platform tool for encrypt/decrypt files using ChaCha20</td>
                     </tr>
                     <tr align="center">
-                      <td><a href="https://github.com/kuper0201/Piano_Transcription">Piano Transcription</a></td>
+                      <td><a style="color:#667eea" href="https://github.com/kuper0201/Piano_Transcription">Piano Transcription</a></td>
                       <td>A Machine Learning project for convert audio to MIDI file</td>
                     </tr>
                     <tr align="center">
-                      <td><a href="https://github.com/kuper0201/AutoSort_Android">AutoSort</a></td>
+                      <td><a style="color:#667eea" href="https://github.com/kuper0201/AutoSort_Android">AutoSort</a></td>
                       <td>An android app for categorization files by extension</td>
                     </tr>
                   </table>
