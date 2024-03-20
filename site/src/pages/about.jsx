@@ -44,7 +44,7 @@ export default props => {
         <Main>
           <PageTitle
             header='About Me'
-            subheader='안녕하세요!'
+            subheader='안녕하세요! 새로운 기술을 접하는 것을 좋아하는 개발자입니다.'
           />
           <Flex sx={styles.grid}>
             <Box sx={styles.column}>
