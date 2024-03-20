@@ -44,26 +44,52 @@ export default props => {
         <Main>
           <PageTitle
             header='About Me'
-            subheader='컴퓨터 공학을 전공하고 있는 학생입니다.'
+            subheader='안녕하세요!'
           />
           <Flex sx={styles.grid}>
             <Box sx={styles.column}>
               <Section title='My Story'>
                 <Card variant='paper'>
                   <Text variant='p'>
-                    테스트 내용 1입니다.
+                    컴퓨터 공학을 전공했습니다.
                   </Text>
                   <Text variant='p'>
-                    테스트 내용 2입니다.
+                    머신 러닝과 크로스 플랫폼 개발, 서버 구축에 관심을 가지고 있습니다.
+                  </Text>
+                  <Text variant='p'>
+                    현재는 Flutter와 생성형 AI를 공부하고 있습니다.
                   </Text>
                 </Card>
               </Section>
               <Divider/>
               <Section title='Projects'>
                 <Card variant='paper'>
-                  <Text variant='p'>
-                    프로젝트 링크
-                  </Text>
+                  <table>
+                    <tr align="center">
+                      <th>Project</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr align="center">
+                      <td><a href="https://github.com/kuper0201/NVMon">NVMon</a></td>
+                      <td>A small GUI tool for monitoring NVIDIA GPU</td>
+                    </tr>
+                    <tr align="center">
+                      <td><a href="https://github.com/kuper0201/LSGAN_Bird">LSGAN Bird</a></td>
+                      <td>Implementation of LSGAN paper</td>
+                    </tr>
+                    <tr align="center">
+                      <td><a href="https://github.com/kuper0201/FileCrypto_Flutter">File Crypto</a></td>
+                      <td>A cross platform tool for encrypt/decrypt files using ChaCha20</td>
+                    </tr>
+                    <tr align="center">
+                      <td><a href="https://github.com/kuper0201/Piano_Transcription">Piano Transcription</a></td>
+                      <td>A Machine Learning project for convert audio to MIDI file</td>
+                    </tr>
+                    <tr align="center">
+                      <td><a href="https://github.com/kuper0201/AutoSort_Android">AutoSort</a></td>
+                      <td>An android app for categorization files by extension</td>
+                    </tr>
+                  </table>
                 </Card>
               </Section>
               <Divider/>
