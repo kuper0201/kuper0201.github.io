@@ -8,149 +8,434 @@
 
 
 <url>
-  <loc>https://jeong-jun.su/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/loop-strategy/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/about/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/category/algorithm/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/piano-transcription-postproc/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/author/kuper0201/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/category/ai/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj3495/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/author/kuper0201/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/ai_chatbot_preprocess/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/piano-transcription-model/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/category/ai/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/piano-transcription-preproc/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj18870/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj1009/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/server-with-docker01/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/category/algorithm/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/category/servers/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj1016/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/server-with-docker02/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj10818/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj10814/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj11279/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj17386/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj11050/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj10026/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj11726/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj11758/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj11966/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/category/projects/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/category/embedded/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/tag/ai/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/category/server/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/tag/nlp/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/tag/ai/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/tag/algorithm/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/tag/projects/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/tag/projects/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/tag/nlp/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/tag/server/</loc>
-  <lastmod>2023-05-24T06:09:31+00:00</lastmod>
+  <loc>https://junsu.me/tag/algorithm/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj1181/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/tag/embedded/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://junsu.me/tag/server/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://junsu.me/tag/docker/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://junsu.me/page/2/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://junsu.me/ai-chatbot-preprocess/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/irremote3/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/irremote3/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/irremote2/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/irremote2/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/irremote1/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/irremote1/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj1245/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/author/kuper0201/page/2/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/category/algorithm/page/2/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj12813/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/server-with-docker01/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/server-with-docker03/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/tag/projects/page/2/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/tag/algorithm/page/2/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj13701/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj14579/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj14909/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj15818/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj17219/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj1764/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj1863/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj18883/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj1920/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/page/3/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj18870/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj9012/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj3495/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj18111/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj9012/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/author/kuper0201/page/3/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/category/algorithm/page/3/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj10814/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/tag/algorithm/page/3/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj1929/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj19572/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj20053/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj2166/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj23794/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj23827/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj2167/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj2579/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj2869/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj4344/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/page/4/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://junsu.me/loop-strategy/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://jeong-jun.su/boj18917/</loc>
-  <lastmod>2023-05-24T06:09:30+00:00</lastmod>
+  <loc>https://junsu.me/boj18917/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
   <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://junsu.me/author/kuper0201/page/4/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://junsu.me/category/algorithm/page/4/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj17386/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://junsu.me/tag/algorithm/page/4/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj10026/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj11758/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://junsu.me/page/5/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj18111/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://junsu.me/author/kuper0201/page/5/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://junsu.me/category/algorithm/page/5/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://junsu.me/tag/algorithm/page/5/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj1181/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://junsu.me/boj1245/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://junsu.me/author/kuper0201/page/6/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://junsu.me/category/algorithm/page/6/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://junsu.me/tag/algorithm/page/6/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://junsu.me/author/kuper0201/page/7/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.21</priority>
+</url>
+<url>
+  <loc>https://junsu.me/category/algorithm/page/7/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.21</priority>
+</url>
+<url>
+  <loc>https://junsu.me/tag/algorithm/page/7/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.21</priority>
+</url>
+<url>
+  <loc>https://junsu.me/author/kuper0201/page/8/</loc>
+  <lastmod>2024-11-03T04:15:54+00:00</lastmod>
+  <priority>0.17</priority>
 </url>
 
 
