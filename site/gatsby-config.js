@@ -35,7 +35,7 @@ module.exports = {
         services: {
           algolia: true
         },
-        siteUrl: 'https://jeong-jun.su'
+        siteUrl: 'https://junsu.me'
       }
     },
     {
@@ -63,6 +63,7 @@ module.exports = {
   // Customize your site metadata:
   siteMetadata: {
     //General Site Metadata
+    siteUrl: 'https://junsu.me',
     title: 'kuper0201',
     name: 'kuper0201',
     lang: 'ko',
