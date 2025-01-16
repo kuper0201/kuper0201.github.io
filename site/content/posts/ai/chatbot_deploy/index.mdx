@@ -97,7 +97,7 @@ def ajax(request):
     # JSON 형식으로 응답 반환
     return JsonResponse(context)
 ```
-</details></br>
+</details><br/>
 
 작성한 벡엔드 코드는 프론트엔드와의 통신 부분을 제외하면 이전 글에서 작성한 코드와 크게 다른점이 존재하지 않습니다. 하지만 서버가 처음 실행 될 때 데이터셋과 모델을 로딩하고, 이후에는 다시 로딩하지 않게 처리하여 데이터셋과 모델 로딩 과정에서 발생하는 시간 지연을 최소화 하였습니다.
 
@@ -122,20 +122,20 @@ VOLUME ["/ChatBotDjango/data"]
 WORKDIR /ChatBotDjango
 ENTRYPOINT ["python3", "manage.py", "runserver", "0.0.0.0:80", "--noreload"]
 ```
-</details></br>
+</details><br/>
 
-PyTorch를 기반으로 프로젝트를 진행하였기 때문에 PyTorch 이미지를 기반으로 sentence-transformers, django 등의 종속성을 설치하고 프로젝트 폴더를 컨테이너에 복사하였습니다.
+PyTorch를 기반으로 프로젝트를 진행하였기 때문에 PyTorch 이미지를 기반으로 sentence-transformers, django 등의 종속성을 설치하고 작성한 웹 앱을 컨테이너에 복사하였습니다.
 또한 질문/응답 데이터셋을 수정하거나 추가하는 경우를 위해 Volume으로 data 폴더를 외부로 노출 하였습니다.
 
 ### 2) 컨테이너 빌드
 
-Dockerfile을 작성하였으므로 이를 이미지로 빌드하였습니다. 컨테이너 빌드를 위한 명령어는 다음과 같습니다.
+Dockerfile을 작성하였으므로 이를 실제 이미지로 빌드해야 합니다. 컨테이너 빌드를 위한 명령어는 다음과 같습니다.
 
 ```bash
 docker build -t chatbot-django:latest .
 ```
 
-### 3) 배포(컨테이너 실행)
+### 3) 배포(컨테이너 실행) 및 확인
 
 모든 과정을 마쳤으므로 빌드한 컨테이너를 실행하여 작성한 웹 앱을 배포할 수 있습니다.
 
@@ -143,9 +143,14 @@ docker build -t chatbot-django:latest .
 docker run -d -p 80:80 chatbot-django
 ```
 
+배포된 웹 앱은 http://localhost에서 확인이 가능합니다.
+
 ---
 
 ## 마무리
 
-이번 글을 끝으로 자기소개 모델을 구현부터 배포 까지 일련의 과정을 수행할 수 있었습니다.
-비록 
+이번 글을 끝으로 **AI 자기소개 모델** 프로젝트가 완료되었습니다. 프로젝트를 진행하며 NLP의 기본적인 사항과 다양한 모델을 접할 수 있었으며, 모델 구현부터 배포까지의 일련의 과정을 경험할 수 있었습니다.
+
+비록 이번 프로젝트에서는 생성형 모델을 최종 모델로 채택하지는 않았지만, 데이터셋을 추가로 작성하고 다양한 모델과 기법을 더 연구하여 모델을 점차적으로 개선하고자 합니다.
+
+마지막으로, 프로젝트의 전체 코드는 [ChatBotDjango](https://github.com/kuper0201/ChatBotDjango)에서 확인하실 수 있습니다.
