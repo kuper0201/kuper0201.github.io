@@ -6,7 +6,7 @@ tags: ['#AI', '#NLP', '#projects']
 date: 2022-03-02
 slug: ai-chatbot-deploy
 thumbnail: cover.jpg
-draft: true
+draft: false
 ---
 
 import "katex/dist/katex.min.css";
@@ -21,23 +21,101 @@ import "katex/dist/katex.min.css";
 
 ## 서론
 
-&nbsp;&nbsp; 이전 글에서는 자연어 처리(NLP)에서 중요한 문제인 할루시네이션(hallucination) 현상과 이를 완화하기 위한 접근 방식을 소개했습니다. 또한, XLM 모델을 사용해 사용자 질문에 적절한 응답을 반환하는 파이프라인을 구축했습니다.
+&nbsp;&nbsp; 이전 글에서는 자연어 처리(NLP)에서 중요한 문제인 할루시네이션(hallucination) 현상과 이를 완화하기 위한 접근 방식을 소개했습니다. 또한, **XLM 모델**을 사용해 사용자 질문에 적절한 응답을 반환하는 파이프라인을 구축 할 수 있었습니다.
 
-이번 글에서는 해당 파이프라인을 Django와 Docker를 활용해 웹 애플리케이션으로 배포하는 방법을 설명하겠습니다. 배포 과정은 다음과 같은 순서로 진행됩니다.
+이번 글에서는 해당 파이프라인을 Django와 Docker를 활용해 웹 애플리케이션으로 배포하는 방법을 설명하겠습니다. Django 프레임워크의 자세한 사항은 생략하고 프로젝트 진행에 있어 중요한 부분을 위주로 설명하도록 하겠습니다. 파이프라인 통합 및 배포 과정은 크게 다음과 같은 순서로 진행됩니다.
 
-1. 모델과 Django 애플리케이션 통합
+1. Django 웹 애플리케이션 작성
 2. 성능 개선
 3. Docker 컨테이너화 및 배포
 
-## 모델과 Django 애플리케이션 통합
+---
 
-## 서비스 성능 개선
+## Django 웹 애플리케이션 작성
+
+### 1) 채팅 화면 구성
+
+첫 단계로, 사용자와 챗봇 간의 대화를 주고받는 채팅 화면을 설계했습니다.
+반응형 UI를 지원하기 위해 [Elegant Bootstrap 4 message chat box template](https://bootsnipp.com/snippets/nNg98)을 기반으로 커스터마이징하여 모바일과 데스크톱 환경 모두에서 사용할 수 있도록 구현하였습니다.
+
+### 2) 모델 연결 및 응답 처리
+
+UI를 작성하였으므로, 사용자 입력을 처리하고 적절한 응답을 반환하는 백엔드 로직을 작성하였습니다.
+아래는 Django의 views.py 파일에 구현된 벡엔드 로직입니다.
+
+<details markdown="1">
+<summary>코드 보기(views.py)</summary>
+
+```javascript
+from django.http import HttpResponse
+from django.http import JsonResponse
+from django.shortcuts import render
+import json
+from django.views.decorators.csrf import csrf_exempt
+import numpy as np
+import pandas as pd
+from numpy import dot
+from numpy.linalg import norm
+import os
+from sentence_transformers import SentenceTransformer
+
+# 데이터셋 및 모델 로드
+train_data = pd.read_csv(os.getcwd() + '/data/ChatbotData.csv')
+model = SentenceTransformer(os.getcwd() + '/data/xlm-100langs_model') 
+
+# 데이터셋 임베딩 생성
+train_data['embedding'] = train_data.apply(lambda row: model.encode(row.Q), axis=1)
+
+# 코사인 유사도 계산 함수
+def cos_sim(A, B):
+    return dot(A, B) / (norm(A) * norm(B))
+
+# 응답 생성 함수
+def return_answer(question):
+    embedding = model.encode(question)
+    train_data['score'] = train_data.apply(lambda x: cos_sim(x['embedding'], embedding), axis=1)
+    
+    return train_data.loc[train_data['score'].idxmax()]['A']
+
+# 메인 페이지 렌더링
+def index(request):
+    return render(request, 'chat/index.html')
+
+# Ajax 요청 처리
+@csrf_exempt
+def ajax(request):
+    # 요청에서 JSON 데이터 파싱
+    jsonObject = json.loads(request.body)
+    # 사용자 질문에 대한 응답 생성
+    context = {
+        'content': return_answer(jsonObject['content']),
+        'date': '00:00 AM',
+    }
+    
+    print("Request: ", end="")
+    print(jsonObject)
+
+    print("Response: ", end="")
+    print(context)
+
+    # JSON 형식으로 응답 반환
+    return JsonResponse(context)
+```
+</details>
+
+작성한 벡엔드 코드는 프론트엔드와의 통신 부분을 제외하면 이전 글에서 작성한 코드와 크게 다른점이 존재하지 않습니다. 하지만 서버가 처음 실행 될 때 데이터셋과 모델을 로딩하고, 이후에는 다시 로딩하지 않게 처리하여 데이터셋과 모델 로딩 과정에서 발생하는 시간 지연을 최소화 하였습니다.
+
+---
 
 ## Docker 컨테이너화 및 배포
 
-도커를 이용해 컨테이너화 하기 위해서는 Dockerfile의 작성이 필요하다.
-pytorch가 필요하기 때문에 base 이미지로 pytorch 이미지를 사용하였다.
-또한, 프로젝트에서 필요한 sentece-transformers, django 등의 종속성을 설치하였다.
+### 1) Dockerfile 작성
+
+Docker를 이용해 서비스를 컨테이너화 하고 배포하기 위해 Dockerfile을 작성하였습니다.
+
+<details markdown="1">
+<summary>Dockerfile 보기</summary>
+
 ```bash
 FROM kuper0201/pytorch:1.13.1
 RUN pip install --upgrade pip
@@ -48,9 +126,26 @@ VOLUME ["/ChatBotDjango/data"]
 WORKDIR /ChatBotDjango
 ENTRYPOINT ["python3", "manage.py", "runserver", "0.0.0.0:80", "--noreload"]
 ```
+</details>
 
-## 
+PyTorch를 기반으로 프로젝트를 진행하였기 때문에 PyTorch 이미지를 기반으로 sentence-transformers, django 등의 종속성을 설치하고 프로젝트 폴더를 컨테이너에 복사하였습니다.
+또한 질문/응답 데이터셋을 수정하거나 추가하는 경우를 위해 Volume으로 data 폴더를 외부로 노출 하였습니다.
 
+### 2) 컨테이너 빌드
 
-## 
+Dockerfile을 작성하였으므로 이를 이미지로 빌드하였습니다. 컨테이너 빌드를 위한 명령어는 다음과 같습니다.
+
+```bash
+docker build -t chatbot-django:latest .
+```
+
+### 3) 배포(컨테이너 실행)
+
+모든 과정을 마쳤으므로 빌드한 컨테이너를 실행하여 작성한 웹 앱을 배포할 수 있습니다.
+
+```bash
+docker run -d -p 80:80 chatbot-django
+```
+
+---
 
