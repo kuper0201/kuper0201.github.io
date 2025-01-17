@@ -16,12 +16,13 @@ import "katex/dist/katex.min.css";
 ### &nbsp; &nbsp; &nbsp;[AI 자기소개 챗봇 만들기 - 1. 전처리](/ai-chatbot-preprocess)
 ### &nbsp; &nbsp; &nbsp;[AI 자기소개 챗봇 만들기 - 2. 모델 구현](/ai-chatbot-model)
 ### &nbsp; &nbsp; &nbsp;[AI 자기소개 챗봇 만들기 - 3. Django 배포(현재 글)](#서론)
+### &nbsp; &nbsp; &nbsp;<a href="https://github.com/kuper0201/ChatBotDjango" target="_blank">ChatBotDjango Github</a>
 
 ---
 
 ## 서론
 
-&nbsp;&nbsp; 이전 글에서는 자연어 처리(NLP)에서 중요한 문제 중 하나인 할루시네이션(Hallucination) 현상과 이를 완화하기 위한 접근 방식을 소개하였고 **XLM 모델**을 사용해 사용자 질문에 적절한 응답을 반환하는 파이프라인을 구축 할 수 있었습니다.
+&nbsp;&nbsp;이전 글에서는 자연어 처리(NLP)에서 중요한 문제 중 하나인 할루시네이션(Hallucination) 현상과 이를 완화하기 위한 접근 방식을 소개하였고 **XLM 모델**을 사용해 사용자 질문에 적절한 응답을 반환하는 파이프라인을 구축 할 수 있었습니다.
 
 이번 글에서는 해당 파이프라인을 Django와 Docker를 활용해 웹 애플리케이션으로 배포하는 방법을 설명 할  것입니다. Django 프레임워크의 자세한 사항은 생략하고 프로젝트 진행에 있어 중요한 부분을 위주로 설명하도록 하겠습니다.
 
