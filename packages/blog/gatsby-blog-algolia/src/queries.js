@@ -10,7 +10,6 @@ const postQuery = `{
         objectID: id
         title
         slug
-//        link
         excerpt(pruneLength: 5000)
         category {
           name
