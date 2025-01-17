@@ -8,37 +8,42 @@ const postQuery = `{
     edges {
       node {
         objectID: id
-				title
+        title
         slug
         link
-				excerpt(pruneLength: 5000)
-				category {
-					name
-					slug
-				}
+        excerpt(pruneLength: 5000)
+        category {
+          name
+          slug
+        }
       }
     }
   }
-}
-`
+}`;
 
-const flatten = arr =>
+// 공백 압축 함수
+const normalizeWhitespace = (text) => text.replace(/\s+/g, ' ').trim();
+
+const flatten = (arr) =>
   arr.map(({ node: { ...rest } }) => ({
-    ...rest
-  }))
+    ...rest,
+    // 공백 압축 처리
+    title: rest.title ? normalizeWhitespace(rest.title) : '',
+    excerpt: rest.excerpt ? normalizeWhitespace(rest.excerpt) : '',
+  }));
 
 const settings = {
   attributesToSnippet: ['excerpt:20'],
-  attributeForDistinct: 'category.name'
-}
+  attributeForDistinct: 'category.name',
+};
 
 const queries = [
   {
     indexName: process.env.GATSBY_ALGOLIA_INDEX_NAME || 'Posts',
     query: postQuery,
     settings,
-    transformer: ({ data }) => flatten(data.posts.edges)
-  }
-]
+    transformer: ({ data }) => flatten(data.posts.edges),
+  },
+];
 
-module.exports = queries
+module.exports = queries;
