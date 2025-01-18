@@ -31,9 +31,15 @@ import "katex/dist/katex.min.css";
 모델의 자유로운 학습과 테스트를 보장하기 위해서는 시뮬레이션 환경을 사용하는 것이 가장 합리적인 선택이라고 생각하였습니다.
 따라서 차량의 주행이 자연스럽고, 현실과 비슷한 주행 환경을 제공하는 시뮬레이션 환경을 탐색하였고, 아래와 같은 시뮬레이터들을 찾을 수 있었습니다.
 
-1. <a href="https://carla.org/" target="_blank">Carla</a> - 자율 주행 차량 개발에 특화된 오픈 소스 시뮬레이터, 다양한 센서 제공
-2. <a href="https://github.com/microsoft/AirSim" target="_blank">AirSim</a> - 정밀한 물리 학습에 특화된 오픈 소스 시뮬레이터, 차량 드론 등의 플랫폼 지원
-3. <a href="https://eclipse.dev/sumo/" target="_blank">SUMO</a> - 교통 시뮬레이션에 특화된 오픈 소스 시뮬레이터, GPU가 필요 없는 경량 시뮬레이터
+1. <a href="https://carla.org/" target="_blank">Carla</a>
+	- 자율 주행 차량 개발에 특화된 오픈 소스 시뮬레이터
+	- 충돌 센서, LiDAR 센서 등의 다양한 센서 제공
+2. <a href="https://github.com/microsoft/AirSim" target="_blank">AirSim</a>
+	- 정밀한 물리 학습에 특화된 오픈 소스 시뮬레이터
+	- 차량, 드론 등의 다양한 플랫폼 지원
+3. <a href="https://eclipse.dev/sumo/" target="_blank">SUMO</a>
+	- 교통 시뮬레이션에 특화된 오픈 소스 시뮬레이터
+	- 경량 시뮬레이터(GPU 필요 없음)
 
 해당 리스트 중 Carla 시뮬레이터의 문서화 수준이 높을 뿐 아니라 많은 연구자들이 자율주행 차량의 연구 및 개발을 위해 주로 사용하는 시뮬레이터인 것 같았습니다.
 이러한 이유로 프로젝트 진행을 위한 시뮬레이터로 Carla를 선정하였습니다.
@@ -51,7 +57,7 @@ Carla는 <a href="https://carla.org/" target="_blank">공식 웹사이트</a>에
 #### 주요 설치 단계:
 - Carla 서버 실행 파일 다운로드 및 압축 해제
 - 실행 가능한 경로를 시스템 환경 변수에 추가
-- 서버 실행 테스트 (`CarlaUE4.sh` 또는 `CarlaUE4.exe` 실행)
+- 서버 실행 테스트 (**CarlaUE4.sh** 또는 **CarlaUE4.exe** 실행)
 
 ### 2. Python 라이브러리 설치
 
@@ -63,7 +69,7 @@ pip install carla
 
 ### 3. 상호작용 테스트
 
-Carla의 설치가 완료 되었으므로, `5초간 차량 전진, 5초간 차량 정지`를 반복하는 스크립트를 통해 Carla와 Python을 연결하여 정상적인 상호작용이 가능한지 확인해 보겠습니다. 스크립트는 다음과 같습니다.
+Carla의 설치가 완료 되었으므로, **5초간 차량 전진, 5초간 차량 정지**를 반복하는 스크립트를 통해 Carla와 Python을 연결하여 정상적인 상호작용이 가능한지 확인해 보겠습니다. 스크립트는 다음과 같습니다.
 
 <details markdown="1">
 <summary>코드 보기(Python)</summary>
@@ -105,7 +111,9 @@ except Exception as e:
 
 코드를 실행하면 아래의 영상과 같이 차량이 5초간 진행한 후 5초간 정지하는 것을 확인 할 수 있습니다.
 
-![Carla 영상]()
+<video height="450" controls>
+  <source src="video/top_view.mp4" type="video/mp4">
+</video>
 
 ---
 
