@@ -83,21 +83,39 @@ Carla의 설치가 완료 되었으므로, **5초간 가속, 5초간 감속**을
 ```javascript
 import carla
 import time
+import threading
 
 try:
-    # 서버 연결
+    # CARLA 서버 연결
     client = carla.Client('localhost', 2000)
-    client.set_timeout(2.0)
+    client.set_timeout(10.0)
 
-    # 월드 객체 가져오기
+    # 월드 로딩
     world = client.get_world()
+    blueprint_library = world.get_blueprint_library()
 
     # 차량 스폰
-    blueprint_library = world.get_blueprint_library()
     vehicle_bp = blueprint_library.filter('vehicle.*')[0]
     spawn_point = world.get_map().get_spawn_points()[0]
     vehicle = world.spawn_actor(vehicle_bp, spawn_point)
 
+    # Spectator가 차량을 따라가도록 설정하는 함수
+    spectator = world.get_spectator()
+    def follow_vehicle():
+        while True:
+            vehicle_transform = vehicle.get_transform()
+            spectator_transform = carla.Transform(
+                vehicle_transform.location + carla.Location(x=-10, z=15),  # 차량 위 15m 위치
+                carla.Rotation(pitch=-45)  # 아래로 바라보는 시점
+            )
+            spectator.set_transform(spectator_transform)
+            time.sleep(0.05)
+
+    # Spectator를 따라가게 하는 스레드 시작
+    follow_thread = threading.Thread(target=follow_vehicle, daemon=True)
+    follow_thread.start()
+
+    # 시뮬레이션 루프
     while True:
         # 차량 가속
         vehicle.apply_control(carla.VehicleControl(throttle=0.5))
@@ -107,9 +125,6 @@ try:
         vehicle.apply_control(carla.VehicleControl(throttle=0.0, brake=1.0))
         time.sleep(5)
 
-    # 시뮬레이션 종료
-    vehicle.destroy()
-
 except Exception as e:
     print(f"Error: {e}")
 ```
@@ -117,7 +132,7 @@ except Exception as e:
 
 코드를 실행하면 아래의 영상과 같이 차량이 **5초간 가속/5초간 감속**을 반복하는 것을 확인 할 수 있습니다.
 
-<video width="95%" src="/videos/rl_driving_env_setup/top_view.mp4" type="video/mp4" controls>실행 화면</video>
+<video width="95%" src="/videos/rl_driving_env_setup/carla_preview.mp4" type="video/mp4" controls>실행 화면</video>
 
 ---
 
