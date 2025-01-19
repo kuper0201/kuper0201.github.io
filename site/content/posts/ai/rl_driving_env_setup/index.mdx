@@ -109,7 +109,7 @@ try:
                 carla.Rotation(pitch=-45)  # 아래로 바라보는 시점
             )
             spectator.set_transform(spectator_transform)
-            time.sleep(0.05)
+            time.sleep(0.05) # 20Hz로 업데이트
 
     # Spectator를 따라가게 하는 스레드 시작
     follow_thread = threading.Thread(target=follow_vehicle, daemon=True)
